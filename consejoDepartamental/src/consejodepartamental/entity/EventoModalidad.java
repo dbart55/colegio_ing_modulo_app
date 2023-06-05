@@ -9,8 +9,10 @@ package consejodepartamental.entity;
  * @author Diego
  */
 public class EventoModalidad {
+
     private int cod_modalidad;
     private String modalidad;
+    private String descripcion;
 
     public int getCod_modalidad() {
         return cod_modalidad;
@@ -41,11 +43,17 @@ public class EventoModalidad {
         this.modalidad = modalidad;
         this.descripcion = descripcion;
     }
-    private String descripcion;
 
     public EventoModalidad() {
     }
-    
-    
-    
+
+    public EventoModalidad(int cod_modalidad, String modalidad) {
+        this.cod_modalidad = cod_modalidad;
+        this.modalidad = modalidad;
+    }
+
+    @Override
+    public String toString() {
+        return this.modalidad;
+    }
 }

@@ -59,7 +59,10 @@ public class Capitulo {
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "Capitulo{" + "cod_cap=" + cod_cap + ", color=" + color + ", organizador=" + organizador + ", titulo=" + titulo + '}';
+    }
     
 }

@@ -5,6 +5,7 @@ package consejodepartamental.entity;
  * @author Diego
  */
 public class TipoEvento {
+
     private int cod_tipo;
     private String tipo;
     private String descripcion;
@@ -12,6 +13,11 @@ public class TipoEvento {
     public TipoEvento() {
     }
 
+    public TipoEvento(int cod_tipo, String tipo) {
+        this.cod_tipo = cod_tipo;
+        this.tipo = tipo;
+    }
+    
     public TipoEvento(int cod_tipo, String tipo, String descripcion) {
         this.cod_tipo = cod_tipo;
         this.tipo = tipo;
@@ -41,7 +47,10 @@ public class TipoEvento {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-    
-    
-    
+
+    @Override
+    public String toString() {
+        return this.tipo;
+    }
+
 }

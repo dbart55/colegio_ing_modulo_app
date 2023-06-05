@@ -4,17 +4,52 @@
  */
 package consejodepartamental.ui;
 
+import consejodepartamental.entity.EventoModalidad;
+import consejodepartamental.entity.Organizador;
+import consejodepartamental.entity.TipoEvento;
+import consejodepartamental.logic.Controlador;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Diego
  */
 public class ListModularEventFrame extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ModularEventFrame
-     */
+    Controlador controlador;
+    DefaultTableModel tableModel;
+    List<Organizador> organizadores;
+    List<EventoModalidad> modalidades;
+    List<TipoEvento> tipos;
+
     public ListModularEventFrame() {
         initComponents();
+
+        this.controlador = new Controlador();
+        this.organizadores = new ArrayList<Organizador>();
+        this.modalidades = new ArrayList<EventoModalidad>();
+        this.tipos = new ArrayList<TipoEvento>();
+
+        this.organizadores.add(new Organizador(0, "Todos"));
+        this.organizadores.addAll(this.controlador.obtenerOrganizadores());
+        this.organizerCombo.setModel(new DefaultComboBoxModel(this.organizadores.toArray()));
+
+        this.modalidades.add(new EventoModalidad(0, "Todos"));
+        this.modalidades.addAll(this.controlador.obtenerModalidades());
+        this.modalityCombo.setModel(new DefaultComboBoxModel(this.modalidades.toArray()));
+
+        this.tipos.add(new TipoEvento(0, "Todos"));
+        this.tipos.addAll(this.controlador.obtenerTipos());
+        this.tipoEventoCombo.setModel(new DefaultComboBoxModel(this.tipos.toArray()));
+    }
+
+    @Override
+    public void dispose() {
+        this.controlador.finalizar();
+        super.dispose();
     }
 
     /**
@@ -32,8 +67,8 @@ public class ListModularEventFrame extends javax.swing.JFrame {
         codeLabel = new javax.swing.JLabel();
         organizerCombo = new javax.swing.JComboBox<>();
         modalityLabel = new javax.swing.JLabel();
-        trainingTypeCombo = new javax.swing.JComboBox<>();
-        trainingTypeLabel = new javax.swing.JLabel();
+        tipoEventoCombo = new javax.swing.JComboBox<>();
+        tipoEventoLabel = new javax.swing.JLabel();
         modalityCombo = new javax.swing.JComboBox<>();
         statusCheck = new javax.swing.JCheckBox();
         buttonPanel = new javax.swing.JPanel();
@@ -57,7 +92,7 @@ public class ListModularEventFrame extends javax.swing.JFrame {
         codeLabel.setFont(new java.awt.Font("Corbel Light", 0, 16)); // NOI18N
         codeLabel.setForeground(new java.awt.Color(255, 255, 255));
         codeLabel.setLabelFor(codeTextField);
-        codeLabel.setText("Codigo");
+        codeLabel.setText("Codigo o Tema");
 
         organizerCombo.setEditable(true);
 
@@ -66,14 +101,14 @@ public class ListModularEventFrame extends javax.swing.JFrame {
         modalityLabel.setLabelFor(modalityCombo);
         modalityLabel.setText("Modalidad");
 
-        trainingTypeCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos" }));
+        tipoEventoCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos" }));
 
-        trainingTypeLabel.setFont(new java.awt.Font("Corbel Light", 0, 16)); // NOI18N
-        trainingTypeLabel.setForeground(new java.awt.Color(255, 255, 255));
-        trainingTypeLabel.setLabelFor(trainingTypeCombo);
-        trainingTypeLabel.setText("Tipo capacitación");
+        tipoEventoLabel.setFont(new java.awt.Font("Corbel Light", 0, 16)); // NOI18N
+        tipoEventoLabel.setForeground(new java.awt.Color(255, 255, 255));
+        tipoEventoLabel.setLabelFor(tipoEventoCombo);
+        tipoEventoLabel.setText("Tipo capacitación");
 
-        modalityCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos" }));
+        modalityCombo.setEditable(true);
 
         statusCheck.setBackground(new java.awt.Color(23, 33, 42));
         statusCheck.setFont(new java.awt.Font("Corbel Light", 0, 14)); // NOI18N
@@ -148,80 +183,67 @@ public class ListModularEventFrame extends javax.swing.JFrame {
         backgroundPanelLayout.setHorizontalGroup(
             backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundPanelLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
                 .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(backgroundPanelLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(codeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(codeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(organizerCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(organizerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(modalityCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(modalityLabel))
+                        .addGap(18, 18, 18)
+                        .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tipoEventoLabel)
                             .addGroup(backgroundPanelLayout.createSequentialGroup()
-                                .addComponent(codeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(175, 175, 175)
-                                .addComponent(organizerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(backgroundPanelLayout.createSequentialGroup()
-                                .addComponent(codeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tipoEventoCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(organizerCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(modalityCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundPanelLayout.createSequentialGroup()
-                                .addComponent(modalityLabel)
-                                .addGap(102, 102, 102)))
-                        .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(trainingTypeLabel)
-                            .addGroup(backgroundPanelLayout.createSequentialGroup()
-                                .addComponent(trainingTypeCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(statusCheck))))
-                    .addGroup(backgroundPanelLayout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(jScrollPane1)))
-                .addGap(12, 12, 12)
-                .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(statusCheck, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 192, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
+                .addGap(66, 66, 66)
+                .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(buttonPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(searchButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(70, 70, 70))
+                .addGap(9, 9, 9))
         );
         backgroundPanelLayout.setVerticalGroup(
             backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backgroundPanelLayout.createSequentialGroup()
-                .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(backgroundPanelLayout.createSequentialGroup()
-                        .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(backgroundPanelLayout.createSequentialGroup()
-                                .addGap(16, 16, 16)
-                                .addComponent(codeLabel))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundPanelLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(organizerLabel)
-                                    .addComponent(modalityLabel)
-                                    .addComponent(trainingTypeLabel))))
-                        .addGap(0, 0, 0)
-                        .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(codeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(organizerCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(modalityCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(trainingTypeCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(statusCheck)))
-                    .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(backgroundPanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundPanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(94, 94, 94))))
+                .addGap(16, 16, 16)
+                .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(organizerLabel)
+                    .addComponent(modalityLabel)
+                    .addComponent(tipoEventoLabel)
+                    .addComponent(codeLabel))
+                .addGap(0, 0, 0)
+                .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(codeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(organizerCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(modalityCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tipoEventoCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(statusCheck))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(94, 94, 94))
+            .addGroup(backgroundPanelLayout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(backgroundPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1042, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(backgroundPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -263,8 +285,8 @@ public class ListModularEventFrame extends javax.swing.JFrame {
     private javax.swing.JLabel organizerLabel;
     private javax.swing.JButton searchButton;
     private javax.swing.JCheckBox statusCheck;
-    private javax.swing.JComboBox<String> trainingTypeCombo;
-    private javax.swing.JLabel trainingTypeLabel;
+    private javax.swing.JComboBox<String> tipoEventoCombo;
+    private javax.swing.JLabel tipoEventoLabel;
     private javax.swing.JButton updateButton;
     // End of variables declaration//GEN-END:variables
 }

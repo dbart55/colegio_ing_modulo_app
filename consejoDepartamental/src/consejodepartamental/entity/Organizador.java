@@ -5,9 +5,10 @@ package consejodepartamental.entity;
  * @author Diego
  */
 public class Organizador {
+
     private int cip;
     private String dni;
-    private Capitulo capitulo;
+    private String capitulo;
     private String organizador;
     private String celular;
     private String correo;
@@ -15,7 +16,12 @@ public class Organizador {
     public Organizador() {
     }
 
-    public Organizador(int cip, String dni, Capitulo capitulo, String organizador, String celular, String correo) {
+    public Organizador(int cip, String capitulo) {
+        this.cip = cip;
+        this.capitulo = capitulo;
+    }
+
+    public Organizador(int cip, String dni, String capitulo, String organizador, String celular, String correo) {
         this.cip = cip;
         this.dni = dni;
         this.capitulo = capitulo;
@@ -40,11 +46,11 @@ public class Organizador {
         this.dni = dni;
     }
 
-    public Capitulo getCapitulo() {
+    public String getCapitulo() {
         return capitulo;
     }
 
-    public void setCapitulo(Capitulo capitulo) {
+    public void setCapitulo(String capitulo) {
         this.capitulo = capitulo;
     }
 
@@ -71,10 +77,10 @@ public class Organizador {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
-    
-    
-    
 
-    
-    
+    @Override
+    public String toString() {
+        return this.capitulo;
+    }
+
 }

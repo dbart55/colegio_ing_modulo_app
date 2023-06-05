@@ -188,7 +188,7 @@ public class LoginForm extends javax.swing.JFrame {
         System.out.println(password);
 
         Usuario user = this.controlador.obtenerUsuario(userName, password);
-        System.out.println(user.toString());
+        System.out.println( user);
         if (user != null) {
             HomeFrame homeFrame = new HomeFrame();
             homeFrame.setVisible(true);
