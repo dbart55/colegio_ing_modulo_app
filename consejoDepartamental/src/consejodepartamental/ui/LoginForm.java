@@ -1,6 +1,7 @@
 package consejodepartamental.ui;
 
-import consejodepartamental.logic.Controller;
+import consejodepartamental.logic.Controlador;
+import consejodepartamental.entity.Usuario;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
@@ -12,11 +13,18 @@ import javax.swing.JOptionPane;
  */
 public class LoginForm extends javax.swing.JFrame {
 
-    private Controller controller = new Controller();
+    private Controlador controlador;
 
     public LoginForm() {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.controlador = new Controlador();
+    }
+
+    @Override
+    public void dispose() {
+        this.controlador.finalizar();
+        super.dispose();
     }
 
     @SuppressWarnings("unchecked")
@@ -179,15 +187,16 @@ public class LoginForm extends javax.swing.JFrame {
         System.out.println(userName);
         System.out.println(password);
 
-        int userId = controller.getUserIdByCredentials(userName, password);
-        if (userId != 0) {
+        Usuario user = this.controlador.obtenerUsuario(userName, password);
+        System.out.println(user.toString());
+        if (user != null) {
             HomeFrame homeFrame = new HomeFrame();
             homeFrame.setVisible(true);
             homeFrame.setLocationRelativeTo(null);
-            
+
             this.setVisible(false);
             this.dispose();
-            
+
         } else {
             JOptionPane joptionPane = new JOptionPane("Usuario y/o contraseña incorrecta");
             joptionPane.setMessageType(JOptionPane.PLAIN_MESSAGE);
