@@ -4,6 +4,7 @@
  */
 package consejodepartamental.ui;
 
+import consejodepartamental.entity.Capitulo;
 import consejodepartamental.entity.EventoModalidad;
 import consejodepartamental.entity.Organizador;
 import consejodepartamental.entity.TipoEvento;
@@ -21,7 +22,7 @@ public class ListModularEventFrame extends javax.swing.JFrame {
 
     Controlador controlador;
     DefaultTableModel tableModel;
-    List<Organizador> organizadores;
+    List<Capitulo> capitulos;
     List<EventoModalidad> modalidades;
     List<TipoEvento> tipos;
 
@@ -29,13 +30,13 @@ public class ListModularEventFrame extends javax.swing.JFrame {
         initComponents();
 
         this.controlador = new Controlador();
-        this.organizadores = new ArrayList<Organizador>();
-        this.modalidades = new ArrayList<EventoModalidad>();
-        this.tipos = new ArrayList<TipoEvento>();
+        this.capitulos = new ArrayList<>();
+        this.modalidades = new ArrayList<>();
+        this.tipos = new ArrayList<>();
 
-        this.organizadores.add(new Organizador(0, "Todos"));
-        this.organizadores.addAll(this.controlador.obtenerOrganizadores());
-        this.organizerCombo.setModel(new DefaultComboBoxModel(this.organizadores.toArray()));
+        this.capitulos.add(new Capitulo(0, "Todos"));
+        this.capitulos.addAll(this.controlador.obtenerCapitulos());
+        this.capituloCombo.setModel(new DefaultComboBoxModel(this.capitulos.toArray()));
 
         this.modalidades.add(new EventoModalidad(0, "Todos"));
         this.modalidades.addAll(this.controlador.obtenerModalidades());
@@ -63,9 +64,9 @@ public class ListModularEventFrame extends javax.swing.JFrame {
 
         backgroundPanel = new javax.swing.JPanel();
         codeTextField = new javax.swing.JTextField();
-        organizerLabel = new javax.swing.JLabel();
+        capituloLabel = new javax.swing.JLabel();
         codeLabel = new javax.swing.JLabel();
-        organizerCombo = new javax.swing.JComboBox<>();
+        capituloCombo = new javax.swing.JComboBox<>();
         modalityLabel = new javax.swing.JLabel();
         tipoEventoCombo = new javax.swing.JComboBox<>();
         tipoEventoLabel = new javax.swing.JLabel();
@@ -83,10 +84,10 @@ public class ListModularEventFrame extends javax.swing.JFrame {
 
         backgroundPanel.setBackground(new java.awt.Color(23, 33, 42));
 
-        organizerLabel.setFont(new java.awt.Font("Corbel Light", 0, 16)); // NOI18N
-        organizerLabel.setForeground(new java.awt.Color(255, 255, 255));
-        organizerLabel.setLabelFor(organizerCombo);
-        organizerLabel.setText("Organizadores");
+        capituloLabel.setFont(new java.awt.Font("Corbel Light", 0, 16)); // NOI18N
+        capituloLabel.setForeground(new java.awt.Color(255, 255, 255));
+        capituloLabel.setLabelFor(capituloCombo);
+        capituloLabel.setText("Capitulo");
 
         codeLabel.setBackground(new java.awt.Color(255, 255, 255));
         codeLabel.setFont(new java.awt.Font("Corbel Light", 0, 16)); // NOI18N
@@ -94,14 +95,14 @@ public class ListModularEventFrame extends javax.swing.JFrame {
         codeLabel.setLabelFor(codeTextField);
         codeLabel.setText("Codigo o Tema");
 
-        organizerCombo.setEditable(true);
+        capituloCombo.setEditable(true);
 
         modalityLabel.setFont(new java.awt.Font("Corbel Light", 0, 16)); // NOI18N
         modalityLabel.setForeground(new java.awt.Color(255, 255, 255));
         modalityLabel.setLabelFor(modalityCombo);
         modalityLabel.setText("Modalidad");
 
-        tipoEventoCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos" }));
+        tipoEventoCombo.setEditable(true);
 
         tipoEventoLabel.setFont(new java.awt.Font("Corbel Light", 0, 16)); // NOI18N
         tipoEventoLabel.setForeground(new java.awt.Color(255, 255, 255));
@@ -167,6 +168,11 @@ public class ListModularEventFrame extends javax.swing.JFrame {
         searchButton.setBackground(new java.awt.Color(23, 33, 42));
         searchButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/search.png"))); // NOI18N
         searchButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        searchButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchButtonActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -191,8 +197,8 @@ public class ListModularEventFrame extends javax.swing.JFrame {
                             .addComponent(codeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(organizerCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(organizerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(capituloCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(capituloLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(modalityCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -217,14 +223,14 @@ public class ListModularEventFrame extends javax.swing.JFrame {
             .addGroup(backgroundPanelLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(organizerLabel)
+                    .addComponent(capituloLabel)
                     .addComponent(modalityLabel)
                     .addComponent(tipoEventoLabel)
                     .addComponent(codeLabel))
                 .addGap(0, 0, 0)
                 .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(codeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(organizerCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(capituloCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(modalityCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tipoEventoCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(statusCheck))
@@ -266,6 +272,13 @@ public class ListModularEventFrame extends javax.swing.JFrame {
         saveModularEventFrame.setLocationRelativeTo(null);
     }//GEN-LAST:event_updateButtonActionPerformed
 
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
+        
+        
+        
+        
+    }//GEN-LAST:event_searchButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -274,6 +287,8 @@ public class ListModularEventFrame extends javax.swing.JFrame {
     private javax.swing.JButton addButton;
     private javax.swing.JPanel backgroundPanel;
     private javax.swing.JPanel buttonPanel;
+    private javax.swing.JComboBox<String> capituloCombo;
+    private javax.swing.JLabel capituloLabel;
     private javax.swing.JLabel codeLabel;
     private javax.swing.JTextField codeTextField;
     private javax.swing.JButton deleteButton;
@@ -281,8 +296,6 @@ public class ListModularEventFrame extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JComboBox<String> modalityCombo;
     private javax.swing.JLabel modalityLabel;
-    private javax.swing.JComboBox<String> organizerCombo;
-    private javax.swing.JLabel organizerLabel;
     private javax.swing.JButton searchButton;
     private javax.swing.JCheckBox statusCheck;
     private javax.swing.JComboBox<String> tipoEventoCombo;

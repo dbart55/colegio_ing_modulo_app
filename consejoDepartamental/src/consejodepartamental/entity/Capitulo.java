@@ -5,6 +5,7 @@ package consejodepartamental.entity;
  * @author Diego
  */
 public class Capitulo {
+
     private int cod_cap;
     private String color;
     private String organizador;
@@ -13,12 +14,9 @@ public class Capitulo {
     public Capitulo() {
     }
 
-    public Capitulo(int cod_cap) {
+    public Capitulo(int cod_cap, String organizador) {
         this.cod_cap = cod_cap;
-    }
-    
-    public Capitulo(String titulo){
-    
+        this.organizador = organizador;
     }
 
     public Capitulo(int cod_cap, String color, String organizador, String titulo) {
@@ -62,7 +60,7 @@ public class Capitulo {
 
     @Override
     public String toString() {
-        return "Capitulo{" + "cod_cap=" + cod_cap + ", color=" + color + ", organizador=" + organizador + ", titulo=" + titulo + '}';
+        return this.organizador;
     }
-    
+
 }

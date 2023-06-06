@@ -1,9 +1,11 @@
 package consejodepartamental.logic;
 
+import consejodepartamental.entity.Capitulo;
 import consejodepartamental.entity.EventoModalidad;
 import consejodepartamental.entity.Organizador;
 import consejodepartamental.entity.TipoEvento;
 import consejodepartamental.entity.Usuario;
+import consejodepartamental.persistence.CapituloDao;
 import consejodepartamental.persistence.Conexion;
 import consejodepartamental.persistence.EventoModalidadDao;
 import consejodepartamental.persistence.OrganizadorDao;
@@ -22,6 +24,7 @@ public class Controlador {
     private OrganizadorDao organizadorDao;
     private EventoModalidadDao modalidadDao;
     private TipoEventoDao tipoEventoDao;
+    private CapituloDao capituloDao;
 
     public Controlador() {
         this.conexion = new Conexion();
@@ -29,6 +32,7 @@ public class Controlador {
         this.organizadorDao = new OrganizadorDao(this.conexion);
         this.modalidadDao = new EventoModalidadDao(this.conexion);
         this.tipoEventoDao = new TipoEventoDao(this.conexion);
+        this.capituloDao = new CapituloDao(this.conexion);
     }
 
     public Usuario obtenerUsuario(String userName, String password) {
@@ -45,6 +49,10 @@ public class Controlador {
 
     public List<TipoEvento> obtenerTipos() {
         return this.tipoEventoDao.obtenerTipos();
+    }
+    
+    public List<Capitulo> obtenerCapitulos(){
+        return this.capituloDao.obtenerCapitulos();
     }
 
     public void finalizar() {

@@ -5,12 +5,16 @@ package consejodepartamental.entity;
  * @author Diego
  */
 public class EventoModular {
+
     private int codigo;
     private int cod_modalidad;
     private EventoModalidad modalidad;
+    private String modalidadNombre;
     private int cod_tipo;
+    private String tipoNombre;
     private TipoEvento tipoEvento;
     private int cod_cap;
+    private String capituloNombre;
     private Capitulo capitulo;
     private String tema;
     private int cantidad;
@@ -60,8 +64,7 @@ public class EventoModular {
     public void setCod_tipo(int cod_tipo) {
         this.cod_tipo = cod_tipo;
     }
-    
-    
+
     public int getCodigo() {
         return codigo;
     }
@@ -133,5 +136,33 @@ public class EventoModular {
     public void setLugar(String lugar) {
         this.lugar = lugar;
     }
-    
+
+    public String getModalidadNombre() {
+        return modalidadNombre;
+    }
+
+    public void setModalidadNombre(String modalidadNombre) {
+        this.modalidadNombre = modalidadNombre;
+    }
+
+    public String getTipoNombre() {
+        return tipoNombre;
+    }
+
+    public void setTipoNombre(String tipoNombre) {
+        this.tipoNombre = tipoNombre;
+    }
+
+    public String getCapituloNombre() {
+        return capituloNombre;
+    }
+
+    public void setCapituloNombre(String capituloNombre) {
+        this.capituloNombre = capituloNombre;
+    }
+
+    @Override
+    public String toString() {
+        return "EventoModular{" + "codigo=" + codigo + ", cod_modalidad=" + cod_modalidad + ", modalidadNombre=" + modalidadNombre + ", cod_tipo=" + cod_tipo + ", tipoNombre=" + tipoNombre + ", cod_cap=" + cod_cap + ", capituloNombre=" + capituloNombre + ", tema=" + tema + ", cantidad=" + cantidad + ", inicio=" + inicio + ", fin=" + fin + ", horas=" + horas + ", lugar=" + lugar + '}';
+    }
 }
