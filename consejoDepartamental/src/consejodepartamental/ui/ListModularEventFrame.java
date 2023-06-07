@@ -6,6 +6,7 @@ package consejodepartamental.ui;
 
 import consejodepartamental.entity.Capitulo;
 import consejodepartamental.entity.EventoModalidad;
+import consejodepartamental.entity.EventoModular;
 import consejodepartamental.entity.Organizador;
 import consejodepartamental.entity.TipoEvento;
 import consejodepartamental.logic.Controlador;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -20,11 +22,12 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ListModularEventFrame extends javax.swing.JFrame {
 
-    Controlador controlador;
-    DefaultTableModel tableModel;
-    List<Capitulo> capitulos;
-    List<EventoModalidad> modalidades;
-    List<TipoEvento> tipos;
+    private Controlador controlador;
+    private DefaultTableModel tableModel;
+    private List<Capitulo> capitulos;
+    private List<EventoModalidad> modalidades;
+    private List<TipoEvento> tipos;
+    private List<EventoModular> eventosModulares;
 
     public ListModularEventFrame() {
         initComponents();
@@ -45,6 +48,45 @@ public class ListModularEventFrame extends javax.swing.JFrame {
         this.tipos.add(new TipoEvento(0, "Todos"));
         this.tipos.addAll(this.controlador.obtenerTipos());
         this.tipoEventoCombo.setModel(new DefaultComboBoxModel(this.tipos.toArray()));
+
+        this.tableModel = (DefaultTableModel) this.eventoModularTable.getModel();
+
+    }
+
+    public void llenarTabla() {
+        String codeOrTema = this.codeTextField.getText();
+        System.out.println("code " + codeOrTema);
+        Capitulo capituloSelected = (Capitulo) this.capituloCombo.getSelectedItem();
+        System.out.println("capituloSelected " + capituloSelected);
+
+        EventoModalidad modalidadSelected = (EventoModalidad) this.modalityCombo.getSelectedItem();
+        System.out.println("modalidadSelected " + modalidadSelected);
+
+        TipoEvento tipoSelected = (TipoEvento) this.tipoEventoCombo.getSelectedItem();
+        System.out.println("tipoSelected " + tipoSelected);
+
+        this.eventosModulares = this.controlador.obtenerEventosModulares(codeOrTema, capituloSelected, modalidadSelected, tipoSelected);
+
+        DefaultTableModel tableModel = (DefaultTableModel) this.eventoModularTable.getModel();
+        tableModel.setRowCount(0); //limpiar la tabla
+
+        Object cells[] = new Object[10];
+
+        for (EventoModular em : this.eventosModulares) {
+            cells[0] = em.getCodigo();
+            cells[1] = em.getModalidadNombre();
+            cells[2] = em.getCapituloNombre();
+            cells[3] = em.getTipoNombre();
+            cells[4] = em.getTema();
+            cells[5] = em.getCantidad();
+            cells[6] = em.getInicio();
+            cells[7] = em.getFin();
+            cells[8] = em.getHoras();
+            cells[9] = em.getLugar();
+            tableModel.addRow(cells);
+        }
+        
+        this.eventoModularTable.setModel(tableModel);
     }
 
     @Override
@@ -78,7 +120,7 @@ public class ListModularEventFrame extends javax.swing.JFrame {
         updateButton = new javax.swing.JButton();
         searchButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        eventoModularTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -174,7 +216,7 @@ public class ListModularEventFrame extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        eventoModularTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -182,7 +224,7 @@ public class ListModularEventFrame extends javax.swing.JFrame {
                 "Codigo", "Modalidad", "Organizador", "Tipo", "Evento", "Cantidad", "Inicio", "Fin", "Horas", "Lugar"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(eventoModularTable);
 
         javax.swing.GroupLayout backgroundPanelLayout = new javax.swing.GroupLayout(backgroundPanel);
         backgroundPanel.setLayout(backgroundPanelLayout);
@@ -273,10 +315,7 @@ public class ListModularEventFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_updateButtonActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
-        
-        
-        
-        
+        llenarTabla();
     }//GEN-LAST:event_searchButtonActionPerformed
 
     /**
@@ -292,8 +331,8 @@ public class ListModularEventFrame extends javax.swing.JFrame {
     private javax.swing.JLabel codeLabel;
     private javax.swing.JTextField codeTextField;
     private javax.swing.JButton deleteButton;
+    private javax.swing.JTable eventoModularTable;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JComboBox<String> modalityCombo;
     private javax.swing.JLabel modalityLabel;
     private javax.swing.JButton searchButton;

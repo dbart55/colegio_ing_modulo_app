@@ -6,10 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.Time;
 import java.text.SimpleDateFormat;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -19,12 +16,10 @@ public class EventoModularDao {
 
     private Conexion conexion;
     private SimpleDateFormat formatDDMMYYY;
-    private DateTimeFormatter formatHHmm;
 
     public EventoModularDao(Conexion conexion) {
         this.conexion = conexion;
         this.formatDDMMYYY = new SimpleDateFormat("dd/MM/yyyy");
-        this.formatHHmm = DateTimeFormatter.ofPattern("HH:mm");
     }
 
     public List<EventoModular> obtenerEventosModulares(EventoModular filter) {
@@ -61,7 +56,7 @@ public class EventoModularDao {
             if (cod_cap != 0) {
                 sql += "AND c.cod_cap = '" + cod_cap + "' ";
             }
-            if (tema != null && tema.equals("")) {
+            if (tema != null && !tema.equals("")) {
                 tema = tema.toLowerCase();
                 sql += "AND LOWER(em.tema) LIKE '%" + tema + "%' ";
             }
@@ -85,11 +80,8 @@ public class EventoModularDao {
                 em.setInicio(this.formatDDMMYYY.format(rs.getDate("inicio")));
                 em.setFin(this.formatDDMMYYY.format(rs.getDate("fin")));
               
-                Time horas = rs.getTime("horas");
-                LocalTime lt = horas.toLocalTime();
-                em.setHoras(lt.format(this.formatHHmm));
+                em.setHoras(rs.getString("horas"));
                 
-                System.out.println(em);
                 eventos.add(em);
             }
 

@@ -24,6 +24,7 @@ public class EventoModular {
     private String lugar;
 
     public EventoModular() {
+        this.codigo = 0;
     }
 
     public EventoModular(int codigo, EventoModalidad modalidad, TipoEvento tipoEvento, String tema) {
