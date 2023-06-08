@@ -9,6 +9,7 @@ import consejodepartamental.entity.EventoModalidad;
 import consejodepartamental.entity.EventoModular;
 import consejodepartamental.entity.Organizador;
 import consejodepartamental.entity.TipoEvento;
+import consejodepartamental.entity.Usuario;
 import consejodepartamental.logic.Controlador;
 import java.util.ArrayList;
 import java.util.List;
@@ -221,10 +222,30 @@ public class ListModularEventFrame extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Codigo", "Modalidad", "Organizador", "Tipo", "Evento", "Cantidad", "Inicio", "Fin", "Horas", "Lugar"
+                "Código", "Modalidad", "Organizador", "Tipo", "Evento", "Cantidad", "Inicio", "Fin", "Horas", "Lugar"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(eventoModularTable);
+        if (eventoModularTable.getColumnModel().getColumnCount() > 0) {
+            eventoModularTable.getColumnModel().getColumn(0).setPreferredWidth(5);
+            eventoModularTable.getColumnModel().getColumn(1).setPreferredWidth(5);
+            eventoModularTable.getColumnModel().getColumn(2).setPreferredWidth(30);
+            eventoModularTable.getColumnModel().getColumn(3).setPreferredWidth(90);
+            eventoModularTable.getColumnModel().getColumn(4).setPreferredWidth(300);
+            eventoModularTable.getColumnModel().getColumn(5).setPreferredWidth(5);
+            eventoModularTable.getColumnModel().getColumn(6).setPreferredWidth(5);
+            eventoModularTable.getColumnModel().getColumn(7).setPreferredWidth(5);
+            eventoModularTable.getColumnModel().getColumn(8).setPreferredWidth(5);
+            eventoModularTable.getColumnModel().getColumn(9).setPreferredWidth(8);
+        }
 
         javax.swing.GroupLayout backgroundPanelLayout = new javax.swing.GroupLayout(backgroundPanel);
         backgroundPanel.setLayout(backgroundPanelLayout);
@@ -252,9 +273,9 @@ public class ListModularEventFrame extends javax.swing.JFrame {
                                 .addComponent(tipoEventoCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(statusCheck, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 192, Short.MAX_VALUE))
+                        .addGap(0, 252, Short.MAX_VALUE))
                     .addComponent(jScrollPane1))
-                .addGap(66, 66, 66)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(buttonPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(searchButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))

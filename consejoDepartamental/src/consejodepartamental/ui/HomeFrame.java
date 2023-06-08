@@ -1,5 +1,7 @@
 package consejodepartamental.ui;
 
+import consejodepartamental.entity.Usuario;
+
 /**
  *
  * @author Diego
@@ -9,8 +11,10 @@ public class HomeFrame extends javax.swing.JFrame {
     /**
      * Creates new form HomeFrame
      */
-    public HomeFrame() {
+    private Usuario currentUser;
+    public HomeFrame(Usuario currentUser) {
         initComponents();
+        this.currentUser = currentUser;
     }
 
     /**
