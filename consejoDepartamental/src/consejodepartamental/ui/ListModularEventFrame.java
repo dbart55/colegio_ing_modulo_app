@@ -29,6 +29,7 @@ public class ListModularEventFrame extends javax.swing.JFrame {
     private List<EventoModalidad> modalidades;
     private List<TipoEvento> tipos;
     private List<EventoModular> eventosModulares;
+    private SaveModularEventFrame saveModularEventFrame;
 
     public ListModularEventFrame() {
         initComponents();
@@ -86,7 +87,7 @@ public class ListModularEventFrame extends javax.swing.JFrame {
             cells[9] = em.getLugar();
             tableModel.addRow(cells);
         }
-        
+
         this.eventoModularTable.setModel(tableModel);
     }
 
@@ -130,7 +131,7 @@ public class ListModularEventFrame extends javax.swing.JFrame {
         capituloLabel.setFont(new java.awt.Font("Corbel Light", 0, 16)); // NOI18N
         capituloLabel.setForeground(new java.awt.Color(255, 255, 255));
         capituloLabel.setLabelFor(capituloCombo);
-        capituloLabel.setText("Capitulo");
+        capituloLabel.setText("Organizadores");
 
         codeLabel.setBackground(new java.awt.Color(255, 255, 255));
         codeLabel.setFont(new java.awt.Font("Corbel Light", 0, 16)); // NOI18N
@@ -323,16 +324,17 @@ public class ListModularEventFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        SaveModularEventFrame saveModularEventFrame = new SaveModularEventFrame();
-        saveModularEventFrame.setVisible(true);
-        saveModularEventFrame.setLocationRelativeTo(null);
+        if (this.saveModularEventFrame == null || !this.saveModularEventFrame.isDisplayable()) {
+            this.saveModularEventFrame = new SaveModularEventFrame();
+            this.saveModularEventFrame.setVisible(true);
+            this.saveModularEventFrame.setLocationRelativeTo(null);
+        } else {
+            this.saveModularEventFrame.requestFocus();
+        }
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
-        // TODO add your handling code here:
-        SaveModularEventFrame saveModularEventFrame = new SaveModularEventFrame();
-        saveModularEventFrame.setVisible(true);
-        saveModularEventFrame.setLocationRelativeTo(null);
+
     }//GEN-LAST:event_updateButtonActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed

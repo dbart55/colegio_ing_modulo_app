@@ -1,11 +1,13 @@
 package consejodepartamental.logic;
 
+import consejodepartamental.entity.Ambiente;
 import consejodepartamental.entity.Capitulo;
 import consejodepartamental.entity.EventoModalidad;
 import consejodepartamental.entity.EventoModular;
 import consejodepartamental.entity.Organizador;
 import consejodepartamental.entity.TipoEvento;
 import consejodepartamental.entity.Usuario;
+import consejodepartamental.persistence.AmbienteDao;
 import consejodepartamental.persistence.CapituloDao;
 import consejodepartamental.persistence.Conexion;
 import consejodepartamental.persistence.EventoModalidadDao;
@@ -28,6 +30,7 @@ public class Controlador {
     private TipoEventoDao tipoEventoDao;
     private CapituloDao capituloDao;
     private EventoModularDao eventoModularDao;
+    private AmbienteDao ambienteDao;
 
     public Controlador() {
         this.conexion = new Conexion();
@@ -37,6 +40,7 @@ public class Controlador {
         this.tipoEventoDao = new TipoEventoDao(this.conexion);
         this.capituloDao = new CapituloDao(this.conexion);
         this.eventoModularDao = new EventoModularDao(this.conexion);
+        this.ambienteDao = new AmbienteDao(this.conexion);
     }
 
     public Usuario obtenerUsuario(String userName, String password) {
@@ -70,12 +74,30 @@ public class Controlador {
                 filter.setTema(codeOrTema);
             }
         }
-        
+
         filter.setCod_cap(capitulo.getCod_cap());
         filter.setCod_modalidad(modalidad.getCod_modalidad());
         filter.setCod_tipo(tipo.getCod_tipo());
-        
+
         return this.eventoModularDao.obtenerEventosModulares(filter);
+    }
+
+    public List<Ambiente> obtenerAmbientes() {
+        return this.ambienteDao.obtenerAmbientes();
+    }
+
+    public List<Organizador> obtenerOrganizadoresConFiltros(String cip, String nombre) {
+
+        Organizador filter = new Organizador();
+        if (cip != null && !cip.equals("")) {
+            if (cip.matches("\\d+")) {
+                filter.setCip(Integer.parseInt(cip));
+            }
+        }
+
+        filter.setOrganizador(nombre);
+
+        return this.organizadorDao.obtenerOrganizadoresConFiltros(filter);
     }
 
     public void finalizar() {

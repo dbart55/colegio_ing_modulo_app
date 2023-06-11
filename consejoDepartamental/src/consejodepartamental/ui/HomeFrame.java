@@ -12,6 +12,8 @@ public class HomeFrame extends javax.swing.JFrame {
      * Creates new form HomeFrame
      */
     private Usuario currentUser;
+    private ListModularEventFrame modularEventFrame;
+
     public HomeFrame(Usuario currentUser) {
         initComponents();
         this.currentUser = currentUser;
@@ -144,15 +146,18 @@ public class HomeFrame extends javax.swing.JFrame {
     private void payVoucherMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payVoucherMenuItemActionPerformed
         // TODO add your handling code here:
 
-        
 
     }//GEN-LAST:event_payVoucherMenuItemActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-        ListModularEventFrame modularEventFrame = new ListModularEventFrame();
-        modularEventFrame.setVisible(true);
-        modularEventFrame.setLocationRelativeTo(null);
+        if (this.modularEventFrame == null || !this.modularEventFrame.isDisplayable()) {
+            this.modularEventFrame = new ListModularEventFrame();
+            this.modularEventFrame.setVisible(true);
+            this.modularEventFrame.setLocationRelativeTo(null);
+        }else{
+            this.modularEventFrame.requestFocus();
+        }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
