@@ -124,7 +124,7 @@ public class ListModularEventFrame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         eventoModularTable = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         backgroundPanel.setBackground(new java.awt.Color(23, 33, 42));
 

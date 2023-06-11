@@ -1,5 +1,7 @@
 package consejodepartamental.entity;
 
+import java.util.List;
+
 /**
  *
  * @author Diego
@@ -20,8 +22,14 @@ public class EventoModular {
     private int cantidad;
     private String inicio;
     private String fin;
+    private int diaMax;
     private String horas;
     private String lugar;
+    private String temario;
+    private int id_ambiente;
+    private String ambienteNombre;
+    private List<Organizador> organizadores;
+    private int horasTotales;
 
     public EventoModular() {
         this.codigo = 0;
@@ -160,6 +168,54 @@ public class EventoModular {
 
     public void setCapituloNombre(String capituloNombre) {
         this.capituloNombre = capituloNombre;
+    }
+
+    public String getTemario() {
+        return temario;
+    }
+
+    public void setTemario(String temario) {
+        this.temario = temario;
+    }
+
+    public int getId_ambiente() {
+        return id_ambiente;
+    }
+
+    public void setId_ambiente(int id_ambiente) {
+        this.id_ambiente = id_ambiente;
+    }
+
+    public String getAmbienteNombre() {
+        return ambienteNombre;
+    }
+
+    public void setAmbienteNombre(String ambienteNombre) {
+        this.ambienteNombre = ambienteNombre;
+    }
+
+    public List<Organizador> getOrganizadores() {
+        return organizadores;
+    }
+
+    public void setOrganizadores(List<Organizador> organizadores) {
+        this.organizadores = organizadores;
+    }
+
+    public int getHorasTotales() {
+        return horasTotales;
+    }
+
+    public void setHorasTotales(int horasTotales) {
+        this.horasTotales = horasTotales;
+    }
+
+    public int getDiaMax() {
+        return diaMax;
+    }
+
+    public void setDiaMax(int diaMax) {
+        this.diaMax = diaMax;
     }
 
     @Override

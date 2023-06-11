@@ -68,7 +68,7 @@ public class BuscarOrganizadorFrame extends javax.swing.JFrame {
         cancelBtn = new javax.swing.JButton();
         searchButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         backgroundPanel.setBackground(new java.awt.Color(23, 33, 42));
 

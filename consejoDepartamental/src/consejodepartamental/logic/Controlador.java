@@ -100,6 +100,10 @@ public class Controlador {
         return this.organizadorDao.obtenerOrganizadoresConFiltros(filter);
     }
 
+    public boolean crearEventoModular(EventoModular em) {
+        return (this.eventoModularDao.crearEventoModular(em) > 0);
+    }
+
     public void finalizar() {
         this.conexion.desconectar();
     }

@@ -3,13 +3,17 @@ package consejodepartamental.ui;
 import consejodepartamental.entity.Ambiente;
 import consejodepartamental.entity.Capitulo;
 import consejodepartamental.entity.EventoModalidad;
+import consejodepartamental.entity.EventoModular;
 import consejodepartamental.entity.Organizador;
 import consejodepartamental.entity.TipoEvento;
 import consejodepartamental.logic.Controlador;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -66,7 +70,7 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
 
         DefaultTableModel tableModel = (DefaultTableModel) this.organizadoresTable.getModel();
 
-        if (organizadores != null && organizadores.size() > 0) {
+        if (organizadores != null && !organizadores.isEmpty()) {
             Object[] cells = new Object[5];
             for (Organizador org : organizadores) {
                 if (!this.organizadores.contains(org)) {
@@ -81,6 +85,22 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
                 }
             }
         }
+    }
+
+    private boolean validarCamposObligatorios() {
+        return true;
+    }
+
+    private boolean validarOrganizadores() {
+        if (this.organizadores == null || this.organizadores.isEmpty()) {
+            JOptionPane joptionPane = new JOptionPane("Debe ingresar al menos 1 organizador.");
+            joptionPane.setMessageType(JOptionPane.WARNING_MESSAGE);
+            JDialog dialog = joptionPane.createDialog("Advertencia");
+            dialog.setAlwaysOnTop(true);
+            dialog.setVisible(true);
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -105,7 +125,7 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
         modalityLabel = new javax.swing.JLabel();
         enviromentLabel = new javax.swing.JLabel();
         trainingTypeLabel1 = new javax.swing.JLabel();
-        topicLabel = new javax.swing.JLabel();
+        temaLabel = new javax.swing.JLabel();
         imageLabel = new javax.swing.JLabel();
         dateStartLabel = new javax.swing.JLabel();
         dateEndLabel = new javax.swing.JLabel();
@@ -117,7 +137,7 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
         organizadorCombo = new javax.swing.JComboBox<>();
         modalidadCombo = new javax.swing.JComboBox<>();
         ambienteCombo = new javax.swing.JComboBox<>();
-        topicTextField = new javax.swing.JTextField();
+        temaTextField = new javax.swing.JTextField();
         fechaInicioDate = new com.toedter.calendar.JDateChooser();
         fechaFinDate = new com.toedter.calendar.JDateChooser();
         cantidadSpinner = new javax.swing.JSpinner();
@@ -161,7 +181,7 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
             .addGap(0, 300, Short.MAX_VALUE)
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         backgroundPanel.setBackground(new java.awt.Color(23, 33, 42));
 
@@ -190,9 +210,9 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
         trainingTypeLabel1.setForeground(new java.awt.Color(255, 255, 255));
         trainingTypeLabel1.setText("Tipo de Capacitación");
 
-        topicLabel.setFont(new java.awt.Font("Corbel Light", 0, 14)); // NOI18N
-        topicLabel.setForeground(new java.awt.Color(255, 255, 255));
-        topicLabel.setText("Tema");
+        temaLabel.setFont(new java.awt.Font("Corbel Light", 0, 14)); // NOI18N
+        temaLabel.setForeground(new java.awt.Color(255, 255, 255));
+        temaLabel.setText("Tema");
 
         imageLabel.setFont(new java.awt.Font("Corbel Light", 0, 14)); // NOI18N
         imageLabel.setForeground(new java.awt.Color(255, 255, 255));
@@ -230,9 +250,9 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
 
         ambienteCombo.setEditable(true);
 
-        topicTextField.addActionListener(new java.awt.event.ActionListener() {
+        temaTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                topicTextFieldActionPerformed(evt);
+                temaTextFieldActionPerformed(evt);
             }
         });
 
@@ -262,10 +282,10 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
             .addGroup(mainDataPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(mainDataPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(topicTextField)
+                    .addComponent(temaTextField)
                     .addGroup(mainDataPanelLayout.createSequentialGroup()
                         .addGroup(mainDataPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(topicLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(temaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(syllabusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(mainDataPanelLayout.createSequentialGroup()
                                 .addGroup(mainDataPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -339,9 +359,9 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
                     .addComponent(tipoCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ambienteCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(topicLabel)
+                .addComponent(temaLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(topicTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(temaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(mainDataPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dateStartLabel)
@@ -511,8 +531,18 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
         tabPanel.addTab("Organizadores", organizerPanel);
 
         guardarBtn.setText("Guardar");
+        guardarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardarBtnActionPerformed(evt);
+            }
+        });
 
         cancelarBtn.setText("Cancelar");
+        cancelarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelarBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout backgroundPanelLayout = new javax.swing.GroupLayout(backgroundPanel);
         backgroundPanel.setLayout(backgroundPanelLayout);
@@ -556,9 +586,9 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void topicTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_topicTextFieldActionPerformed
+    private void temaTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temaTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_topicTextFieldActionPerformed
+    }//GEN-LAST:event_temaTextFieldActionPerformed
 
     private void imageBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imageBtnActionPerformed
 
@@ -590,14 +620,66 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
         if (rowSelectedIndex != -1) {
             DefaultTableModel tableModel = (DefaultTableModel) this.organizadoresTable.getModel();
             int cip = (int) tableModel.getValueAt(rowSelectedIndex, 0);
-            if(cip != 0){
-                this.organizadores.remove(new Organizador(cip,""));
+            if (cip != 0) {
+                this.organizadores.remove(new Organizador(cip, ""));
             }
-            
             tableModel.removeRow(rowSelectedIndex);
-            
         }
     }//GEN-LAST:event_removerOrganizadorBtnActionPerformed
+
+    private void cancelarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarBtnActionPerformed
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_cancelarBtnActionPerformed
+
+    private void guardarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarBtnActionPerformed
+        if (validarCamposObligatorios() && validarOrganizadores()) {
+            Capitulo capituloSelected = (Capitulo) this.organizadorCombo.getSelectedItem();
+            EventoModalidad modalidadSelected = (EventoModalidad) this.modalidadCombo.getSelectedItem();
+            TipoEvento tipoSelected = (TipoEvento) this.tipoCombo.getSelectedItem();
+            Ambiente ambienteSelected = (Ambiente) this.ambienteCombo.getSelectedItem();
+            String tema = this.temaTextField.getText();
+            String fechaInicio = ((JTextField) this.fechaInicioDate.getDateEditor().getUiComponent()).getText();
+            String fechaFin = ((JTextField) this.fechaFinDate.getDateEditor().getUiComponent()).getText();
+
+            int cantidad = (int) this.cantidadSpinner.getValue();
+            int diaMax = (int) this.diasSpinner.getValue();
+            int horasTotales = (int) this.horasSpiner.getValue();
+            String temario = this.temarioArea.getText();
+
+            EventoModular nuevoEvento = new EventoModular();
+            nuevoEvento.setCod_cap(capituloSelected.getCod_cap());
+            nuevoEvento.setCod_modalidad(modalidadSelected.getCod_modalidad());
+            nuevoEvento.setCod_tipo(tipoSelected.getCod_tipo());
+            nuevoEvento.setId_ambiente(ambienteSelected.getId_ambiente());
+            nuevoEvento.setTema(tema);
+            nuevoEvento.setInicio(fechaInicio);
+            nuevoEvento.setFin(fechaFin);
+            nuevoEvento.setCantidad(cantidad);
+            nuevoEvento.setDiaMax(diaMax);
+            nuevoEvento.setHorasTotales(horasTotales);
+            nuevoEvento.setTemario(temario);
+
+            nuevoEvento.setOrganizadores(this.organizadores);
+
+            if (this.controlador.crearEventoModular(nuevoEvento)) {
+                JOptionPane joptionPane = new JOptionPane("Datos Guardados correctamente.");
+                joptionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+                JDialog dialog = joptionPane.createDialog("Confirmación");
+                dialog.setAlwaysOnTop(true);
+                dialog.setVisible(true);
+                
+                this.setVisible(false);
+                this.dispose();
+            } else {
+                JOptionPane joptionPane = new JOptionPane("Error al guardar el Evento Modular.");
+                joptionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
+                JDialog dialog = joptionPane.createDialog("Error");
+                dialog.setAlwaysOnTop(true);
+                dialog.setVisible(true);
+            }
+        }
+    }//GEN-LAST:event_guardarBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -644,10 +726,10 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
     private javax.swing.JPanel schedulePanel;
     private javax.swing.JLabel syllabusLabel;
     private javax.swing.JTabbedPane tabPanel;
+    private javax.swing.JLabel temaLabel;
+    private javax.swing.JTextField temaTextField;
     private javax.swing.JTextArea temarioArea;
     private javax.swing.JComboBox<String> tipoCombo;
-    private javax.swing.JLabel topicLabel;
-    private javax.swing.JTextField topicTextField;
     private javax.swing.JLabel totalHoursLabel;
     private javax.swing.JLabel trainingTypeLabel1;
     // End of variables declaration//GEN-END:variables

@@ -1,9 +1,12 @@
 package consejodepartamental.persistence;
 
 import consejodepartamental.entity.EventoModular;
+import consejodepartamental.entity.Organizador;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 import java.text.SimpleDateFormat;
@@ -76,12 +79,12 @@ public class EventoModularDao {
                 em.setLugar(rs.getString("lugar"));
                 em.setCod_cap(rs.getInt("cod_cap"));
                 em.setCapituloNombre(rs.getString("capitulo"));
-       
+
                 em.setInicio(this.formatDDMMYYY.format(rs.getDate("inicio")));
                 em.setFin(this.formatDDMMYYY.format(rs.getDate("fin")));
-              
+
                 em.setHoras(rs.getString("horas"));
-                
+
                 eventos.add(em);
             }
 
@@ -90,6 +93,71 @@ public class EventoModularDao {
         }
 
         return eventos;
+    }
+
+    public int crearEventoModular(EventoModular em) {
+        int newId = 0;
+        try {
+            int cod_cap = em.getCod_cap();
+            int cod_modalidad = em.getCod_modalidad();
+            int cod_tipo = em.getCod_tipo();
+            int id_ambiente = em.getId_ambiente();
+            String tema = em.getTema();
+            String inicio = em.getInicio();
+            String fin = em.getFin();
+            int cantidad = em.getCantidad();
+            int diaMax = em.getDiaMax();
+            int horasTotales = em.getHorasTotales();
+            String temario = em.getTemario();
+            List<Organizador> organizadores = em.getOrganizadores();
+
+            String sql = "INSERT INTO eventos_modulares(cod_modalidad, cod_tipo, id_ambiente, cod_cap, tema, temario, cantidad, inicio, fin, dia_max, horas_totales) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+            PreparedStatement ps = this.conexion.getJdbcConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, cod_modalidad);
+            ps.setInt(2, cod_tipo);
+            ps.setInt(3, id_ambiente);
+            ps.setInt(4, cod_cap);
+            ps.setString(5, tema);
+            ps.setString(6, temario);
+            ps.setInt(7, cantidad);
+            ps.setDate(8, Date.valueOf(inicio));
+            ps.setDate(9, Date.valueOf(fin));
+            ps.setInt(10, diaMax);
+            ps.setInt(11, horasTotales);
+
+            ps.executeUpdate();
+
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                newId = rs.getInt(1);
+                System.out.println("newId: " + newId);
+                crearOrganizadoresPorEventoModular(newId, organizadores);
+            } else {
+                throw new Exception("ID no generado");
+            }
+
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        } catch (Exception ex) {
+            System.err.println(ex);
+        }
+
+        return newId;
+    }
+
+    private void crearOrganizadoresPorEventoModular(int newId, List<Organizador> organizadores) throws SQLException {
+        String sql = "INSERT INTO organizador_por_evento_modular(organizador_id, evento_modular_id) VALUES (?,?)";
+
+        for (Organizador org : organizadores) {
+            int cip = org.getCip();
+            if (cip != 0) {
+                PreparedStatement ps = this.conexion.getJdbcConnection().prepareStatement(sql);
+                ps.setInt(1, cip);
+                ps.setInt(2, newId);
+
+                ps.executeUpdate();
+            }
+        }
     }
 
 }
