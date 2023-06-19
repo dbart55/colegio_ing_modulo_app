@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -33,7 +35,7 @@ public class AmbienteDao {
                 ambientes.add(ambiente);
             }
         } catch (SQLException ex) {
-            System.err.println(ex);
+            Logger.getLogger(AmbienteDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return ambientes;
 

@@ -100,8 +100,16 @@ public class Controlador {
         return this.organizadorDao.obtenerOrganizadoresConFiltros(filter);
     }
 
-    public boolean crearEventoModular(EventoModular em) {
-        return (this.eventoModularDao.crearEventoModular(em) > 0);
+    public boolean guardarEventoModular(EventoModular em) {
+        if (em.getCodigo() != 0) {
+            return (this.eventoModularDao.actualizarEventoModular(em) > 0);
+        } else {
+            return (this.eventoModularDao.crearEventoModular(em) > 0);
+        }
+    }
+
+    public EventoModular obtenerEventoModularPorCodigo(int eventoCodigo) {
+        return this.eventoModularDao.obtenerEventoModuarByCodigo(eventoCodigo);
     }
 
     public void finalizar() {

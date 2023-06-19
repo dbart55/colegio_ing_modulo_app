@@ -22,7 +22,7 @@ public class EventoModalidadDao {
     }
 
     public List<EventoModalidad> obtenerModalidades() {
-        List<EventoModalidad> modalidades = new ArrayList<EventoModalidad>();
+        List<EventoModalidad> modalidades = new ArrayList<>();
         try {
             String sql = "SELECT cod_modalidad, modalidad, descripcion FROM evento_modalidad";
             PreparedStatement ps = this.conexion.getJdbcConnection().prepareStatement(sql);
@@ -38,7 +38,7 @@ public class EventoModalidadDao {
             }
 
         } catch (SQLException ex) {
-            System.err.println(ex);
+            Logger.getLogger(EventoModalidadDao.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return modalidades;

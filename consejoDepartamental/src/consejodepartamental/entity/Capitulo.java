@@ -14,6 +14,10 @@ public class Capitulo {
     public Capitulo() {
     }
 
+    public Capitulo(int cod_cap) {
+        this.cod_cap = cod_cap;
+    }
+
     public Capitulo(int cod_cap, String organizador) {
         this.cod_cap = cod_cap;
         this.organizador = organizador;
@@ -63,4 +67,25 @@ public class Capitulo {
         return this.organizador;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 43 * hash + this.cod_cap;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Capitulo other = (Capitulo) obj;
+        return this.cod_cap == other.cod_cap;
+    }
 }

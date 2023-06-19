@@ -43,6 +43,10 @@ public class EventoModalidad {
     public EventoModalidad() {
     }
 
+    public EventoModalidad(int cod_modalidad) {
+        this.cod_modalidad = cod_modalidad;
+    }
+    
     public EventoModalidad(int cod_modalidad, String modalidad) {
         this.cod_modalidad = cod_modalidad;
         this.modalidad = modalidad;
@@ -51,5 +55,27 @@ public class EventoModalidad {
     @Override
     public String toString() {
         return this.modalidad;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 89 * hash + this.cod_modalidad;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final EventoModalidad other = (EventoModalidad) obj;
+        return this.cod_modalidad == other.cod_modalidad;
     }
 }

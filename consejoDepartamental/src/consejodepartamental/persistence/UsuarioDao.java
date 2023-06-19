@@ -4,6 +4,8 @@ import consejodepartamental.entity.Usuario;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -33,12 +35,12 @@ public class UsuarioDao {
                 usuario.setUserName(rs.getString("username"));
                 usuario.setNombres(rs.getString("nombres"));
                 usuario.setApellidos(rs.getString("apellidos"));
-                
+
                 return usuario;
             }
 
         } catch (SQLException ex) {
-            System.err.println(ex.getMessage());
+            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }

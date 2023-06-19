@@ -11,6 +11,7 @@ import consejodepartamental.entity.Organizador;
 import consejodepartamental.entity.TipoEvento;
 import consejodepartamental.entity.Usuario;
 import consejodepartamental.logic.Controlador;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -29,7 +30,9 @@ public class ListModularEventFrame extends javax.swing.JFrame {
     private List<EventoModalidad> modalidades;
     private List<TipoEvento> tipos;
     private List<EventoModular> eventosModulares;
-    private SaveModularEventFrame saveModularEventFrame;
+    private SaveModularEventFrame crearEventoModularFrame;
+    private SaveModularEventFrame editarEventoModularFrame;
+    private SimpleDateFormat formatDDMMYYY;
 
     public ListModularEventFrame() {
         initComponents();
@@ -53,6 +56,7 @@ public class ListModularEventFrame extends javax.swing.JFrame {
 
         this.tableModel = (DefaultTableModel) this.eventoModularTable.getModel();
 
+        this.formatDDMMYYY = new SimpleDateFormat("dd/MM/yyyy");
     }
 
     public void llenarTabla() {
@@ -81,8 +85,8 @@ public class ListModularEventFrame extends javax.swing.JFrame {
             cells[3] = em.getTipoNombre();
             cells[4] = em.getTema();
             cells[5] = em.getCantidad();
-            cells[6] = em.getInicio();
-            cells[7] = em.getFin();
+            cells[6] = this.formatDDMMYYY.format(em.getInicio());
+            cells[7] = this.formatDDMMYYY.format(em.getFin());
             cells[8] = em.getHoras();
             cells[9] = em.getLugar();
             tableModel.addRow(cells);
@@ -324,17 +328,37 @@ public class ListModularEventFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        if (this.saveModularEventFrame == null || !this.saveModularEventFrame.isDisplayable()) {
-            this.saveModularEventFrame = new SaveModularEventFrame();
-            this.saveModularEventFrame.setVisible(true);
-            this.saveModularEventFrame.setLocationRelativeTo(null);
+        if (this.crearEventoModularFrame == null || !this.crearEventoModularFrame.isDisplayable()) {
+            this.crearEventoModularFrame = new SaveModularEventFrame(null);
+            this.crearEventoModularFrame.setVisible(true);
+            this.crearEventoModularFrame.setLocationRelativeTo(null);
         } else {
-            this.saveModularEventFrame.requestFocus();
+            this.crearEventoModularFrame.requestFocus();
         }
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
+        int rowSelected = this.eventoModularTable.getSelectedRow();
+        if (rowSelected != -1) {
+            DefaultTableModel tableModel = (DefaultTableModel) this.eventoModularTable.getModel();
+            int emCodigo = (int) tableModel.getValueAt(rowSelected, 0);
 
+            System.out.println("emCodigo: " + emCodigo);
+
+            if (this.crearEventoModularFrame != null && this.crearEventoModularFrame.isDisplayable()) {
+                this.crearEventoModularFrame.setVisible(false);
+                this.crearEventoModularFrame.dispose();
+                this.crearEventoModularFrame = null;
+            }
+
+            if (this.editarEventoModularFrame == null || !this.editarEventoModularFrame.isDisplayable()) {
+                this.editarEventoModularFrame = new SaveModularEventFrame(new EventoModular(emCodigo));
+                this.editarEventoModularFrame.setVisible(true);
+                this.editarEventoModularFrame.setLocationRelativeTo(null);
+            } else {
+                this.editarEventoModularFrame.requestFocus();
+            }
+        }
     }//GEN-LAST:event_updateButtonActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed

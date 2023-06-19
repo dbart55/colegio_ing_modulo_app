@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -36,7 +38,7 @@ public class TipoEventoDao {
                 tipos.add(tipo);
             }
         } catch (SQLException ex) {
-            System.err.println(ex);
+            Logger.getLogger(TipoEventoDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return tipos;
     }

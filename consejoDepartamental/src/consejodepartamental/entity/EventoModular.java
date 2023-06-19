@@ -1,5 +1,6 @@
 package consejodepartamental.entity;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,8 +21,8 @@ public class EventoModular {
     private Capitulo capitulo;
     private String tema;
     private int cantidad;
-    private String inicio;
-    private String fin;
+    private Date inicio;
+    private Date fin;
     private int diaMax;
     private String horas;
     private String lugar;
@@ -33,6 +34,10 @@ public class EventoModular {
 
     public EventoModular() {
         this.codigo = 0;
+    }
+
+    public EventoModular(int codigo) {
+        this.codigo = codigo;
     }
 
     public EventoModular(int codigo, EventoModalidad modalidad, TipoEvento tipoEvento, String tema) {
@@ -114,19 +119,19 @@ public class EventoModular {
         this.cantidad = cantidad;
     }
 
-    public String getInicio() {
+    public Date getInicio() {
         return inicio;
     }
 
-    public void setInicio(String inicio) {
+    public void setInicio(Date inicio) {
         this.inicio = inicio;
     }
 
-    public String getFin() {
+    public Date getFin() {
         return fin;
     }
 
-    public void setFin(String fin) {
+    public void setFin(Date fin) {
         this.fin = fin;
     }
 

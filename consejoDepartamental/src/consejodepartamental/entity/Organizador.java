@@ -16,6 +16,10 @@ public class Organizador {
     public Organizador() {
     }
 
+    public Organizador(int cip) {
+        this.cip = cip;
+    }
+
     public Organizador(int cip, String capitulo) {
         this.cip = cip;
         this.capitulo = capitulo;
