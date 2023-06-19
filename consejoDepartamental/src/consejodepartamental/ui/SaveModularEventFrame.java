@@ -34,8 +34,9 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
     private List<Organizador> organizadores;
     private String modo;
     private EventoModular editEventoModular;
-    
-    public SaveModularEventFrame(EventoModular editEventoModular) {
+    private ListModularEventFrame parent;
+
+    public SaveModularEventFrame(ListModularEventFrame parent, EventoModular editEventoModular) {
         initComponents();
         this.controlador = new Controlador();
         this.capitulos = new ArrayList<>();
@@ -43,81 +44,82 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
         this.tipos = new ArrayList<>();
         this.ambientes = new ArrayList<>();
         this.organizadores = new ArrayList<>();
-        
+
         this.capitulos.add(new Capitulo(0, "-"));
         this.capitulos.addAll(this.controlador.obtenerCapitulos());
         this.organizadorCombo.setModel(new DefaultComboBoxModel(this.capitulos.toArray()));
-        
+
         this.modalidades.add(new EventoModalidad(0, "-"));
         this.modalidades.addAll(this.controlador.obtenerModalidades());
         this.modalidadCombo.setModel(new DefaultComboBoxModel(this.modalidades.toArray()));
-        
+
         this.tipos.add(new TipoEvento(0, "-"));
         this.tipos.addAll(this.controlador.obtenerTipos());
         this.tipoCombo.setModel(new DefaultComboBoxModel(this.tipos.toArray()));
-        
+
         this.ambientes.add(new Ambiente(0, "-"));
         this.ambientes.addAll(this.controlador.obtenerAmbientes());
         this.ambienteCombo.setModel(new DefaultComboBoxModel(this.ambientes.toArray()));
-        
+
         this.modo = "crear";
         if (editEventoModular != null) {
             this.modo = "editar";
             this.editEventoModular = editEventoModular;
             llenarValoresEventoModular(editEventoModular);
         }
-        
+
+        this.parent = parent;
     }
-    
+
     private void llenarValoresEventoModular(EventoModular em) {
         if (em != null && em.getCodigo() != 0) {
             EventoModular actualEventoModular = this.controlador.obtenerEventoModularPorCodigo(em.getCodigo());
-            
+
             if (actualEventoModular.getCod_cap() != 0) {
                 this.organizadorCombo.setSelectedIndex(this.capitulos.indexOf(new Capitulo(actualEventoModular.getCod_cap())));
             }
-            
+
             if (actualEventoModular.getCod_modalidad() != 0) {
                 this.modalidadCombo.setSelectedIndex(this.modalidades.indexOf(new EventoModalidad(actualEventoModular.getCod_modalidad())));
             }
-            
+
             if (actualEventoModular.getCod_tipo() != 0) {
                 this.tipoCombo.setSelectedIndex(this.tipos.indexOf(new TipoEvento(actualEventoModular.getCod_tipo())));
             }
-            
+
             if (actualEventoModular.getId_ambiente() != 0) {
                 this.ambienteCombo.setSelectedIndex(this.ambientes.indexOf(new Ambiente(actualEventoModular.getId_ambiente())));
             }
-            
+
             if (actualEventoModular.getTema() != null) {
                 this.temaTextField.setText(actualEventoModular.getTema());
             }
-            
+
             if (actualEventoModular.getTemario() != null) {
                 this.temarioArea.setText(actualEventoModular.getTemario());
             }
-            
+
             this.cantidadSpinner.setValue(actualEventoModular.getCantidad());
             this.horasSpiner.setValue(actualEventoModular.getHorasTotales());
             this.diasSpinner.setValue(actualEventoModular.getDiaMax());
-            
+
             this.fechaInicioDate.setDate(actualEventoModular.getInicio());
             this.fechaFinDate.setDate(actualEventoModular.getFin());
-            
+
             llenarTablaOrganizadores(actualEventoModular.getOrganizadores());
         }
     }
-    
+
     @Override
     public void dispose() {
         this.controlador.finalizar();
         super.dispose();
     }
-    
+
     public void llenarTablaOrganizadores(List<Organizador> organizadores) {
-        
+
         DefaultTableModel tableModel = (DefaultTableModel) this.organizadoresTable.getModel();
-        
+
         if (organizadores != null && !organizadores.isEmpty()) {
             Object[] cells = new Object[5];
             for (Organizador org : organizadores) {
@@ -127,18 +129,18 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
                     cells[2] = org.getOrganizador();
                     cells[3] = org.getCelular();
                     cells[4] = org.getCorreo();
-                    
+
                     this.organizadores.add(org);
                     tableModel.addRow(cells);
                 }
             }
         }
     }
-    
+
     private boolean validarCamposObligatorios() {
         return true;
     }
-    
+
     private boolean validarOrganizadores() {
         if (this.organizadores == null || this.organizadores.isEmpty()) {
             JOptionPane joptionPane = new JOptionPane("Debe ingresar al menos 1 organizador.");
@@ -639,10 +641,10 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_temaTextFieldActionPerformed
 
     private void imageBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imageBtnActionPerformed
-        
+
         JFileChooser imageSelector = new JFileChooser();
         int result = imageSelector.showOpenDialog(null);
-        
+
         if (result == JFileChooser.APPROVE_OPTION) {
             String imagePath = imageSelector.getSelectedFile().getAbsolutePath();
             // Aquí puedes hacer lo que desees con la ruta de la imagen seleccionada
@@ -663,7 +665,7 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_agregarOrganizadorBtnActionPerformed
 
     private void removerOrganizadorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerOrganizadorBtnActionPerformed
-        
+
         int rowSelectedIndex = this.organizadoresTable.getSelectedRow();
         if (rowSelectedIndex != -1) {
             DefaultTableModel tableModel = (DefaultTableModel) this.organizadoresTable.getModel();
@@ -690,13 +692,13 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
             //String fechaInicio = ((JTextField) this.fechaInicioDate.getDateEditor().getUiComponent()).getText();
             Date fechaInicio = this.fechaInicioDate.getDate();
             //String fechaFin = ((JTextField) this.fechaFinDate.getDateEditor().getUiComponent()).getText();
-            Date fechaFin = this.fechaInicioDate.getDate();
-            
+            Date fechaFin = this.fechaFinDate.getDate();
+
             int cantidad = (int) this.cantidadSpinner.getValue();
             int diaMax = (int) this.diasSpinner.getValue();
             int horasTotales = (int) this.horasSpiner.getValue();
             String temario = this.temarioArea.getText();
-            
+
             EventoModular eventoModular = new EventoModular();
             eventoModular.setCod_cap(capituloSelected.getCod_cap());
             eventoModular.setCod_modalidad(modalidadSelected.getCod_modalidad());
@@ -709,19 +711,21 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
             eventoModular.setDiaMax(diaMax);
             eventoModular.setHorasTotales(horasTotales);
             eventoModular.setTemario(temario);
-            
+
             eventoModular.setOrganizadores(this.organizadores);
-            
+
             if (this.modo.equals("editar")) {
                 eventoModular.setCodigo(this.editEventoModular.getCodigo());
             }
-            
+
             if (this.controlador.guardarEventoModular(eventoModular)) {
                 JOptionPane joptionPane = new JOptionPane("Datos Guardados correctamente.");
                 joptionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
                 JDialog dialog = joptionPane.createDialog("Confirmación");
                 dialog.setAlwaysOnTop(true);
                 dialog.setVisible(true);
+                
+                this.parent.refrescarTabla();
                 
                 this.setVisible(false);
                 this.dispose();

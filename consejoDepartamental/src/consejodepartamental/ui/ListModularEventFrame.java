@@ -15,6 +15,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -59,7 +61,7 @@ public class ListModularEventFrame extends javax.swing.JFrame {
         this.formatDDMMYYY = new SimpleDateFormat("dd/MM/yyyy");
     }
 
-    public void llenarTabla() {
+    public void refrescarTabla() {
         String codeOrTema = this.codeTextField.getText();
         System.out.println("code " + codeOrTema);
         Capitulo capituloSelected = (Capitulo) this.capituloCombo.getSelectedItem();
@@ -179,6 +181,11 @@ public class ListModularEventFrame extends javax.swing.JFrame {
         deleteButton.setBackground(new java.awt.Color(23, 33, 42));
         deleteButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/remove.png"))); // NOI18N
         deleteButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteButtonActionPerformed(evt);
+            }
+        });
 
         updateButton.setBackground(new java.awt.Color(23, 33, 42));
         updateButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/redo.png"))); // NOI18N
@@ -329,7 +336,7 @@ public class ListModularEventFrame extends javax.swing.JFrame {
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         if (this.crearEventoModularFrame == null || !this.crearEventoModularFrame.isDisplayable()) {
-            this.crearEventoModularFrame = new SaveModularEventFrame(null);
+            this.crearEventoModularFrame = new SaveModularEventFrame(this, null);
             this.crearEventoModularFrame.setVisible(true);
             this.crearEventoModularFrame.setLocationRelativeTo(null);
         } else {
@@ -352,7 +359,7 @@ public class ListModularEventFrame extends javax.swing.JFrame {
             }
 
             if (this.editarEventoModularFrame == null || !this.editarEventoModularFrame.isDisplayable()) {
-                this.editarEventoModularFrame = new SaveModularEventFrame(new EventoModular(emCodigo));
+                this.editarEventoModularFrame = new SaveModularEventFrame(this, new EventoModular(emCodigo));
                 this.editarEventoModularFrame.setVisible(true);
                 this.editarEventoModularFrame.setLocationRelativeTo(null);
             } else {
@@ -362,13 +369,33 @@ public class ListModularEventFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_updateButtonActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
-        llenarTabla();
+        refrescarTabla();
     }//GEN-LAST:event_searchButtonActionPerformed
+
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+        int rowSelected = this.eventoModularTable.getSelectedRow();
+        if (rowSelected != -1) {
+            DefaultTableModel tableModel = (DefaultTableModel) this.eventoModularTable.getModel();
+            int emCodigo = (int) tableModel.getValueAt(rowSelected, 0);
+            String tema = (String) tableModel.getValueAt(rowSelected, 4);
+            System.out.println("emCodigo: " + emCodigo);
+
+            int respuesta = JOptionPane.showConfirmDialog(null, "Realmente desea eliminar el Evento Modular:\nCodigo: " + emCodigo + "\nTema: " + tema);
+
+            if (respuesta == JOptionPane.YES_OPTION) {
+                if (this.controlador.eliminarEventoModular(emCodigo)) {
+                    JOptionPane.showMessageDialog(null, "Evento modular eliminado.", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
+                    this.refrescarTabla();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al eliminar el evento modular.", "Error", JOptionPane.WARNING_MESSAGE);
+                }
+            }
+        }
+    }//GEN-LAST:event_deleteButtonActionPerformed
 
     /**
      * @param args the command line arguments
      */
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
     private javax.swing.JPanel backgroundPanel;

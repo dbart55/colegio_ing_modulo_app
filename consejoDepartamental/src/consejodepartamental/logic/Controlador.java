@@ -102,7 +102,7 @@ public class Controlador {
 
     public boolean guardarEventoModular(EventoModular em) {
         if (em.getCodigo() != 0) {
-            return (this.eventoModularDao.actualizarEventoModular(em) > 0);
+            return this.eventoModularDao.actualizarEventoModular(em);
         } else {
             return (this.eventoModularDao.crearEventoModular(em) > 0);
         }
@@ -114,5 +114,9 @@ public class Controlador {
 
     public void finalizar() {
         this.conexion.desconectar();
+    }
+
+    public boolean eliminarEventoModular(int emCodigo) {
+        return this.eventoModularDao.eliminarEventoModular(emCodigo);
     }
 }

@@ -217,8 +217,7 @@ public class EventoModularDao {
         return null;
     }
 
-    public int actualizarEventoModular(EventoModular em) {
-        int id = 0;
+    public boolean actualizarEventoModular(EventoModular em) {
         try {
 
             if (em.getCodigo() != 0) {
@@ -253,7 +252,7 @@ public class EventoModularDao {
 
                 eliminarOrganizadoresPorEventoModular(em.getCodigo());
                 crearOrganizadoresPorEventoModular(em.getCodigo(), organizadores);
-                return em.getCodigo();
+                return true;
             }
 
         } catch (SQLException ex) {
@@ -263,19 +262,29 @@ public class EventoModularDao {
             Logger.getLogger(EventoModularDao.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return id;
+        return false;
     }
 
-    private void eliminarOrganizadoresPorEventoModular(int eventoCodigo) {
+    private void eliminarOrganizadoresPorEventoModular(int eventoCodigo) throws SQLException {
+        String sql = "DELETE FROM organizador_por_evento_modular WHERE evento_modular_id = ?";
+        PreparedStatement ps = this.conexion.getJdbcConnection().prepareStatement(sql);
+        ps.setInt(1, eventoCodigo);
+        ps.executeUpdate();
+    }
+
+    public boolean eliminarEventoModular(int emCodigo) {
         try {
-            String sql = "DELETE FROM organizador_por_evento_modular WHERE evento_modular_id = ?";
+            eliminarOrganizadoresPorEventoModular(emCodigo);
+            String sql = "DELETE FROM eventos_modulares WHERE codigo=?";
             PreparedStatement ps = this.conexion.getJdbcConnection().prepareStatement(sql);
-            ps.setInt(1, eventoCodigo);
+            ps.setInt(1, emCodigo);
             ps.executeUpdate();
 
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(EventoModularDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return false;
     }
 
 }
