@@ -78,6 +78,7 @@ public class HomeFrame extends javax.swing.JFrame {
 
         transactionMenu.setText("Transacción");
 
+        eventModularMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/birrete.png"))); // NOI18N
         eventModularMenuItem.setText("Evento");
 
         jMenuItem1.setText("Eventos Modulares");
@@ -96,12 +97,15 @@ public class HomeFrame extends javax.swing.JFrame {
 
         transactionMenu.add(eventModularMenuItem);
 
+        studentMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/alumno.png"))); // NOI18N
         studentMenuItem.setText("Alumno");
         transactionMenu.add(studentMenuItem);
 
+        payAppMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/celular.png"))); // NOI18N
         payAppMenuItem.setText("Pagos App");
         transactionMenu.add(payAppMenuItem);
 
+        payVoucherMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/document.png"))); // NOI18N
         payVoucherMenuItem.setText("Pagos Voucher");
         payVoucherMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -110,12 +114,15 @@ public class HomeFrame extends javax.swing.JFrame {
         });
         transactionMenu.add(payVoucherMenuItem);
 
+        cipMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/cip.png"))); // NOI18N
         cipMenu.setText("CIP Lambayeque");
         transactionMenu.add(cipMenu);
 
+        controlEquipmentMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/pc.png"))); // NOI18N
         controlEquipmentMenu.setText("Control de Equipos");
         transactionMenu.add(controlEquipmentMenu);
 
+        emailMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/email.png"))); // NOI18N
         emailMenuItem.setText("E-Mail Enviados");
         transactionMenu.add(emailMenuItem);
 
@@ -137,7 +144,7 @@ public class HomeFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(backgroundPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(backgroundPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();

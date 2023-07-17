@@ -39,6 +39,9 @@
           <SubComponents>
             <Menu class="javax.swing.JMenu" name="eventModularMenuItem">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/resources/icons/birrete.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Evento"/>
               </Properties>
               <SubComponents>
@@ -64,16 +67,25 @@
             </Menu>
             <MenuItem class="javax.swing.JMenuItem" name="studentMenuItem">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/resources/icons/alumno.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Alumno"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="payAppMenuItem">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/resources/icons/celular.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Pagos App"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="payVoucherMenuItem">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/resources/icons/document.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Pagos Voucher"/>
               </Properties>
               <Events>
@@ -82,16 +94,25 @@
             </MenuItem>
             <Menu class="javax.swing.JMenu" name="cipMenu">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/resources/icons/cip.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="CIP Lambayeque"/>
               </Properties>
             </Menu>
             <Menu class="javax.swing.JMenu" name="controlEquipmentMenu">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/resources/icons/pc.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Control de Equipos"/>
               </Properties>
             </Menu>
             <MenuItem class="javax.swing.JMenuItem" name="emailMenuItem">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/resources/icons/email.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="E-Mail Enviados"/>
               </Properties>
             </MenuItem>
@@ -138,7 +159,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="backgroundPanel" alignment="0" max="32767" attributes="0"/>
+          <Component id="backgroundPanel" alignment="1" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
