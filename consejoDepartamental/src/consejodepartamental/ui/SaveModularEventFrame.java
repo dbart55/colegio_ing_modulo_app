@@ -7,13 +7,20 @@ import consejodepartamental.entity.EventoModular;
 import consejodepartamental.entity.Organizador;
 import consejodepartamental.entity.TipoEvento;
 import consejodepartamental.logic.Controlador;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -35,7 +42,10 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
     private String modo;
     private EventoModular editEventoModular;
     private ListModularEventFrame parent;
-
+    private File imagenSeleccionada;
+    private final String linkTemplateText = "<html><a style='color: white; font-weight: bold; font-size: 10px' href=\"#\">FILENAME</a></html>";
+    private final String noImagen = "Sin Imagen";
+    
     public SaveModularEventFrame(ListModularEventFrame parent, EventoModular editEventoModular) {
         initComponents();
         this.controlador = new Controlador();
@@ -105,6 +115,12 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
 
             this.fechaInicioDate.setDate(actualEventoModular.getInicio());
             this.fechaFinDate.setDate(actualEventoModular.getFin());
+
+            if (actualEventoModular.getRutaImagen() != null && !actualEventoModular.getRutaImagen().equals("")) {
+                String linkImagen = linkTemplateText.replace("FILENAME", actualEventoModular.getRutaImagen());
+                this.imagenRutaLabel.setText(linkImagen);
+                this.imagenSeleccionada = actualEventoModular.getImagenFile();
+            }
 
             llenarTablaOrganizadores(actualEventoModular.getOrganizadores());
         }
@@ -323,7 +339,12 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
 
         imagenRutaLabel.setFont(new java.awt.Font("Corbel Light", 0, 12)); // NOI18N
         imagenRutaLabel.setForeground(new java.awt.Color(255, 255, 255));
-        imagenRutaLabel.setText("Sin Imagen");
+        imagenRutaLabel.setText(this.noImagen);
+        imagenRutaLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imagenRutaLabelMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout mainDataPanelLayout = new javax.swing.GroupLayout(mainDataPanel);
         mainDataPanel.setLayout(mainDataPanelLayout);
@@ -642,14 +663,24 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
 
     private void imageBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imageBtnActionPerformed
 
-        JFileChooser imageSelector = new JFileChooser();
-        int result = imageSelector.showOpenDialog(null);
+        JFileChooser imageChooser;
+        if (this.imagenSeleccionada == null) {
+            imageChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+        } else {
+            imageChooser = new JFileChooser(this.imagenSeleccionada.getParentFile());
+        }
+        imageChooser.setAcceptAllFileFilterUsed(false);
+        imageChooser.setDialogTitle("Selecciona la imagen.");
+        FileNameExtensionFilter restrict = new FileNameExtensionFilter("Solo Imagenes", "jpg", "png", "jpeg");
+        imageChooser.addChoosableFileFilter(restrict);
 
+        int result = imageChooser.showOpenDialog(null);
         if (result == JFileChooser.APPROVE_OPTION) {
-            String imagePath = imageSelector.getSelectedFile().getAbsolutePath();
-            // Aquí puedes hacer lo que desees con la ruta de la imagen seleccionada
-            System.out.println("Imagen seleccionada: " + imagePath);
-            this.imagenRutaLabel.setText(imagePath);
+            this.imagenSeleccionada = imageChooser.getSelectedFile();
+            String fileName = this.imagenSeleccionada.getName();
+            System.out.println("Imagen seleccionada: " + fileName);
+            String linkImagen = linkTemplateText.replace("FILENAME", fileName);
+            this.imagenRutaLabel.setText(linkImagen);
         }
 
     }//GEN-LAST:event_imageBtnActionPerformed
@@ -711,6 +742,7 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
             eventoModular.setDiaMax(diaMax);
             eventoModular.setHorasTotales(horasTotales);
             eventoModular.setTemario(temario);
+            eventoModular.setImagenFile(this.imagenSeleccionada);
 
             eventoModular.setOrganizadores(this.organizadores);
 
@@ -724,9 +756,9 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
                 JDialog dialog = joptionPane.createDialog("Confirmación");
                 dialog.setAlwaysOnTop(true);
                 dialog.setVisible(true);
-                
+
                 this.parent.refrescarTabla();
-                
+
                 this.setVisible(false);
                 this.dispose();
             } else {
@@ -738,6 +770,17 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_guardarBtnActionPerformed
+
+    private void imagenRutaLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagenRutaLabelMouseClicked
+        // TODO add your handling code here:
+        if(this.imagenSeleccionada != null){
+            try {
+                Desktop.getDesktop().open(imagenSeleccionada);
+            } catch (IOException ex) {
+                Logger.getLogger(SaveModularEventFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_imagenRutaLabelMouseClicked
 
     /**
      * @param args the command line arguments

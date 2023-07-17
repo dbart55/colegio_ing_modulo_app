@@ -1,5 +1,6 @@
 package consejodepartamental.entity;
 
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 
@@ -31,6 +32,8 @@ public class EventoModular {
     private String ambienteNombre;
     private List<Organizador> organizadores;
     private int horasTotales;
+    private File imagenFile;
+    private String rutaImagen;
 
     public EventoModular() {
         this.codigo = 0;
@@ -223,6 +226,22 @@ public class EventoModular {
         this.diaMax = diaMax;
     }
 
+    public File getImagenFile() {
+        return imagenFile;
+    }
+
+    public void setImagenFile(File imagenFile) {
+        this.imagenFile = imagenFile;
+    }
+
+    public String getRutaImagen() {
+        return rutaImagen;
+    }
+
+    public void setRutaImagen(String rutaImagen) {
+        this.rutaImagen = rutaImagen;
+    }
+ 
     @Override
     public String toString() {
         return "EventoModular{" + "codigo=" + codigo + ", cod_modalidad=" + cod_modalidad + ", modalidadNombre=" + modalidadNombre + ", cod_tipo=" + cod_tipo + ", tipoNombre=" + tipoNombre + ", cod_cap=" + cod_cap + ", capituloNombre=" + capituloNombre + ", tema=" + tema + ", cantidad=" + cantidad + ", inicio=" + inicio + ", fin=" + fin + ", horas=" + horas + ", lugar=" + lugar + '}';
