@@ -32,6 +32,16 @@ public class HomeFrame extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         backgroundPanel = new javax.swing.JPanel();
+        sideBarPanel = new javax.swing.JPanel();
+        bottonPanel = new javax.swing.JPanel();
+        bottonBarIcon = new javax.swing.JLabel();
+        cargoLabel = new javax.swing.JLabel();
+        nombreLabel = new javax.swing.JLabel();
+        horaLabel = new javax.swing.JLabel();
+        dniLabel = new javax.swing.JLabel();
+        fechaLabel = new javax.swing.JLabel();
+        tituloLabel = new javax.swing.JLabel();
+        subtituloLabel = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         managementMenu = new javax.swing.JMenu();
@@ -59,15 +69,119 @@ public class HomeFrame extends javax.swing.JFrame {
 
         backgroundPanel.setBackground(new java.awt.Color(23, 33, 42));
 
+        sideBarPanel.setBackground(new java.awt.Color(23, 33, 42));
+        sideBarPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        javax.swing.GroupLayout sideBarPanelLayout = new javax.swing.GroupLayout(sideBarPanel);
+        sideBarPanel.setLayout(sideBarPanelLayout);
+        sideBarPanelLayout.setHorizontalGroup(
+            sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 262, Short.MAX_VALUE)
+        );
+        sideBarPanelLayout.setVerticalGroup(
+            sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 444, Short.MAX_VALUE)
+        );
+
+        bottonPanel.setBackground(new java.awt.Color(24, 33, 36));
+        bottonPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        bottonBarIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/cd_lambayeque.png"))); // NOI18N
+
+        cargoLabel.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
+        cargoLabel.setForeground(new java.awt.Color(255, 255, 255));
+        cargoLabel.setText("SISTEMAS");
+
+        nombreLabel.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
+        nombreLabel.setForeground(new java.awt.Color(255, 255, 255));
+        nombreLabel.setText("DELGADO CHAVARRI ANTHONY HARRIS");
+
+        horaLabel.setFont(new java.awt.Font("Arial Narrow", 0, 48)); // NOI18N
+        horaLabel.setForeground(new java.awt.Color(255, 255, 255));
+        horaLabel.setText("11:40:10 a. m.");
+
+        dniLabel.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
+        dniLabel.setForeground(new java.awt.Color(255, 255, 255));
+        dniLabel.setText("71919831");
+
+        fechaLabel.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
+        fechaLabel.setForeground(new java.awt.Color(255, 255, 255));
+        fechaLabel.setText("viernes, 14 de abril de 2023");
+
+        javax.swing.GroupLayout bottonPanelLayout = new javax.swing.GroupLayout(bottonPanel);
+        bottonPanel.setLayout(bottonPanelLayout);
+        bottonPanelLayout.setHorizontalGroup(
+            bottonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bottonPanelLayout.createSequentialGroup()
+                .addComponent(bottonBarIcon)
+                .addGap(18, 18, 18)
+                .addGroup(bottonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cargoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nombreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dniLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(bottonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bottonPanelLayout.createSequentialGroup()
+                        .addComponent(horaLabel)
+                        .addGap(23, 23, 23))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bottonPanelLayout.createSequentialGroup()
+                        .addComponent(fechaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(48, 48, 48))))
+        );
+        bottonPanelLayout.setVerticalGroup(
+            bottonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bottonPanelLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(bottonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(horaLabel)
+                    .addGroup(bottonPanelLayout.createSequentialGroup()
+                        .addComponent(dniLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(nombreLabel)))
+                .addGroup(bottonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(fechaLabel)
+                    .addGroup(bottonPanelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cargoLabel)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(bottonBarIcon, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        tituloLabel.setFont(new java.awt.Font("Bookman Old Style", 0, 24)); // NOI18N
+        tituloLabel.setForeground(new java.awt.Color(255, 255, 255));
+        tituloLabel.setText("COLEGIO DE INGENIEROS DEL PERÚ");
+
+        subtituloLabel.setFont(new java.awt.Font("Bookman Old Style", 0, 18)); // NOI18N
+        subtituloLabel.setForeground(new java.awt.Color(255, 255, 255));
+        subtituloLabel.setText("Consejo Departamental de Lambayeque");
+
         javax.swing.GroupLayout backgroundPanelLayout = new javax.swing.GroupLayout(backgroundPanel);
         backgroundPanel.setLayout(backgroundPanelLayout);
         backgroundPanelLayout.setHorizontalGroup(
             backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 943, Short.MAX_VALUE)
+            .addGroup(backgroundPanelLayout.createSequentialGroup()
+                .addComponent(sideBarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(backgroundPanelLayout.createSequentialGroup()
+                        .addGap(325, 325, 325)
+                        .addComponent(tituloLabel))
+                    .addGroup(backgroundPanelLayout.createSequentialGroup()
+                        .addGap(384, 384, 384)
+                        .addComponent(subtituloLabel)))
+                .addContainerGap(337, Short.MAX_VALUE))
+            .addComponent(bottonPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         backgroundPanelLayout.setVerticalGroup(
             backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 541, Short.MAX_VALUE)
+            .addGroup(backgroundPanelLayout.createSequentialGroup()
+                .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(sideBarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(backgroundPanelLayout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(tituloLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(subtituloLabel)))
+                .addComponent(bottonPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         fileMenu.setText("Archivo");
@@ -81,6 +195,7 @@ public class HomeFrame extends javax.swing.JFrame {
         eventModularMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/birrete.png"))); // NOI18N
         eventModularMenuItem.setText("Evento");
 
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/libros.png"))); // NOI18N
         jMenuItem1.setText("Eventos Modulares");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,9 +204,11 @@ public class HomeFrame extends javax.swing.JFrame {
         });
         eventModularMenuItem.add(jMenuItem1);
 
+        eventMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/libro.png"))); // NOI18N
         eventMenuItem.setText("Evento");
         eventModularMenuItem.add(eventMenuItem);
 
+        urlMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/microfono.png"))); // NOI18N
         urlMenuItem.setText("URL Sesión y Grabación");
         eventModularMenuItem.add(urlMenuItem);
 
@@ -144,7 +261,7 @@ public class HomeFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(backgroundPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(backgroundPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -174,22 +291,32 @@ public class HomeFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu ReportMenu;
     private javax.swing.JPanel backgroundPanel;
+    private javax.swing.JLabel bottonBarIcon;
+    private javax.swing.JPanel bottonPanel;
+    private javax.swing.JLabel cargoLabel;
     private javax.swing.JMenu cipMenu;
     private javax.swing.JMenu controlEquipmentMenu;
+    private javax.swing.JLabel dniLabel;
     private javax.swing.JMenu electionMenu;
     private javax.swing.JMenuItem emailMenuItem;
     private javax.swing.JMenuItem eventMenuItem;
     private javax.swing.JMenu eventModularMenuItem;
+    private javax.swing.JLabel fechaLabel;
     private javax.swing.JMenu fileMenu;
+    private javax.swing.JLabel horaLabel;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenu managementMenu;
     private javax.swing.JMenuBar menuBar;
+    private javax.swing.JLabel nombreLabel;
     private javax.swing.JMenuItem payAppMenuItem;
     private javax.swing.JMenuItem payVoucherMenuItem;
+    private javax.swing.JPanel sideBarPanel;
     private javax.swing.JMenuItem studentMenuItem;
+    private javax.swing.JLabel subtituloLabel;
+    private javax.swing.JLabel tituloLabel;
     private javax.swing.JMenu transactionMenu;
     private javax.swing.JMenuItem urlMenuItem;
     // End of variables declaration//GEN-END:variables
