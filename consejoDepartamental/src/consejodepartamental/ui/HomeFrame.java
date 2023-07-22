@@ -1,6 +1,7 @@
 package consejodepartamental.ui;
 
 import consejodepartamental.entity.Usuario;
+import consejodepartamental.utils.Reloj;
 
 /**
  *
@@ -17,6 +18,10 @@ public class HomeFrame extends javax.swing.JFrame {
     public HomeFrame(Usuario currentUser) {
         initComponents();
         this.currentUser = currentUser;
+        Reloj reloj = new Reloj((fecha, hora) -> {
+            this.fechaLabel.setText(fecha);
+            this.horaLabel.setText(hora);
+        });
     }
 
     /**
@@ -279,7 +284,7 @@ public class HomeFrame extends javax.swing.JFrame {
             this.modularEventFrame = new ListModularEventFrame();
             this.modularEventFrame.setVisible(true);
             this.modularEventFrame.setLocationRelativeTo(null);
-        }else{
+        } else {
             this.modularEventFrame.requestFocus();
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed

@@ -32,14 +32,12 @@ public class Reloj {
         //viernes, 14 de abril de 2023
         String amOrPm = (12 <= hour && hour <= 23) ? "p. m." : "a. m.";
         int formatedHour = (13 <= hour && hour <= 23) ? (hour - 12) : (hour == 0) ? 12 : hour;
-        String formatedHourText = String.format("%02d", formatedHour);
-        
-        String formatedDate = formatedHourText + ":" + minutes + ":" + seconds + " " + amOrPm;
-        
+        String formatedTime = String.format("%02d", formatedHour) + ":" + String.format("%02d", minutes) + ":" + String.format("%02d", seconds) + " " + amOrPm;
+
         String dayName = this.dayNames[dayWeek - 1];
         String monthName = this.monthNames[month];
 
-        String formatedTime = dayName + ", " + day + " de " + monthName + " de " + year;
+        String formatedDate = dayName + ", " + day + " de " + monthName + " de " + year;
 
         callback.getTime(formatedDate, formatedTime);
     }
