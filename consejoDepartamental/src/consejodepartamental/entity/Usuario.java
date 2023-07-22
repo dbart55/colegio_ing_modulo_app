@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package consejodepartamental.entity;
 
 /**
@@ -15,6 +11,8 @@ public class Usuario {
     private String apellidos;
     private String userName;
     private String password;
+    private String cargo;
+    private String dni;
 
     public Usuario() {
     }
@@ -25,6 +23,15 @@ public class Usuario {
         this.apellidos = apellidos;
         this.userName = userName;
         this.password = password;
+    }
+
+    public Usuario(int userId, String nombres, String apellidos, String userName, String password, String cargo) {
+        this.userId = userId;
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.userName = userName;
+        this.password = password;
+        this.cargo = cargo;
     }
 
     public int getUserId() {
@@ -67,10 +74,25 @@ public class Usuario {
         this.password = password;
     }
 
+    public String getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
+    }
+
+    public String getDni() {
+        return dni;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+
     @Override
     public String toString() {
         return "Usuario{" + "userId=" + userId + ", nombres=" + nombres + ", apellidos=" + apellidos + ", userName=" + userName + '}';
     }
-    
-    
+
 }

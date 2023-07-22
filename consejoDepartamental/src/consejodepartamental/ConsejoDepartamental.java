@@ -1,6 +1,5 @@
 package consejodepartamental;
 
-import consejodepartamental.ui.ListModularEventFrame;
 import consejodepartamental.ui.LoginForm;
 
 /**
@@ -9,11 +8,11 @@ import consejodepartamental.ui.LoginForm;
  */
 public class ConsejoDepartamental {
 
-    public static void main(String[] args){
-        
+    public static void main(String[] args) {
+
         LoginForm initialForm = new LoginForm();
         initialForm.setVisible(true);
         initialForm.setLocationRelativeTo(null);
     }
-    
+
 }
