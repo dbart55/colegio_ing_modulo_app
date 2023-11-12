@@ -36,6 +36,9 @@ public class ListModularEventFrame extends javax.swing.JFrame {
     private SaveModularEventFrame editarEventoModularFrame;
     private SimpleDateFormat formatDDMMYYY;
 
+    private final String[] meses = {"Todos", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto",
+        "Setiembre", "Octubre", "Noviembre", "Diciembre"};
+
     public ListModularEventFrame() {
         initComponents();
 
@@ -58,6 +61,8 @@ public class ListModularEventFrame extends javax.swing.JFrame {
 
         this.tableModel = (DefaultTableModel) this.eventoModularTable.getModel();
 
+        this.mesCombo.setModel(new DefaultComboBoxModel(meses));
+
         this.formatDDMMYYY = new SimpleDateFormat("dd/MM/yyyy");
     }
 
@@ -73,7 +78,9 @@ public class ListModularEventFrame extends javax.swing.JFrame {
         TipoEvento tipoSelected = (TipoEvento) this.tipoEventoCombo.getSelectedItem();
         System.out.println("tipoSelected " + tipoSelected);
 
-        this.eventosModulares = this.controlador.obtenerEventosModulares(codeOrTema, capituloSelected, modalidadSelected, tipoSelected);
+        int mesNum = this.mesCombo.getSelectedIndex();
+
+        this.eventosModulares = this.controlador.obtenerEventosModulares(codeOrTema, capituloSelected, modalidadSelected, tipoSelected, mesNum);
 
         DefaultTableModel tableModel = (DefaultTableModel) this.eventoModularTable.getModel();
         tableModel.setRowCount(0); //limpiar la tabla
@@ -129,6 +136,8 @@ public class ListModularEventFrame extends javax.swing.JFrame {
         searchButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         eventoModularTable = new javax.swing.JTable();
+        mesLabel = new javax.swing.JLabel();
+        mesCombo = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -259,6 +268,13 @@ public class ListModularEventFrame extends javax.swing.JFrame {
             eventoModularTable.getColumnModel().getColumn(9).setPreferredWidth(8);
         }
 
+        mesLabel.setFont(new java.awt.Font("Corbel Light", 0, 16)); // NOI18N
+        mesLabel.setForeground(new java.awt.Color(255, 255, 255));
+        mesLabel.setLabelFor(tipoEventoCombo);
+        mesLabel.setText("Mes");
+
+        mesCombo.setEditable(true);
+
         javax.swing.GroupLayout backgroundPanelLayout = new javax.swing.GroupLayout(backgroundPanel);
         backgroundPanel.setLayout(backgroundPanelLayout);
         backgroundPanelLayout.setHorizontalGroup(
@@ -281,11 +297,14 @@ public class ListModularEventFrame extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tipoEventoLabel)
-                            .addGroup(backgroundPanelLayout.createSequentialGroup()
-                                .addComponent(tipoEventoCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(statusCheck, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 252, Short.MAX_VALUE))
+                            .addComponent(tipoEventoCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(mesLabel)
+                            .addComponent(mesCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                        .addComponent(statusCheck, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))
                     .addComponent(jScrollPane1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -297,18 +316,24 @@ public class ListModularEventFrame extends javax.swing.JFrame {
             backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backgroundPanelLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(capituloLabel)
-                    .addComponent(modalityLabel)
-                    .addComponent(tipoEventoLabel)
-                    .addComponent(codeLabel))
-                .addGap(0, 0, 0)
-                .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(codeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(capituloCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(modalityCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tipoEventoCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(statusCheck))
+                .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(backgroundPanelLayout.createSequentialGroup()
+                        .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(capituloLabel)
+                            .addComponent(modalityLabel)
+                            .addComponent(tipoEventoLabel)
+                            .addComponent(codeLabel))
+                        .addGap(0, 0, 0)
+                        .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(codeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(capituloCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(modalityCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tipoEventoCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(statusCheck)))
+                    .addGroup(backgroundPanelLayout.createSequentialGroup()
+                        .addComponent(mesLabel)
+                        .addGap(0, 0, 0)
+                        .addComponent(mesCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(94, 94, 94))
@@ -407,6 +432,8 @@ public class ListModularEventFrame extends javax.swing.JFrame {
     private javax.swing.JButton deleteButton;
     private javax.swing.JTable eventoModularTable;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JComboBox<String> mesCombo;
+    private javax.swing.JLabel mesLabel;
     private javax.swing.JComboBox<String> modalityCombo;
     private javax.swing.JLabel modalityLabel;
     private javax.swing.JButton searchButton;

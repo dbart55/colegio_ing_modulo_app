@@ -63,7 +63,7 @@ public class Controlador {
         return this.capituloDao.obtenerCapitulos();
     }
 
-    public List<EventoModular> obtenerEventosModulares(String codeOrTema, Capitulo capitulo, EventoModalidad modalidad, TipoEvento tipo) {
+    public List<EventoModular> obtenerEventosModulares(String codeOrTema, Capitulo capitulo, EventoModalidad modalidad, TipoEvento tipo, int mesNum) {
 
         EventoModular filter = new EventoModular();
         if (codeOrTema != null && !codeOrTema.equals("")) {
@@ -78,6 +78,7 @@ public class Controlador {
         filter.setCod_cap(capitulo.getCod_cap());
         filter.setCod_modalidad(modalidad.getCod_modalidad());
         filter.setCod_tipo(tipo.getCod_tipo());
+        filter.setMesNum(mesNum);
 
         return this.eventoModularDao.obtenerEventosModulares(filter);
     }

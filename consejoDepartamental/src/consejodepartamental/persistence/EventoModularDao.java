@@ -39,6 +39,7 @@ public class EventoModularDao {
             int cod_tipo = filter.getCod_tipo();
             int cod_cap = filter.getCod_cap();
             String tema = filter.getTema();
+            int mesNum = filter.getMesNum();
 
             String sql = "SELECT em.codigo, em.cod_modalidad, m.modalidad, "
                     + "em.cod_tipo, t.tipo,  "
@@ -67,6 +68,10 @@ public class EventoModularDao {
             if (tema != null && !tema.equals("")) {
                 tema = tema.toLowerCase();
                 sql += "AND LOWER(em.tema) LIKE '%" + tema + "%' ";
+            }
+
+            if (mesNum != 0) {
+                sql += "AND MONTH(em.inicio) = " + mesNum + " ";
             }
 
             Statement st = this.conexion.getJdbcConnection().createStatement();
@@ -112,9 +117,11 @@ public class EventoModularDao {
             int diaMax = em.getDiaMax();
             int horasTotales = em.getHorasTotales();
             String temario = em.getTemario();
+            String lugar = em.getLugar();
+            String url = em.getUrl();
             List<Organizador> organizadores = em.getOrganizadores();
 
-            String sql = "INSERT INTO eventos_modulares(cod_modalidad, cod_tipo, id_ambiente, cod_cap, tema, temario, cantidad, inicio, fin, dia_max, horas_totales) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO eventos_modulares(cod_modalidad, cod_tipo, id_ambiente, cod_cap, tema, temario, cantidad, inicio, fin, dia_max, horas_totales, lugar, url) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement ps = this.conexion.getJdbcConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, cod_modalidad);
             ps.setInt(2, cod_tipo);
@@ -127,6 +134,8 @@ public class EventoModularDao {
             ps.setDate(9, new Date(em.getFin().getTime()));
             ps.setInt(10, diaMax);
             ps.setInt(11, horasTotales);
+            ps.setString(12, lugar);
+            ps.setString(13, url);
 
             ps.executeUpdate();
 
@@ -172,7 +181,7 @@ public class EventoModularDao {
     public EventoModular obtenerEventoModuarByCodigo(int eventoCodigo) {
         try {
             String sql = "SELECT em.codigo, em.cod_modalidad, em.cod_tipo, em.id_ambiente, em.tema, em.temario, em.cantidad, em.inicio, em.fin,"
-                    + "em.dia_max, em.cod_cap, em.horas_totales, em.ruta_imagen,"
+                    + "em.dia_max, em.cod_cap, em.horas_totales, em.ruta_imagen, em.url, em.lugar,"
                     + "org.CIP, org.DNI, org.organizador, org.celular, org.correo "
                     + "FROM eventos_modulares em "
                     + "LEFT JOIN organizador_por_evento_modular oem ON oem.evento_modular_id = em.codigo "
@@ -213,6 +222,8 @@ public class EventoModularDao {
                     em.setFin(new java.util.Date(rs.getDate("fin").getTime()));
                     em.setDiaMax(rs.getInt("dia_max"));
                     em.setHorasTotales(rs.getInt("horas_totales"));
+                    em.setLugar(rs.getString("lugar"));
+                    em.setUrl(rs.getString("url"));
 
                     String rutaImagen = rs.getString("ruta_imagen");
                     File imagenFile = new File(Paths.get(this.rutaFolder, rutaImagen).toString());

@@ -45,7 +45,7 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
     private File imagenSeleccionada;
     private final String linkTemplateText = "<html><a style='color: white; font-weight: bold; font-size: 10px' href=\"#\">FILENAME</a></html>";
     private final String noImagen = "Sin Imagen";
-    
+
     public SaveModularEventFrame(ListModularEventFrame parent, EventoModular editEventoModular) {
         initComponents();
         this.controlador = new Controlador();
@@ -107,6 +107,14 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
 
             if (actualEventoModular.getTemario() != null) {
                 this.temarioArea.setText(actualEventoModular.getTemario());
+            }
+
+            if (actualEventoModular.getLugar() != null) {
+                this.lugarTextField.setText(actualEventoModular.getLugar());
+            }
+
+            if (actualEventoModular.getUrl() != null) {
+                this.urlTextField.setText(actualEventoModular.getUrl());
             }
 
             this.cantidadSpinner.setValue(actualEventoModular.getCantidad());
@@ -213,6 +221,10 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
         temarioArea = new javax.swing.JTextArea();
         imageBtn = new javax.swing.JButton();
         imagenRutaLabel = new javax.swing.JLabel();
+        lugarLabel = new javax.swing.JLabel();
+        lugarTextField = new javax.swing.JTextField();
+        urlLabel = new javax.swing.JLabel();
+        urlTextField = new javax.swing.JTextField();
         schedulePanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         horarioTable = new javax.swing.JTable();
@@ -346,6 +358,26 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
             }
         });
 
+        lugarLabel.setFont(new java.awt.Font("Corbel Light", 0, 14)); // NOI18N
+        lugarLabel.setForeground(new java.awt.Color(255, 255, 255));
+        lugarLabel.setText("Lugar");
+
+        lugarTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lugarTextFieldActionPerformed(evt);
+            }
+        });
+
+        urlLabel.setFont(new java.awt.Font("Corbel Light", 0, 14)); // NOI18N
+        urlLabel.setForeground(new java.awt.Color(255, 255, 255));
+        urlLabel.setText("URL");
+
+        urlTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                urlTextFieldActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout mainDataPanelLayout = new javax.swing.GroupLayout(mainDataPanel);
         mainDataPanel.setLayout(mainDataPanelLayout);
         mainDataPanelLayout.setHorizontalGroup(
@@ -354,6 +386,7 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(mainDataPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(temaTextField)
+                    .addComponent(jScrollPane1)
                     .addGroup(mainDataPanelLayout.createSequentialGroup()
                         .addGroup(mainDataPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(temaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -407,9 +440,12 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
                                     .addGroup(mainDataPanelLayout.createSequentialGroup()
                                         .addComponent(imageBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(imagenRutaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 39, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1))
+                                        .addComponent(imagenRutaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(lugarLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lugarTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(urlLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(urlTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 39, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         mainDataPanelLayout.setVerticalGroup(
@@ -456,11 +492,19 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
                     .addGroup(mainDataPanelLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(imageBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                .addGap(25, 25, 25)
+                .addGap(18, 18, 18)
+                .addComponent(lugarLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lugarTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(urlLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(urlTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addComponent(syllabusLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         tabPanel.addTab("Datos Principales", mainDataPanel);
@@ -507,7 +551,7 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
             .addGroup(schedulePanelLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(249, Short.MAX_VALUE))
+                .addContainerGap(359, Short.MAX_VALUE))
         );
 
         tabPanel.addTab("Horario", schedulePanel);
@@ -596,7 +640,7 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
                 .addGroup(organizerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(organizadorBtnPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(228, Short.MAX_VALUE))
+                .addContainerGap(338, Short.MAX_VALUE))
         );
 
         tabPanel.addTab("Organizadores", organizerPanel);
@@ -634,24 +678,24 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
             .addGroup(backgroundPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(tabPanel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(guardarBtn)
                     .addComponent(cancelarBtn))
-                .addGap(23, 23, 23))
+                .addGap(11, 11, 11))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(backgroundPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(backgroundPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(backgroundPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(backgroundPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -730,6 +774,9 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
             int horasTotales = (int) this.horasSpiner.getValue();
             String temario = this.temarioArea.getText();
 
+            String lugar = this.lugarTextField.getText();
+            String url = this.urlTextField.getText();
+
             EventoModular eventoModular = new EventoModular();
             eventoModular.setCod_cap(capituloSelected.getCod_cap());
             eventoModular.setCod_modalidad(modalidadSelected.getCod_modalidad());
@@ -743,6 +790,8 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
             eventoModular.setHorasTotales(horasTotales);
             eventoModular.setTemario(temario);
             eventoModular.setImagenFile(this.imagenSeleccionada);
+            eventoModular.setLugar(lugar);
+            eventoModular.setUrl(url);
 
             eventoModular.setOrganizadores(this.organizadores);
 
@@ -773,7 +822,7 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
 
     private void imagenRutaLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagenRutaLabelMouseClicked
         // TODO add your handling code here:
-        if(this.imagenSeleccionada != null){
+        if (this.imagenSeleccionada != null) {
             try {
                 Desktop.getDesktop().open(imagenSeleccionada);
             } catch (IOException ex) {
@@ -781,6 +830,14 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_imagenRutaLabelMouseClicked
+
+    private void lugarTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lugarTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lugarTextFieldActionPerformed
+
+    private void urlTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_urlTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_urlTextFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -814,6 +871,8 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel lugarLabel;
+    private javax.swing.JTextField lugarTextField;
     private javax.swing.JPanel mainDataPanel;
     private javax.swing.JLabel maxQuantityLabel;
     private javax.swing.JComboBox<String> modalidadCombo;
@@ -833,5 +892,7 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> tipoCombo;
     private javax.swing.JLabel totalHoursLabel;
     private javax.swing.JLabel trainingTypeLabel1;
+    private javax.swing.JLabel urlLabel;
+    private javax.swing.JTextField urlTextField;
     // End of variables declaration//GEN-END:variables
 }

@@ -34,6 +34,8 @@ public class EventoModular {
     private int horasTotales;
     private File imagenFile;
     private String rutaImagen;
+    private int mesNum;
+    private String url;
 
     public EventoModular() {
         this.codigo = 0;
@@ -241,7 +243,24 @@ public class EventoModular {
     public void setRutaImagen(String rutaImagen) {
         this.rutaImagen = rutaImagen;
     }
- 
+
+    public int getMesNum() {
+        return mesNum;
+    }
+
+    public void setMesNum(int mesNum) {
+        this.mesNum = mesNum;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+    
+    
     @Override
     public String toString() {
         return "EventoModular{" + "codigo=" + codigo + ", cod_modalidad=" + cod_modalidad + ", modalidadNombre=" + modalidadNombre + ", cod_tipo=" + cod_tipo + ", tipoNombre=" + tipoNombre + ", cod_cap=" + cod_cap + ", capituloNombre=" + capituloNombre + ", tema=" + tema + ", cantidad=" + cantidad + ", inicio=" + inicio + ", fin=" + fin + ", horas=" + horas + ", lugar=" + lugar + '}';
