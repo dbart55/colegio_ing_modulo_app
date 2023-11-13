@@ -225,9 +225,6 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
         lugarTextField = new javax.swing.JTextField();
         urlLabel = new javax.swing.JLabel();
         urlTextField = new javax.swing.JTextField();
-        schedulePanel = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        horarioTable = new javax.swing.JTable();
         organizerPanel = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         organizadoresTable = new javax.swing.JTable();
@@ -509,53 +506,6 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
 
         tabPanel.addTab("Datos Principales", mainDataPanel);
 
-        schedulePanel.setBackground(new java.awt.Color(23, 33, 42));
-        schedulePanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        horarioTable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        horarioTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"Lunes", null, null, null, null, "", null, "    00:00"},
-                {"Martes", null, null, null, null, null, null, "    00:00"},
-                {"Miercoles", null, null, null, null, null, null, "    00:00"},
-                {"Jueves", null, null, null, null, null, null, "    00:00"},
-                {"Viernes", null, null, null, null, null, null, "    00:00"},
-                {"Sabado", null, null, null, null, null, null, "    00:00"},
-                {"Domingo", null, null, null, null, null, null, "    00:00"}
-            },
-            new String [] {
-                "Dia", "Inicio", "Fin", "Inicio", "Fin", "Inicio", "Fin", "Total"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane2.setViewportView(horarioTable);
-
-        javax.swing.GroupLayout schedulePanelLayout = new javax.swing.GroupLayout(schedulePanel);
-        schedulePanel.setLayout(schedulePanelLayout);
-        schedulePanelLayout.setHorizontalGroup(
-            schedulePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(schedulePanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 575, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(371, Short.MAX_VALUE))
-        );
-        schedulePanelLayout.setVerticalGroup(
-            schedulePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(schedulePanelLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(359, Short.MAX_VALUE))
-        );
-
-        tabPanel.addTab("Horario", schedulePanel);
-
         organizerPanel.setBackground(new java.awt.Color(23, 33, 42));
         organizerPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -701,57 +651,6 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void temaTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temaTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_temaTextFieldActionPerformed
-
-    private void imageBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imageBtnActionPerformed
-
-        JFileChooser imageChooser;
-        if (this.imagenSeleccionada == null) {
-            imageChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-        } else {
-            imageChooser = new JFileChooser(this.imagenSeleccionada.getParentFile());
-        }
-        imageChooser.setAcceptAllFileFilterUsed(false);
-        imageChooser.setDialogTitle("Selecciona la imagen.");
-        FileNameExtensionFilter restrict = new FileNameExtensionFilter("Solo Imagenes", "jpg", "png", "jpeg");
-        imageChooser.addChoosableFileFilter(restrict);
-
-        int result = imageChooser.showOpenDialog(null);
-        if (result == JFileChooser.APPROVE_OPTION) {
-            this.imagenSeleccionada = imageChooser.getSelectedFile();
-            String fileName = this.imagenSeleccionada.getName();
-            System.out.println("Imagen seleccionada: " + fileName);
-            String linkImagen = linkTemplateText.replace("FILENAME", fileName);
-            this.imagenRutaLabel.setText(linkImagen);
-        }
-
-    }//GEN-LAST:event_imageBtnActionPerformed
-
-    private void agregarOrganizadorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarOrganizadorBtnActionPerformed
-        if (this.buscarOrganizadorFrame == null || !this.buscarOrganizadorFrame.isDisplayable()) {
-            this.buscarOrganizadorFrame = new BuscarOrganizadorFrame(this);
-            this.buscarOrganizadorFrame.setVisible(true);
-            this.buscarOrganizadorFrame.setLocationRelativeTo(null);
-        } else {
-            this.buscarOrganizadorFrame.requestFocus();
-        }
-    }//GEN-LAST:event_agregarOrganizadorBtnActionPerformed
-
-    private void removerOrganizadorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerOrganizadorBtnActionPerformed
-
-        int rowSelectedIndex = this.organizadoresTable.getSelectedRow();
-        if (rowSelectedIndex != -1) {
-            DefaultTableModel tableModel = (DefaultTableModel) this.organizadoresTable.getModel();
-            int cip = (int) tableModel.getValueAt(rowSelectedIndex, 0);
-            if (cip != 0) {
-                this.organizadores.remove(new Organizador(cip));
-            }
-            tableModel.removeRow(rowSelectedIndex);
-        }
-    }//GEN-LAST:event_removerOrganizadorBtnActionPerformed
-
     private void cancelarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarBtnActionPerformed
         this.setVisible(false);
         this.dispose();
@@ -820,6 +719,37 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_guardarBtnActionPerformed
 
+    private void removerOrganizadorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerOrganizadorBtnActionPerformed
+
+        int rowSelectedIndex = this.organizadoresTable.getSelectedRow();
+        if (rowSelectedIndex != -1) {
+            DefaultTableModel tableModel = (DefaultTableModel) this.organizadoresTable.getModel();
+            int cip = (int) tableModel.getValueAt(rowSelectedIndex, 0);
+            if (cip != 0) {
+                this.organizadores.remove(new Organizador(cip));
+            }
+            tableModel.removeRow(rowSelectedIndex);
+        }
+    }//GEN-LAST:event_removerOrganizadorBtnActionPerformed
+
+    private void agregarOrganizadorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarOrganizadorBtnActionPerformed
+        if (this.buscarOrganizadorFrame == null || !this.buscarOrganizadorFrame.isDisplayable()) {
+            this.buscarOrganizadorFrame = new BuscarOrganizadorFrame(this);
+            this.buscarOrganizadorFrame.setVisible(true);
+            this.buscarOrganizadorFrame.setLocationRelativeTo(null);
+        } else {
+            this.buscarOrganizadorFrame.requestFocus();
+        }
+    }//GEN-LAST:event_agregarOrganizadorBtnActionPerformed
+
+    private void urlTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_urlTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_urlTextFieldActionPerformed
+
+    private void lugarTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lugarTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lugarTextFieldActionPerformed
+
     private void imagenRutaLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagenRutaLabelMouseClicked
         // TODO add your handling code here:
         if (this.imagenSeleccionada != null) {
@@ -831,13 +761,32 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_imagenRutaLabelMouseClicked
 
-    private void lugarTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lugarTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lugarTextFieldActionPerformed
+    private void imageBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imageBtnActionPerformed
 
-    private void urlTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_urlTextFieldActionPerformed
+        JFileChooser imageChooser;
+        if (this.imagenSeleccionada == null) {
+            imageChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+        } else {
+            imageChooser = new JFileChooser(this.imagenSeleccionada.getParentFile());
+        }
+        imageChooser.setAcceptAllFileFilterUsed(false);
+        imageChooser.setDialogTitle("Selecciona la imagen.");
+        FileNameExtensionFilter restrict = new FileNameExtensionFilter("Solo Imagenes", "jpg", "png", "jpeg");
+        imageChooser.addChoosableFileFilter(restrict);
+
+        int result = imageChooser.showOpenDialog(null);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            this.imagenSeleccionada = imageChooser.getSelectedFile();
+            String fileName = this.imagenSeleccionada.getName();
+            System.out.println("Imagen seleccionada: " + fileName);
+            String linkImagen = linkTemplateText.replace("FILENAME", fileName);
+            this.imagenRutaLabel.setText(linkImagen);
+        }
+    }//GEN-LAST:event_imageBtnActionPerformed
+
+    private void temaTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temaTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_urlTextFieldActionPerformed
+    }//GEN-LAST:event_temaTextFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -857,7 +806,6 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser fechaFinDate;
     private com.toedter.calendar.JDateChooser fechaInicioDate;
     private javax.swing.JButton guardarBtn;
-    private javax.swing.JTable horarioTable;
     private javax.swing.JSpinner horasSpiner;
     private javax.swing.JButton imageBtn;
     private javax.swing.JLabel imageLabel;
@@ -869,7 +817,6 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
     private javax.swing.JFileChooser jFileChooser3;
     private javax.swing.JFileChooser jFileChooser4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lugarLabel;
     private javax.swing.JTextField lugarTextField;
@@ -883,7 +830,6 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
     private javax.swing.JLabel organizerLabel;
     private javax.swing.JPanel organizerPanel;
     private javax.swing.JButton removerOrganizadorBtn;
-    private javax.swing.JPanel schedulePanel;
     private javax.swing.JLabel syllabusLabel;
     private javax.swing.JTabbedPane tabPanel;
     private javax.swing.JLabel temaLabel;
