@@ -1,6 +1,8 @@
 package consejodepartamental.ui;
 
+import consejodepartamental.entity.Sesion;
 import consejodepartamental.entity.Usuario;
+import consejodepartamental.logic.Controlador;
 import consejodepartamental.utils.Reloj;
 import java.util.Random;
 
@@ -14,11 +16,15 @@ public class HomeFrame extends javax.swing.JFrame {
      * Creates new form HomeFrame
      */
     private Usuario currentUser;
+    private Sesion currentSesion;
+    private Controlador controlador;
     private ListModularEventFrame modularEventFrame;
 
-    public HomeFrame(Usuario currentUser) {
+    public HomeFrame(Usuario currentUser, Sesion currentSesion) {
         initComponents();
         this.currentUser = currentUser;
+        this.currentSesion = currentSesion;
+        this.controlador = new Controlador();
         actualizarValoresUsuario();
         actualizarTipoDeCambio();
         Reloj reloj = new Reloj((fecha, hora) -> {
@@ -84,6 +90,7 @@ public class HomeFrame extends javax.swing.JFrame {
         fechaLabel = new javax.swing.JLabel();
         tituloLabel = new javax.swing.JLabel();
         subtituloLabel = new javax.swing.JLabel();
+        logoutBtn = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         managementMenu = new javax.swing.JMenu();
@@ -265,6 +272,13 @@ public class HomeFrame extends javax.swing.JFrame {
         subtituloLabel.setForeground(new java.awt.Color(255, 255, 255));
         subtituloLabel.setText("Consejo Departamental de Lambayeque");
 
+        logoutBtn.setText("Cerrar Sesión");
+        logoutBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout backgroundPanelLayout = new javax.swing.GroupLayout(backgroundPanel);
         backgroundPanel.setLayout(backgroundPanelLayout);
         backgroundPanelLayout.setHorizontalGroup(
@@ -273,12 +287,17 @@ public class HomeFrame extends javax.swing.JFrame {
                 .addComponent(sideBarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(backgroundPanelLayout.createSequentialGroup()
-                        .addGap(325, 325, 325)
-                        .addComponent(tituloLabel))
-                    .addGroup(backgroundPanelLayout.createSequentialGroup()
-                        .addGap(384, 384, 384)
-                        .addComponent(subtituloLabel)))
-                .addContainerGap(339, Short.MAX_VALUE))
+                        .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(backgroundPanelLayout.createSequentialGroup()
+                                .addGap(325, 325, 325)
+                                .addComponent(tituloLabel))
+                            .addGroup(backgroundPanelLayout.createSequentialGroup()
+                                .addGap(384, 384, 384)
+                                .addComponent(subtituloLabel)))
+                        .addContainerGap(339, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundPanelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(logoutBtn))))
             .addComponent(bottonPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         backgroundPanelLayout.setVerticalGroup(
@@ -286,7 +305,8 @@ public class HomeFrame extends javax.swing.JFrame {
             .addGroup(backgroundPanelLayout.createSequentialGroup()
                 .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(backgroundPanelLayout.createSequentialGroup()
-                        .addGap(36, 36, 36)
+                        .addComponent(logoutBtn)
+                        .addGap(9, 9, 9)
                         .addComponent(tituloLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(subtituloLabel))
@@ -397,6 +417,16 @@ public class HomeFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
+        LoginForm loginForm = new LoginForm();
+        loginForm.setVisible(true);
+        loginForm.setLocationRelativeTo(null);
+        
+        this.setVisible(false);
+        this.dispose();
+        this.controlador.eliminarSesion(this.currentSesion);
+    }//GEN-LAST:event_logoutBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -424,6 +454,7 @@ public class HomeFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JButton logoutBtn;
     private javax.swing.JMenu managementMenu;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JLabel nombreLabel;

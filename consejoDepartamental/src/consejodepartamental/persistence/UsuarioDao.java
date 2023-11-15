@@ -19,7 +19,7 @@ public class UsuarioDao {
         this.conexion = conexion;
     }
 
-    public Usuario obtenerUsuario(String userName, String password) {
+    public Usuario obtenerUsuarioPorCredenciales(String userName, String password) {
         try {
             String sql = "SELECT user_id, nombres, apellidos, dni, cargo, username FROM usuario "
                     + "WHERE username=? AND password=?";
@@ -27,6 +27,33 @@ public class UsuarioDao {
             PreparedStatement ps = this.conexion.getJdbcConnection().prepareStatement(sql);
             ps.setString(1, userName);
             ps.setString(2, password);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Usuario usuario = new Usuario();
+                usuario.setUserId(rs.getInt("user_id"));
+                usuario.setUserName(rs.getString("username"));
+                usuario.setNombres(rs.getString("nombres"));
+                usuario.setApellidos(rs.getString("apellidos"));
+                usuario.setCargo(rs.getString("cargo"));
+                usuario.setDni(rs.getString("dni"));
+
+                return usuario;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public Usuario obtenerUsuarioPorId(int userId){
+          try {
+            String sql = "SELECT user_id, nombres, apellidos, dni, cargo, username FROM usuario "
+                    + "WHERE user_id=?";
+
+            PreparedStatement ps = this.conexion.getJdbcConnection().prepareStatement(sql);
+            ps.setInt(1, userId);
 
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {

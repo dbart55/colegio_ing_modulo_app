@@ -196,9 +196,9 @@
                                       <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" attributes="0">
-                                                  <Component id="dateStartLabel" min="-2" pref="110" max="-2" attributes="0"/>
+                                                  <Component id="fechaInicioLabel" min="-2" pref="110" max="-2" attributes="0"/>
                                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                  <Component id="dateEndLabel" min="-2" pref="110" max="-2" attributes="0"/>
+                                                  <Component id="fechaFinLabel" min="-2" pref="110" max="-2" attributes="0"/>
                                               </Group>
                                               <Group type="102" attributes="0">
                                                   <Component id="fechaInicioDate" min="-2" pref="114" max="-2" attributes="0"/>
@@ -273,8 +273,8 @@
                           <Component id="temaTextField" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="dateStartLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="dateEndLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="fechaInicioLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="fechaFinLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="maxQuantityLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="dayMaxLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="totalHoursLabel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -385,7 +385,7 @@
                     <Property name="text" type="java.lang.String" value="Imagen"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="dateStartLabel">
+                <Component class="javax.swing.JLabel" name="fechaInicioLabel">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Corbel Light" size="14" style="0"/>
@@ -396,7 +396,7 @@
                     <Property name="text" type="java.lang.String" value="Fecha Inicio"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="dateEndLabel">
+                <Component class="javax.swing.JLabel" name="fechaFinLabel">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Corbel Light" size="14" style="0"/>

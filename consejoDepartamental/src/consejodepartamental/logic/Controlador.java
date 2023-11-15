@@ -5,6 +5,7 @@ import consejodepartamental.entity.Capitulo;
 import consejodepartamental.entity.EventoModalidad;
 import consejodepartamental.entity.EventoModular;
 import consejodepartamental.entity.Organizador;
+import consejodepartamental.entity.Sesion;
 import consejodepartamental.entity.TipoEvento;
 import consejodepartamental.entity.Usuario;
 import consejodepartamental.persistence.AmbienteDao;
@@ -13,6 +14,7 @@ import consejodepartamental.persistence.Conexion;
 import consejodepartamental.persistence.EventoModalidadDao;
 import consejodepartamental.persistence.EventoModularDao;
 import consejodepartamental.persistence.OrganizadorDao;
+import consejodepartamental.persistence.SesionDao;
 import consejodepartamental.persistence.TipoEventoDao;
 import consejodepartamental.persistence.UsuarioDao;
 import java.util.List;
@@ -31,6 +33,7 @@ public class Controlador {
     private CapituloDao capituloDao;
     private EventoModularDao eventoModularDao;
     private AmbienteDao ambienteDao;
+    private SesionDao sesionDao;
 
     public Controlador() {
         this.conexion = new Conexion();
@@ -41,10 +44,15 @@ public class Controlador {
         this.capituloDao = new CapituloDao(this.conexion);
         this.eventoModularDao = new EventoModularDao(this.conexion);
         this.ambienteDao = new AmbienteDao(this.conexion);
+        this.sesionDao = new SesionDao(this.conexion);
     }
 
-    public Usuario obtenerUsuario(String userName, String password) {
-        return this.usuarioDao.obtenerUsuario(userName, password);
+    public Usuario obtenerUsuarioPorCredenciales(String userName, String password) {
+        return this.usuarioDao.obtenerUsuarioPorCredenciales(userName, password);
+    }
+
+    public Usuario obtenerUsuarioPorId(int userId) {
+        return this.usuarioDao.obtenerUsuarioPorId(userId);
     }
 
     public List<Organizador> obtenerOrganizadores() {
@@ -120,4 +128,17 @@ public class Controlador {
     public boolean eliminarEventoModular(int emCodigo) {
         return this.eventoModularDao.eliminarEventoModular(emCodigo);
     }
+
+    public Sesion crearSesion(int userId, boolean recordarUsuario) {
+        return this.sesionDao.crearSesion(new Sesion(userId, recordarUsuario));
+    }
+
+    public boolean eliminarSesion(Sesion sesion) {
+        return this.sesionDao.eliminarSesion(sesion);
+    }
+
+    public Sesion obtenerUltimaSesion() {
+        return this.sesionDao.obtenerUltimSesion();
+    }
+
 }

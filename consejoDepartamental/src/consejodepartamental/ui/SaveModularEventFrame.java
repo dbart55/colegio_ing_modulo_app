@@ -162,12 +162,68 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
     }
 
     private boolean validarCamposObligatorios() {
-        return true;
+
+        Capitulo capituloSelected = (Capitulo) this.organizadorCombo.getSelectedItem();
+        EventoModalidad modalidadSelected = (EventoModalidad) this.modalidadCombo.getSelectedItem();
+        TipoEvento tipoSelected = (TipoEvento) this.tipoCombo.getSelectedItem();
+        Ambiente ambienteSelected = (Ambiente) this.ambienteCombo.getSelectedItem();
+        String tema = this.temaTextField.getText();
+        Date fechaInicio = this.fechaInicioDate.getDate();
+        Date fechaFin = this.fechaFinDate.getDate();
+
+        int cantidad = (int) this.cantidadSpinner.getValue();
+        int diaMax = (int) this.diasSpinner.getValue();
+        int horasTotales = (int) this.horasSpiner.getValue();
+        String temario = this.temarioArea.getText();
+
+        String lugar = this.lugarTextField.getText();
+        String url = this.urlTextField.getText();
+
+        String camposObligatorios = "";
+        boolean esValido = true;
+
+        if (fechaInicio == null) {
+            camposObligatorios += "\n-" + this.fechaInicioLabel.getText();
+            esValido = false;
+        }
+
+        if (fechaFin == null) {
+            camposObligatorios += "\n-" + this.fechaFinLabel.getText();
+            esValido = false;
+        }
+
+        if (!esValido) {
+
+            JOptionPane joptionPane = new JOptionPane("Debe completar los siguientes campos: " + camposObligatorios);
+            joptionPane.setMessageType(JOptionPane.WARNING_MESSAGE);
+            JDialog dialog = joptionPane.createDialog("Advertencia");
+            dialog.setAlwaysOnTop(true);
+            dialog.setVisible(true);
+
+        }
+
+        return esValido;
     }
 
     private boolean validarOrganizadores() {
         if (this.organizadores == null || this.organizadores.isEmpty()) {
             JOptionPane joptionPane = new JOptionPane("Debe ingresar al menos 1 organizador.");
+            joptionPane.setMessageType(JOptionPane.WARNING_MESSAGE);
+            JDialog dialog = joptionPane.createDialog("Advertencia");
+            dialog.setAlwaysOnTop(true);
+            dialog.setVisible(true);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validarFechas() {
+        Date fechaInicio = this.fechaInicioDate.getDate();
+
+        Date fechaFin = this.fechaFinDate.getDate();
+
+        if (fechaFin.before(fechaInicio)) {
+            JOptionPane joptionPane = new JOptionPane("La fecha de fin debe ser posterior a la fecha de inicio");
             joptionPane.setMessageType(JOptionPane.WARNING_MESSAGE);
             JDialog dialog = joptionPane.createDialog("Advertencia");
             dialog.setAlwaysOnTop(true);
@@ -201,8 +257,8 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
         trainingTypeLabel1 = new javax.swing.JLabel();
         temaLabel = new javax.swing.JLabel();
         imageLabel = new javax.swing.JLabel();
-        dateStartLabel = new javax.swing.JLabel();
-        dateEndLabel = new javax.swing.JLabel();
+        fechaInicioLabel = new javax.swing.JLabel();
+        fechaFinLabel = new javax.swing.JLabel();
         maxQuantityLabel = new javax.swing.JLabel();
         dayMaxLabel = new javax.swing.JLabel();
         totalHoursLabel = new javax.swing.JLabel();
@@ -293,13 +349,13 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
         imageLabel.setForeground(new java.awt.Color(255, 255, 255));
         imageLabel.setText("Imagen");
 
-        dateStartLabel.setFont(new java.awt.Font("Corbel Light", 0, 14)); // NOI18N
-        dateStartLabel.setForeground(new java.awt.Color(255, 255, 255));
-        dateStartLabel.setText("Fecha Inicio");
+        fechaInicioLabel.setFont(new java.awt.Font("Corbel Light", 0, 14)); // NOI18N
+        fechaInicioLabel.setForeground(new java.awt.Color(255, 255, 255));
+        fechaInicioLabel.setText("Fecha Inicio");
 
-        dateEndLabel.setFont(new java.awt.Font("Corbel Light", 0, 14)); // NOI18N
-        dateEndLabel.setForeground(new java.awt.Color(255, 255, 255));
-        dateEndLabel.setText("Fecha Fin");
+        fechaFinLabel.setFont(new java.awt.Font("Corbel Light", 0, 14)); // NOI18N
+        fechaFinLabel.setForeground(new java.awt.Color(255, 255, 255));
+        fechaFinLabel.setText("Fecha Fin");
 
         maxQuantityLabel.setFont(new java.awt.Font("Corbel Light", 0, 14)); // NOI18N
         maxQuantityLabel.setForeground(new java.awt.Color(255, 255, 255));
@@ -410,9 +466,9 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
                             .addGroup(mainDataPanelLayout.createSequentialGroup()
                                 .addGroup(mainDataPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(mainDataPanelLayout.createSequentialGroup()
-                                        .addComponent(dateStartLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(fechaInicioLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(dateEndLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(fechaFinLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(mainDataPanelLayout.createSequentialGroup()
                                         .addComponent(fechaInicioDate, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -468,8 +524,8 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
                 .addComponent(temaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(mainDataPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dateStartLabel)
-                    .addComponent(dateEndLabel)
+                    .addComponent(fechaInicioLabel)
+                    .addComponent(fechaFinLabel)
                     .addComponent(maxQuantityLabel)
                     .addComponent(dayMaxLabel)
                     .addComponent(totalHoursLabel)
@@ -657,7 +713,7 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelarBtnActionPerformed
 
     private void guardarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarBtnActionPerformed
-        if (validarCamposObligatorios() && validarOrganizadores()) {
+        if (validarCamposObligatorios() && validarOrganizadores() && validarFechas()) {
             Capitulo capituloSelected = (Capitulo) this.organizadorCombo.getSelectedItem();
             EventoModalidad modalidadSelected = (EventoModalidad) this.modalidadCombo.getSelectedItem();
             TipoEvento tipoSelected = (TipoEvento) this.tipoCombo.getSelectedItem();
@@ -798,13 +854,13 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
     private javax.swing.JPanel backgroundPanel;
     private javax.swing.JButton cancelarBtn;
     private javax.swing.JSpinner cantidadSpinner;
-    private javax.swing.JLabel dateEndLabel;
-    private javax.swing.JLabel dateStartLabel;
     private javax.swing.JLabel dayMaxLabel;
     private javax.swing.JSpinner diasSpinner;
     private javax.swing.JLabel enviromentLabel;
     private com.toedter.calendar.JDateChooser fechaFinDate;
+    private javax.swing.JLabel fechaFinLabel;
     private com.toedter.calendar.JDateChooser fechaInicioDate;
+    private javax.swing.JLabel fechaInicioLabel;
     private javax.swing.JButton guardarBtn;
     private javax.swing.JSpinner horasSpiner;
     private javax.swing.JButton imageBtn;
