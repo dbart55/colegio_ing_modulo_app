@@ -121,7 +121,7 @@ public class EventoModularDao {
             String url = em.getUrl();
             List<Organizador> organizadores = em.getOrganizadores();
 
-            String sql = "INSERT INTO eventos_modulares(cod_modalidad, cod_tipo, id_ambiente, cod_cap, tema, temario, cantidad, inicio, fin, dia_max, horas_totales, lugar, url) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO eventos_modulares(cod_modalidad, cod_tipo, id_ambiente, cod_cap, tema, temario, cantidad, inicio, fin, dia_max, horas_totales, lugar, url, ruta_imagen) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement ps = this.conexion.getJdbcConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, cod_modalidad);
             ps.setInt(2, cod_tipo);
@@ -136,6 +136,7 @@ public class EventoModularDao {
             ps.setInt(11, horasTotales);
             ps.setString(12, lugar);
             ps.setString(13, url);
+            ps.setString(14, "");
 
             ps.executeUpdate();
 
@@ -226,12 +227,16 @@ public class EventoModularDao {
                     em.setUrl(rs.getString("url"));
 
                     String rutaImagen = rs.getString("ruta_imagen");
-                    File imagenFile = new File(Paths.get(this.rutaFolder, rutaImagen).toString());
-                    System.out.println("imagenFile: " + Paths.get(this.rutaFolder, rutaImagen).toString());
-                    if (imagenFile.exists()) {
-                        em.setImagenFile(imagenFile);
-                    } else {
+                    if (rutaImagen == null || rutaImagen.equals("")) {
                         rutaImagen = "";
+                    } else {
+                        File imagenFile = new File(Paths.get(this.rutaFolder, rutaImagen).toString());
+                        System.out.println("imagenFile: " + Paths.get(this.rutaFolder, rutaImagen).toString());
+                        if (imagenFile.exists()) {
+                            em.setImagenFile(imagenFile);
+                        } else {
+                            rutaImagen = "";
+                        }
                     }
 
                     em.setRutaImagen(rutaImagen);
@@ -262,10 +267,11 @@ public class EventoModularDao {
                 int diaMax = em.getDiaMax();
                 int horasTotales = em.getHorasTotales();
                 String temario = em.getTemario();
+                String url = em.getUrl();
                 List<Organizador> organizadores = em.getOrganizadores();
 
                 String sql = "UPDATE eventos_modulares SET cod_modalidad=?, cod_tipo=?, id_ambiente=?, cod_cap=?, tema=?, temario=?, "
-                        + "cantidad=?, inicio=?, fin=?, dia_max=?, horas_totales=? WHERE codigo=?";
+                        + "cantidad=?, inicio=?, fin=?, dia_max=?, horas_totales=?, ruta_imagen=?, url=? WHERE codigo=?";
                 PreparedStatement ps = this.conexion.getJdbcConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                 ps.setInt(1, cod_modalidad);
                 ps.setInt(2, cod_tipo);
@@ -278,7 +284,9 @@ public class EventoModularDao {
                 ps.setDate(9, new Date(em.getFin().getTime()));
                 ps.setInt(10, diaMax);
                 ps.setInt(11, horasTotales);
-                ps.setInt(12, em.getCodigo());
+                ps.setString(12, "");
+                ps.setString(13, url);
+                ps.setInt(14, em.getCodigo());
 
                 ps.executeUpdate();
 
