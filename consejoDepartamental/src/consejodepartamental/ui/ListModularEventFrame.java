@@ -96,7 +96,7 @@ public class ListModularEventFrame extends javax.swing.JFrame {
             cells[5] = em.getCantidad();
             cells[6] = this.formatDDMMYYY.format(em.getInicio());
             cells[7] = this.formatDDMMYYY.format(em.getFin());
-            cells[8] = em.getHoras();
+            cells[8] = em.getHorasTotales();
             cells[9] = em.getLugar();
             tableModel.addRow(cells);
         }
@@ -141,64 +141,64 @@ public class ListModularEventFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        backgroundPanel.setBackground(new java.awt.Color(23, 33, 42));
+        backgroundPanel.setBackground(new java.awt.Color(255, 255, 255));
 
-        capituloLabel.setFont(new java.awt.Font("Corbel Light", 0, 16)); // NOI18N
-        capituloLabel.setForeground(new java.awt.Color(255, 255, 255));
+        capituloLabel.setFont(new java.awt.Font("Corbel Light", 1, 16)); // NOI18N
+        capituloLabel.setForeground(new java.awt.Color(0, 0, 0));
         capituloLabel.setLabelFor(capituloCombo);
         capituloLabel.setText("Organizadores");
 
         codeLabel.setBackground(new java.awt.Color(255, 255, 255));
-        codeLabel.setFont(new java.awt.Font("Corbel Light", 0, 16)); // NOI18N
-        codeLabel.setForeground(new java.awt.Color(255, 255, 255));
+        codeLabel.setFont(new java.awt.Font("Corbel Light", 1, 16)); // NOI18N
+        codeLabel.setForeground(new java.awt.Color(0, 0, 0));
         codeLabel.setLabelFor(codeTextField);
         codeLabel.setText("Codigo o Tema");
 
         capituloCombo.setEditable(true);
 
-        modalityLabel.setFont(new java.awt.Font("Corbel Light", 0, 16)); // NOI18N
-        modalityLabel.setForeground(new java.awt.Color(255, 255, 255));
+        modalityLabel.setFont(new java.awt.Font("Corbel Light", 1, 16)); // NOI18N
+        modalityLabel.setForeground(new java.awt.Color(0, 0, 0));
         modalityLabel.setLabelFor(modalityCombo);
         modalityLabel.setText("Modalidad");
 
         tipoEventoCombo.setEditable(true);
 
-        tipoEventoLabel.setFont(new java.awt.Font("Corbel Light", 0, 16)); // NOI18N
-        tipoEventoLabel.setForeground(new java.awt.Color(255, 255, 255));
+        tipoEventoLabel.setFont(new java.awt.Font("Corbel Light", 1, 16)); // NOI18N
+        tipoEventoLabel.setForeground(new java.awt.Color(0, 0, 0));
         tipoEventoLabel.setLabelFor(tipoEventoCombo);
         tipoEventoLabel.setText("Tipo capacitación");
 
         modalityCombo.setEditable(true);
 
-        statusCheck.setBackground(new java.awt.Color(23, 33, 42));
-        statusCheck.setFont(new java.awt.Font("Corbel Light", 0, 14)); // NOI18N
-        statusCheck.setForeground(new java.awt.Color(255, 255, 255));
+        statusCheck.setBackground(new java.awt.Color(255, 255, 255));
+        statusCheck.setFont(new java.awt.Font("Corbel Light", 1, 14)); // NOI18N
+        statusCheck.setForeground(new java.awt.Color(0, 0, 0));
         statusCheck.setText("Estado");
 
-        buttonPanel.setBackground(new java.awt.Color(23, 33, 42));
-        buttonPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        buttonPanel.setBackground(new java.awt.Color(255, 255, 255));
+        buttonPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        addButton.setBackground(new java.awt.Color(23, 33, 42));
+        addButton.setBackground(new java.awt.Color(255, 255, 255));
         addButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/add.png"))); // NOI18N
-        addButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        addButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         addButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addButtonActionPerformed(evt);
             }
         });
 
-        deleteButton.setBackground(new java.awt.Color(23, 33, 42));
+        deleteButton.setBackground(new java.awt.Color(255, 255, 255));
         deleteButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/remove.png"))); // NOI18N
-        deleteButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        deleteButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         deleteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteButtonActionPerformed(evt);
             }
         });
 
-        updateButton.setBackground(new java.awt.Color(23, 33, 42));
+        updateButton.setBackground(new java.awt.Color(255, 255, 255));
         updateButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/redo.png"))); // NOI18N
-        updateButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        updateButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         updateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateButtonActionPerformed(evt);
@@ -229,9 +229,10 @@ public class ListModularEventFrame extends javax.swing.JFrame {
                 .addContainerGap(109, Short.MAX_VALUE))
         );
 
-        searchButton.setBackground(new java.awt.Color(23, 33, 42));
+        searchButton.setBackground(new java.awt.Color(255, 255, 255));
+        searchButton.setForeground(new java.awt.Color(0, 0, 0));
         searchButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/search.png"))); // NOI18N
-        searchButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        searchButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         searchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchButtonActionPerformed(evt);
@@ -268,8 +269,8 @@ public class ListModularEventFrame extends javax.swing.JFrame {
             eventoModularTable.getColumnModel().getColumn(9).setPreferredWidth(8);
         }
 
-        mesLabel.setFont(new java.awt.Font("Corbel Light", 0, 16)); // NOI18N
-        mesLabel.setForeground(new java.awt.Color(255, 255, 255));
+        mesLabel.setFont(new java.awt.Font("Corbel Light", 1, 16)); // NOI18N
+        mesLabel.setForeground(new java.awt.Color(0, 0, 0));
         mesLabel.setLabelFor(tipoEventoCombo);
         mesLabel.setText("Mes");
 
@@ -285,11 +286,11 @@ public class ListModularEventFrame extends javax.swing.JFrame {
                     .addGroup(backgroundPanelLayout.createSequentialGroup()
                         .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(codeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(codeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(codeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(capituloCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(capituloLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(capituloLabel))
                         .addGap(18, 18, 18)
                         .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(modalityCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)

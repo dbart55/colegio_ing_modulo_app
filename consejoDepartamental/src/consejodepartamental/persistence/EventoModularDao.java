@@ -45,7 +45,7 @@ public class EventoModularDao {
                     + "em.cod_tipo, t.tipo,  "
                     + "em.tema, em.cantidad, em.inicio, em.fin,  "
                     + "em.cod_cap, c.organizador AS 'capitulo', "
-                    + "em.horas, em.lugar  "
+                    + "em.horas, em.lugar , em.horas_totales "
                     + "FROM eventos_modulares em INNER JOIN evento_modalidad m ON m.cod_modalidad = em.cod_modalidad  "
                     + "INNER JOIN tipo_evento t ON t.cod_tipo  = em.cod_tipo "
                     + "INNER JOIN capitulo c ON c.cod_cap = em.cod_cap "
@@ -94,6 +94,7 @@ public class EventoModularDao {
                 em.setFin(new java.util.Date(rs.getDate("fin").getTime()));
 
                 em.setHoras(rs.getString("horas"));
+                em.setHorasTotales(rs.getInt("horas_totales"));
 
                 eventos.add(em);
             }

@@ -43,7 +43,7 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
     private EventoModular editEventoModular;
     private ListModularEventFrame parent;
     private File imagenSeleccionada;
-    private final String linkTemplateText = "<html><a style='color: white; font-weight: bold; font-size: 10px' href=\"#\">FILENAME</a></html>";
+    private final String linkTemplateText = "<html><a style='color: black; font-weight: bold; font-size: 10px' href=\"#\">FILENAME</a></html>";
     private final String noImagen = "Sin Imagen";
 
     public SaveModularEventFrame(ListModularEventFrame parent, EventoModular editEventoModular) {
@@ -314,63 +314,63 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        backgroundPanel.setBackground(new java.awt.Color(23, 33, 42));
+        backgroundPanel.setBackground(new java.awt.Color(255, 255, 255));
 
-        tabPanel.setBackground(new java.awt.Color(23, 33, 42));
-        tabPanel.setForeground(new java.awt.Color(255, 255, 255));
-        tabPanel.setFont(new java.awt.Font("Corbel Light", 0, 14)); // NOI18N
+        tabPanel.setBackground(new java.awt.Color(255, 255, 255));
+        tabPanel.setForeground(new java.awt.Color(0, 0, 0));
+        tabPanel.setFont(new java.awt.Font("Corbel Light", 1, 14)); // NOI18N
 
-        mainDataPanel.setBackground(new java.awt.Color(23, 33, 42));
+        mainDataPanel.setBackground(new java.awt.Color(255, 255, 255));
         mainDataPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         mainDataPanel.setForeground(new java.awt.Color(255, 255, 255));
         mainDataPanel.setFont(new java.awt.Font("Corbel Light", 0, 14)); // NOI18N
 
-        organizerLabel.setFont(new java.awt.Font("Corbel Light", 0, 14)); // NOI18N
-        organizerLabel.setForeground(new java.awt.Color(255, 255, 255));
+        organizerLabel.setFont(new java.awt.Font("Corbel Light", 1, 14)); // NOI18N
+        organizerLabel.setForeground(new java.awt.Color(0, 0, 0));
         organizerLabel.setText("Organizadores");
 
-        modalityLabel.setFont(new java.awt.Font("Corbel Light", 0, 14)); // NOI18N
-        modalityLabel.setForeground(new java.awt.Color(255, 255, 255));
+        modalityLabel.setFont(new java.awt.Font("Corbel Light", 1, 14)); // NOI18N
+        modalityLabel.setForeground(new java.awt.Color(0, 0, 0));
         modalityLabel.setText("Modalidad");
 
-        enviromentLabel.setFont(new java.awt.Font("Corbel Light", 0, 14)); // NOI18N
-        enviromentLabel.setForeground(new java.awt.Color(255, 255, 255));
+        enviromentLabel.setFont(new java.awt.Font("Corbel Light", 1, 14)); // NOI18N
+        enviromentLabel.setForeground(new java.awt.Color(0, 0, 0));
         enviromentLabel.setText("Ambiente");
 
-        trainingTypeLabel1.setFont(new java.awt.Font("Corbel Light", 0, 14)); // NOI18N
-        trainingTypeLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        trainingTypeLabel1.setFont(new java.awt.Font("Corbel Light", 1, 14)); // NOI18N
+        trainingTypeLabel1.setForeground(new java.awt.Color(0, 0, 0));
         trainingTypeLabel1.setText("Tipo de Capacitación");
 
-        temaLabel.setFont(new java.awt.Font("Corbel Light", 0, 14)); // NOI18N
-        temaLabel.setForeground(new java.awt.Color(255, 255, 255));
+        temaLabel.setFont(new java.awt.Font("Corbel Light", 1, 14)); // NOI18N
+        temaLabel.setForeground(new java.awt.Color(0, 0, 0));
         temaLabel.setText("Tema");
 
-        imageLabel.setFont(new java.awt.Font("Corbel Light", 0, 14)); // NOI18N
-        imageLabel.setForeground(new java.awt.Color(255, 255, 255));
+        imageLabel.setFont(new java.awt.Font("Corbel Light", 1, 14)); // NOI18N
+        imageLabel.setForeground(new java.awt.Color(0, 0, 0));
         imageLabel.setText("Imagen");
 
-        fechaInicioLabel.setFont(new java.awt.Font("Corbel Light", 0, 14)); // NOI18N
-        fechaInicioLabel.setForeground(new java.awt.Color(255, 255, 255));
+        fechaInicioLabel.setFont(new java.awt.Font("Corbel Light", 1, 14)); // NOI18N
+        fechaInicioLabel.setForeground(new java.awt.Color(0, 0, 0));
         fechaInicioLabel.setText("Fecha Inicio");
 
-        fechaFinLabel.setFont(new java.awt.Font("Corbel Light", 0, 14)); // NOI18N
-        fechaFinLabel.setForeground(new java.awt.Color(255, 255, 255));
+        fechaFinLabel.setFont(new java.awt.Font("Corbel Light", 1, 14)); // NOI18N
+        fechaFinLabel.setForeground(new java.awt.Color(0, 0, 0));
         fechaFinLabel.setText("Fecha Fin");
 
-        maxQuantityLabel.setFont(new java.awt.Font("Corbel Light", 0, 14)); // NOI18N
-        maxQuantityLabel.setForeground(new java.awt.Color(255, 255, 255));
+        maxQuantityLabel.setFont(new java.awt.Font("Corbel Light", 1, 14)); // NOI18N
+        maxQuantityLabel.setForeground(new java.awt.Color(0, 0, 0));
         maxQuantityLabel.setText("Cantidad Max.");
 
-        dayMaxLabel.setFont(new java.awt.Font("Corbel Light", 0, 14)); // NOI18N
-        dayMaxLabel.setForeground(new java.awt.Color(255, 255, 255));
+        dayMaxLabel.setFont(new java.awt.Font("Corbel Light", 1, 14)); // NOI18N
+        dayMaxLabel.setForeground(new java.awt.Color(0, 0, 0));
         dayMaxLabel.setText("Días Max.");
 
-        totalHoursLabel.setFont(new java.awt.Font("Corbel Light", 0, 14)); // NOI18N
-        totalHoursLabel.setForeground(new java.awt.Color(255, 255, 255));
+        totalHoursLabel.setFont(new java.awt.Font("Corbel Light", 1, 14)); // NOI18N
+        totalHoursLabel.setForeground(new java.awt.Color(0, 0, 0));
         totalHoursLabel.setText("Horas Totales");
 
-        syllabusLabel.setFont(new java.awt.Font("Corbel Light", 0, 14)); // NOI18N
-        syllabusLabel.setForeground(new java.awt.Color(255, 255, 255));
+        syllabusLabel.setFont(new java.awt.Font("Corbel Light", 1, 14)); // NOI18N
+        syllabusLabel.setForeground(new java.awt.Color(0, 0, 0));
         syllabusLabel.setText("Temario");
 
         tipoCombo.setEditable(true);
@@ -402,8 +402,8 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
             }
         });
 
-        imagenRutaLabel.setFont(new java.awt.Font("Corbel Light", 0, 12)); // NOI18N
-        imagenRutaLabel.setForeground(new java.awt.Color(255, 255, 255));
+        imagenRutaLabel.setFont(new java.awt.Font("Corbel Light", 1, 12)); // NOI18N
+        imagenRutaLabel.setForeground(new java.awt.Color(0, 0, 0));
         imagenRutaLabel.setText(this.noImagen);
         imagenRutaLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -411,8 +411,8 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
             }
         });
 
-        lugarLabel.setFont(new java.awt.Font("Corbel Light", 0, 14)); // NOI18N
-        lugarLabel.setForeground(new java.awt.Color(255, 255, 255));
+        lugarLabel.setFont(new java.awt.Font("Corbel Light", 1, 14)); // NOI18N
+        lugarLabel.setForeground(new java.awt.Color(0, 0, 0));
         lugarLabel.setText("Lugar");
 
         lugarTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -421,8 +421,8 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
             }
         });
 
-        urlLabel.setFont(new java.awt.Font("Corbel Light", 0, 14)); // NOI18N
-        urlLabel.setForeground(new java.awt.Color(255, 255, 255));
+        urlLabel.setFont(new java.awt.Font("Corbel Light", 1, 14)); // NOI18N
+        urlLabel.setForeground(new java.awt.Color(0, 0, 0));
         urlLabel.setText("URL");
 
         urlTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -562,7 +562,7 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
 
         tabPanel.addTab("Datos Principales", mainDataPanel);
 
-        organizerPanel.setBackground(new java.awt.Color(23, 33, 42));
+        organizerPanel.setBackground(new java.awt.Color(255, 255, 255));
         organizerPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         organizadoresTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -590,19 +590,21 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
             organizadoresTable.getColumnModel().getColumn(4).setPreferredWidth(8);
         }
 
-        organizadorBtnPanel.setBackground(new java.awt.Color(23, 33, 42));
-        organizadorBtnPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        organizadorBtnPanel.setBackground(new java.awt.Color(255, 255, 255));
+        organizadorBtnPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        agregarOrganizadorBtn.setBackground(new java.awt.Color(23, 33, 42));
+        agregarOrganizadorBtn.setBackground(new java.awt.Color(255, 255, 255));
         agregarOrganizadorBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/add.png"))); // NOI18N
+        agregarOrganizadorBtn.setBorder(null);
         agregarOrganizadorBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 agregarOrganizadorBtnActionPerformed(evt);
             }
         });
 
-        removerOrganizadorBtn.setBackground(new java.awt.Color(23, 33, 42));
+        removerOrganizadorBtn.setBackground(new java.awt.Color(255, 255, 255));
         removerOrganizadorBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/remove.png"))); // NOI18N
+        removerOrganizadorBtn.setBorder(null);
         removerOrganizadorBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 removerOrganizadorBtnActionPerformed(evt);
@@ -625,7 +627,8 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
             .addGroup(organizadorBtnPanelLayout.createSequentialGroup()
                 .addComponent(agregarOrganizadorBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(removerOrganizadorBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(removerOrganizadorBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 19, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout organizerPanelLayout = new javax.swing.GroupLayout(organizerPanel);
@@ -634,7 +637,7 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
             organizerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(organizerPanelLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 882, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 892, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(organizadorBtnPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())

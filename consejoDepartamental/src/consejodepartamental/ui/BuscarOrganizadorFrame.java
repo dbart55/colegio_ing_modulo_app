@@ -70,16 +70,16 @@ public class BuscarOrganizadorFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        backgroundPanel.setBackground(new java.awt.Color(23, 33, 42));
+        backgroundPanel.setBackground(new java.awt.Color(207, 60, 60));
 
-        cipLabel.setBackground(new java.awt.Color(255, 255, 255));
+        cipLabel.setBackground(new java.awt.Color(0, 0, 0));
         cipLabel.setFont(new java.awt.Font("Corbel Light", 0, 16)); // NOI18N
-        cipLabel.setForeground(new java.awt.Color(255, 255, 255));
+        cipLabel.setForeground(new java.awt.Color(0, 0, 0));
         cipLabel.setText("CIP");
 
-        nombreLabel.setBackground(new java.awt.Color(255, 255, 255));
+        nombreLabel.setBackground(new java.awt.Color(0, 0, 0));
         nombreLabel.setFont(new java.awt.Font("Corbel Light", 0, 16)); // NOI18N
-        nombreLabel.setForeground(new java.awt.Color(255, 255, 255));
+        nombreLabel.setForeground(new java.awt.Color(0, 0, 0));
         nombreLabel.setText("Nombres");
 
         organizadoresTable.setModel(new javax.swing.table.DefaultTableModel(

@@ -1,5 +1,6 @@
 package consejodepartamental.ui;
 
+import consejodepartamental.entity.Sesion;
 import consejodepartamental.logic.Controlador;
 import consejodepartamental.entity.Usuario;
 import java.awt.Image;
@@ -39,17 +40,18 @@ public class LoginForm extends javax.swing.JFrame {
         userTextField = new javax.swing.JTextField();
         userLabel = new javax.swing.JLabel();
         passwordLabel = new javax.swing.JLabel();
-        rememberCheckBox = new javax.swing.JCheckBox();
-        passwordLabel1 = new javax.swing.JLabel();
+        recordarCheckBox = new javax.swing.JCheckBox();
+        recordarLabel = new javax.swing.JLabel();
         loginButton = new javax.swing.JButton();
         passwordTextField = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(23, 35, 35));
 
-        abovePanel.setBackground(new java.awt.Color(150, 137, 95));
+        abovePanel.setBackground(new java.awt.Color(207, 60, 60));
 
-        loginTitleLabel.setFont(new java.awt.Font("Corbel Light", 1, 18)); // NOI18N
+        loginTitleLabel.setFont(new java.awt.Font("Corbel", 1, 18)); // NOI18N
+        loginTitleLabel.setForeground(new java.awt.Color(253, 253, 251));
         loginTitleLabel.setText("Inicio de Sesión");
 
         javax.swing.GroupLayout abovePanelLayout = new javax.swing.GroupLayout(abovePanel);
@@ -58,7 +60,7 @@ public class LoginForm extends javax.swing.JFrame {
             abovePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(abovePanelLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(loginTitleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(loginTitleLabel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         abovePanelLayout.setVerticalGroup(
@@ -69,36 +71,37 @@ public class LoginForm extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        backgroundPanel.setBackground(new java.awt.Color(23, 33, 42));
+        backgroundPanel.setBackground(new java.awt.Color(253, 253, 251));
 
         logoLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/colegio_ingenieros_logo.png"))); // NOI18N
 
-        centerTitleLabel.setFont(new java.awt.Font("Lucida Bright", 0, 18)); // NOI18N
-        centerTitleLabel.setForeground(new java.awt.Color(255, 255, 255));
+        centerTitleLabel.setFont(new java.awt.Font("Corbel", 1, 21)); // NOI18N
+        centerTitleLabel.setForeground(new java.awt.Color(0, 0, 0));
         centerTitleLabel.setText("Consejo Departamental de Lambayeque");
 
-        userLabel.setFont(new java.awt.Font("Corbel Light", 0, 24)); // NOI18N
-        userLabel.setForeground(new java.awt.Color(255, 255, 255));
+        userLabel.setFont(new java.awt.Font("Corbel", 1, 24)); // NOI18N
+        userLabel.setForeground(new java.awt.Color(0, 0, 0));
         userLabel.setLabelFor(userTextField);
         userLabel.setText("Usuario");
 
-        passwordLabel.setFont(new java.awt.Font("Corbel Light", 0, 24)); // NOI18N
-        passwordLabel.setForeground(new java.awt.Color(255, 255, 255));
+        passwordLabel.setFont(new java.awt.Font("Corbel", 1, 24)); // NOI18N
+        passwordLabel.setForeground(new java.awt.Color(0, 0, 0));
         passwordLabel.setText("Contraseña");
 
-        rememberCheckBox.addActionListener(new java.awt.event.ActionListener() {
+        recordarCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rememberCheckBoxActionPerformed(evt);
+                recordarCheckBoxActionPerformed(evt);
             }
         });
 
-        passwordLabel1.setFont(new java.awt.Font("Corbel Light", 0, 14)); // NOI18N
-        passwordLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        passwordLabel1.setLabelFor(rememberCheckBox);
-        passwordLabel1.setText("Recordarme");
+        recordarLabel.setFont(new java.awt.Font("Corbel Light", 1, 14)); // NOI18N
+        recordarLabel.setForeground(new java.awt.Color(0, 0, 0));
+        recordarLabel.setLabelFor(recordarCheckBox);
+        recordarLabel.setText("Recordarme");
 
-        loginButton.setBackground(new java.awt.Color(150, 140, 96));
-        loginButton.setFont(new java.awt.Font("Corbel Light", 0, 18)); // NOI18N
+        loginButton.setBackground(new java.awt.Color(207, 60, 60));
+        loginButton.setFont(new java.awt.Font("Corbel", 1, 18)); // NOI18N
+        loginButton.setForeground(new java.awt.Color(253, 253, 251));
         loginButton.setText("Iniciar Sesión");
         loginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -110,49 +113,55 @@ public class LoginForm extends javax.swing.JFrame {
         backgroundPanel.setLayout(backgroundPanelLayout);
         backgroundPanelLayout.setHorizontalGroup(
             backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(backgroundPanelLayout.createSequentialGroup()
-                .addGap(140, 140, 140)
-                .addComponent(logoLabel)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundPanelLayout.createSequentialGroup()
-                .addContainerGap(38, Short.MAX_VALUE)
-                .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(loginButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(centerTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(userTextField)
-                            .addComponent(passwordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(userLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(backgroundPanelLayout.createSequentialGroup()
-                            .addComponent(rememberCheckBox)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(passwordLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(passwordTextField))
-                .addGap(36, 36, 36))
+                .addContainerGap(26, Short.MAX_VALUE)
+                .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(backgroundPanelLayout.createSequentialGroup()
+                        .addComponent(recordarCheckBox)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(recordarLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20))
+            .addGroup(backgroundPanelLayout.createSequentialGroup()
+                .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(backgroundPanelLayout.createSequentialGroup()
+                        .addGap(140, 140, 140)
+                        .addComponent(logoLabel))
+                    .addGroup(backgroundPanelLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(passwordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(userTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE)
+                                .addComponent(passwordTextField))
+                            .addComponent(userLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(backgroundPanelLayout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(centerTitleLabel)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         backgroundPanelLayout.setVerticalGroup(
             backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backgroundPanelLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(logoLabel)
-                .addGap(32, 32, 32)
+                .addGap(45, 45, 45)
                 .addComponent(centerTitleLabel)
-                .addGap(91, 91, 91)
+                .addGap(76, 76, 76)
                 .addComponent(userLabel)
-                .addGap(0, 0, 0)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(userTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addGap(25, 25, 25)
                 .addComponent(passwordLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(passwordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16)
+                .addGap(18, 18, 18)
                 .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(rememberCheckBox)
-                    .addComponent(passwordLabel1))
-                .addGap(39, 39, 39)
+                    .addComponent(recordarCheckBox)
+                    .addComponent(recordarLabel))
+                .addGap(43, 43, 43)
                 .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -173,9 +182,9 @@ public class LoginForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void rememberCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rememberCheckBoxActionPerformed
+    private void recordarCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recordarCheckBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_rememberCheckBoxActionPerformed
+    }//GEN-LAST:event_recordarCheckBoxActionPerformed
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
 
@@ -183,11 +192,13 @@ public class LoginForm extends javax.swing.JFrame {
         userName = userName.trim();
         String password = new String(passwordTextField.getPassword());
         password = password.trim();
+        boolean recordarUsuario = this.recordarCheckBox.isSelected();
 
-        Usuario user = this.controlador.obtenerUsuario(userName, password);
-        System.out.println( user);
+        Usuario user = this.controlador.obtenerUsuarioPorCredenciales(userName, password);
+        System.out.println(user);
         if (user != null) {
-            HomeFrame homeFrame = new HomeFrame(user);
+            Sesion sesion = this.controlador.crearSesion(user.getUserId(), recordarUsuario);
+            HomeFrame homeFrame = new HomeFrame(user, sesion);
             homeFrame.setVisible(true);
             homeFrame.setLocationRelativeTo(null);
 
@@ -215,9 +226,9 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JLabel loginTitleLabel;
     private javax.swing.JLabel logoLabel;
     private javax.swing.JLabel passwordLabel;
-    private javax.swing.JLabel passwordLabel1;
     private javax.swing.JPasswordField passwordTextField;
-    private javax.swing.JCheckBox rememberCheckBox;
+    private javax.swing.JCheckBox recordarCheckBox;
+    private javax.swing.JLabel recordarLabel;
     private javax.swing.JLabel userLabel;
     private javax.swing.JTextField userTextField;
     // End of variables declaration//GEN-END:variables
