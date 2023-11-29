@@ -45,7 +45,7 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
     private File imagenSeleccionada;
     private final String linkTemplateText = "<html><a style='color: black; font-weight: bold; font-size: 10px' href=\"#\">FILENAME</a></html>";
     private final String noImagen = "Sin Imagen";
-
+    
     public SaveModularEventFrame(ListModularEventFrame parent, EventoModular editEventoModular) {
         initComponents();
         this.controlador = new Controlador();
@@ -54,96 +54,100 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
         this.tipos = new ArrayList<>();
         this.ambientes = new ArrayList<>();
         this.organizadores = new ArrayList<>();
-
+        
         this.capitulos.add(new Capitulo(0, "-"));
         this.capitulos.addAll(this.controlador.obtenerCapitulos());
         this.organizadorCombo.setModel(new DefaultComboBoxModel(this.capitulos.toArray()));
-
+        
         this.modalidades.add(new EventoModalidad(0, "-"));
         this.modalidades.addAll(this.controlador.obtenerModalidades());
         this.modalidadCombo.setModel(new DefaultComboBoxModel(this.modalidades.toArray()));
-
+        
         this.tipos.add(new TipoEvento(0, "-"));
         this.tipos.addAll(this.controlador.obtenerTipos());
         this.tipoCombo.setModel(new DefaultComboBoxModel(this.tipos.toArray()));
-
+        
         this.ambientes.add(new Ambiente(0, "-"));
         this.ambientes.addAll(this.controlador.obtenerAmbientes());
         this.ambienteCombo.setModel(new DefaultComboBoxModel(this.ambientes.toArray()));
-
+        
         this.modo = "crear";
         if (editEventoModular != null) {
             this.modo = "editar";
             this.editEventoModular = editEventoModular;
             llenarValoresEventoModular(editEventoModular);
         }
-
+        
         this.parent = parent;
     }
-
+    
     private void llenarValoresEventoModular(EventoModular em) {
         if (em != null && em.getCodigo() != 0) {
             EventoModular actualEventoModular = this.controlador.obtenerEventoModularPorCodigo(em.getCodigo());
-
+            
             if (actualEventoModular.getCod_cap() != 0) {
                 this.organizadorCombo.setSelectedIndex(this.capitulos.indexOf(new Capitulo(actualEventoModular.getCod_cap())));
             }
-
+            
             if (actualEventoModular.getCod_modalidad() != 0) {
                 this.modalidadCombo.setSelectedIndex(this.modalidades.indexOf(new EventoModalidad(actualEventoModular.getCod_modalidad())));
             }
-
+            
             if (actualEventoModular.getCod_tipo() != 0) {
                 this.tipoCombo.setSelectedIndex(this.tipos.indexOf(new TipoEvento(actualEventoModular.getCod_tipo())));
             }
-
+            
             if (actualEventoModular.getId_ambiente() != 0) {
                 this.ambienteCombo.setSelectedIndex(this.ambientes.indexOf(new Ambiente(actualEventoModular.getId_ambiente())));
             }
-
+            
             if (actualEventoModular.getTema() != null) {
                 this.temaTextField.setText(actualEventoModular.getTema());
             }
-
+            
             if (actualEventoModular.getTemario() != null) {
                 this.temarioArea.setText(actualEventoModular.getTemario());
             }
-
+            
             if (actualEventoModular.getLugar() != null) {
                 this.lugarTextField.setText(actualEventoModular.getLugar());
             }
-
+            
             if (actualEventoModular.getUrl() != null) {
                 this.urlTextField.setText(actualEventoModular.getUrl());
             }
-
+            
+            if (actualEventoModular.isMostrarCalendario()) {
+                this.mostrarCalendarioCheckBox.setSelected(actualEventoModular.isMostrarCalendario());
+            }
+            
             this.cantidadSpinner.setValue(actualEventoModular.getCantidad());
             this.horasSpiner.setValue(actualEventoModular.getHorasTotales());
             this.diasSpinner.setValue(actualEventoModular.getDiaMax());
-
+            
             this.fechaInicioDate.setDate(actualEventoModular.getInicio());
             this.fechaFinDate.setDate(actualEventoModular.getFin());
-
+            
             if (actualEventoModular.getRutaImagen() != null && !actualEventoModular.getRutaImagen().equals("")) {
                 String linkImagen = linkTemplateText.replace("FILENAME", actualEventoModular.getRutaImagen());
                 this.imagenRutaLabel.setText(linkImagen);
                 this.imagenSeleccionada = actualEventoModular.getImagenFile();
             }
-
+            
             llenarTablaOrganizadores(actualEventoModular.getOrganizadores());
         }
     }
-
+    
     @Override
     public void dispose() {
         this.controlador.finalizar();
         super.dispose();
     }
-
+    
     public void llenarTablaOrganizadores(List<Organizador> organizadores) {
-
+        
         DefaultTableModel tableModel = (DefaultTableModel) this.organizadoresTable.getModel();
-
+        
         if (organizadores != null && !organizadores.isEmpty()) {
             Object[] cells = new Object[5];
             for (Organizador org : organizadores) {
@@ -153,16 +157,16 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
                     cells[2] = org.getOrganizador();
                     cells[3] = org.getCelular();
                     cells[4] = org.getCorreo();
-
+                    
                     this.organizadores.add(org);
                     tableModel.addRow(cells);
                 }
             }
         }
     }
-
+    
     private boolean validarCamposObligatorios() {
-
+        
         Capitulo capituloSelected = (Capitulo) this.organizadorCombo.getSelectedItem();
         EventoModalidad modalidadSelected = (EventoModalidad) this.modalidadCombo.getSelectedItem();
         TipoEvento tipoSelected = (TipoEvento) this.tipoCombo.getSelectedItem();
@@ -170,41 +174,41 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
         String tema = this.temaTextField.getText();
         Date fechaInicio = this.fechaInicioDate.getDate();
         Date fechaFin = this.fechaFinDate.getDate();
-
+        
         int cantidad = (int) this.cantidadSpinner.getValue();
         int diaMax = (int) this.diasSpinner.getValue();
         int horasTotales = (int) this.horasSpiner.getValue();
         String temario = this.temarioArea.getText();
-
+        
         String lugar = this.lugarTextField.getText();
         String url = this.urlTextField.getText();
-
+        
         String camposObligatorios = "";
         boolean esValido = true;
-
+        
         if (fechaInicio == null) {
             camposObligatorios += "\n-" + this.fechaInicioLabel.getText();
             esValido = false;
         }
-
+        
         if (fechaFin == null) {
             camposObligatorios += "\n-" + this.fechaFinLabel.getText();
             esValido = false;
         }
-
+        
         if (!esValido) {
-
+            
             JOptionPane joptionPane = new JOptionPane("Debe completar los siguientes campos: " + camposObligatorios);
             joptionPane.setMessageType(JOptionPane.WARNING_MESSAGE);
             JDialog dialog = joptionPane.createDialog("Advertencia");
             dialog.setAlwaysOnTop(true);
             dialog.setVisible(true);
-
+            
         }
-
+        
         return esValido;
     }
-
+    
     private boolean validarOrganizadores() {
         if (this.organizadores == null || this.organizadores.isEmpty()) {
             JOptionPane joptionPane = new JOptionPane("Debe ingresar al menos 1 organizador.");
@@ -216,12 +220,12 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
         }
         return true;
     }
-
+    
     private boolean validarFechas() {
         Date fechaInicio = this.fechaInicioDate.getDate();
-
+        
         Date fechaFin = this.fechaFinDate.getDate();
-
+        
         if (fechaFin.before(fechaInicio)) {
             JOptionPane joptionPane = new JOptionPane("La fecha de fin debe ser posterior a la fecha de inicio");
             joptionPane.setMessageType(JOptionPane.WARNING_MESSAGE);
@@ -287,6 +291,9 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
         organizadorBtnPanel = new javax.swing.JPanel();
         agregarOrganizadorBtn = new javax.swing.JButton();
         removerOrganizadorBtn = new javax.swing.JButton();
+        configPanel = new javax.swing.JPanel();
+        configBgPanel = new javax.swing.JPanel();
+        mostrarCalendarioCheckBox = new javax.swing.JCheckBox();
         guardarBtn = new javax.swing.JButton();
         cancelarBtn = new javax.swing.JButton();
 
@@ -553,7 +560,7 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
                 .addComponent(urlLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(urlTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addComponent(syllabusLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -649,10 +656,57 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
                 .addGroup(organizerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(organizadorBtnPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(338, Short.MAX_VALUE))
+                .addContainerGap(346, Short.MAX_VALUE))
         );
 
         tabPanel.addTab("Organizadores", organizerPanel);
+
+        configPanel.setBackground(new java.awt.Color(255, 255, 255));
+        configPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        configBgPanel.setBackground(new java.awt.Color(255, 255, 255));
+        configBgPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        configBgPanel.setForeground(new java.awt.Color(255, 255, 255));
+
+        mostrarCalendarioCheckBox.setBackground(new java.awt.Color(255, 255, 255));
+        mostrarCalendarioCheckBox.setFont(new java.awt.Font("Corbel Light", 1, 14)); // NOI18N
+        mostrarCalendarioCheckBox.setForeground(new java.awt.Color(0, 0, 0));
+        mostrarCalendarioCheckBox.setText("Mostrar Calendario");
+
+        javax.swing.GroupLayout configBgPanelLayout = new javax.swing.GroupLayout(configBgPanel);
+        configBgPanel.setLayout(configBgPanelLayout);
+        configBgPanelLayout.setHorizontalGroup(
+            configBgPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(configBgPanelLayout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(mostrarCalendarioCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(625, Short.MAX_VALUE))
+        );
+        configBgPanelLayout.setVerticalGroup(
+            configBgPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(configBgPanelLayout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(mostrarCalendarioCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(108, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout configPanelLayout = new javax.swing.GroupLayout(configPanel);
+        configPanel.setLayout(configPanelLayout);
+        configPanelLayout.setHorizontalGroup(
+            configPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(configPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(configBgPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+        configPanelLayout.setVerticalGroup(
+            configPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(configPanelLayout.createSequentialGroup()
+                .addComponent(configBgPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 378, Short.MAX_VALUE))
+        );
+
+        tabPanel.addTab("Configuración", configPanel);
 
         guardarBtn.setText("Guardar");
         guardarBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -726,15 +780,17 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
             Date fechaInicio = this.fechaInicioDate.getDate();
             //String fechaFin = ((JTextField) this.fechaFinDate.getDateEditor().getUiComponent()).getText();
             Date fechaFin = this.fechaFinDate.getDate();
-
+            
             int cantidad = (int) this.cantidadSpinner.getValue();
             int diaMax = (int) this.diasSpinner.getValue();
             int horasTotales = (int) this.horasSpiner.getValue();
             String temario = this.temarioArea.getText();
-
+            
             String lugar = this.lugarTextField.getText();
             String url = this.urlTextField.getText();
-
+            
+            boolean mostrarCalendario = this.mostrarCalendarioCheckBox.isSelected();
+            
             EventoModular eventoModular = new EventoModular();
             eventoModular.setCod_cap(capituloSelected.getCod_cap());
             eventoModular.setCod_modalidad(modalidadSelected.getCod_modalidad());
@@ -750,22 +806,23 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
             eventoModular.setImagenFile(this.imagenSeleccionada);
             eventoModular.setLugar(lugar);
             eventoModular.setUrl(url);
-
+            eventoModular.setMostrarCalendario(mostrarCalendario);
+            
             eventoModular.setOrganizadores(this.organizadores);
-
+            
             if (this.modo.equals("editar")) {
                 eventoModular.setCodigo(this.editEventoModular.getCodigo());
             }
-
+            
             if (this.controlador.guardarEventoModular(eventoModular)) {
                 JOptionPane joptionPane = new JOptionPane("Datos Guardados correctamente.");
                 joptionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
                 JDialog dialog = joptionPane.createDialog("Confirmación");
                 dialog.setAlwaysOnTop(true);
                 dialog.setVisible(true);
-
+                
                 this.parent.refrescarTabla();
-
+                
                 this.setVisible(false);
                 this.dispose();
             } else {
@@ -779,7 +836,7 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_guardarBtnActionPerformed
 
     private void removerOrganizadorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerOrganizadorBtnActionPerformed
-
+        
         int rowSelectedIndex = this.organizadoresTable.getSelectedRow();
         if (rowSelectedIndex != -1) {
             DefaultTableModel tableModel = (DefaultTableModel) this.organizadoresTable.getModel();
@@ -821,7 +878,7 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_imagenRutaLabelMouseClicked
 
     private void imageBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imageBtnActionPerformed
-
+        
         JFileChooser imageChooser;
         if (this.imagenSeleccionada == null) {
             imageChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
@@ -832,7 +889,7 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
         imageChooser.setDialogTitle("Selecciona la imagen.");
         FileNameExtensionFilter restrict = new FileNameExtensionFilter("Solo Imagenes", "jpg", "png", "jpeg");
         imageChooser.addChoosableFileFilter(restrict);
-
+        
         int result = imageChooser.showOpenDialog(null);
         if (result == JFileChooser.APPROVE_OPTION) {
             this.imagenSeleccionada = imageChooser.getSelectedFile();
@@ -857,6 +914,8 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
     private javax.swing.JPanel backgroundPanel;
     private javax.swing.JButton cancelarBtn;
     private javax.swing.JSpinner cantidadSpinner;
+    private javax.swing.JPanel configBgPanel;
+    private javax.swing.JPanel configPanel;
     private javax.swing.JLabel dayMaxLabel;
     private javax.swing.JSpinner diasSpinner;
     private javax.swing.JLabel enviromentLabel;
@@ -883,6 +942,7 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
     private javax.swing.JLabel maxQuantityLabel;
     private javax.swing.JComboBox<String> modalidadCombo;
     private javax.swing.JLabel modalityLabel;
+    private javax.swing.JCheckBox mostrarCalendarioCheckBox;
     private javax.swing.JPanel organizadorBtnPanel;
     private javax.swing.JComboBox<String> organizadorCombo;
     private javax.swing.JTable organizadoresTable;

@@ -36,6 +36,7 @@ public class EventoModular {
     private String rutaImagen;
     private int mesNum;
     private String url;
+    private boolean mostrarCalendario;
 
     public EventoModular() {
         this.codigo = 0;
@@ -259,7 +260,14 @@ public class EventoModular {
     public void setUrl(String url) {
         this.url = url;
     }
-    
+
+    public boolean isMostrarCalendario() {
+        return mostrarCalendario;
+    }
+
+    public void setMostrarCalendario(boolean mostrarCalendario) {
+        this.mostrarCalendario = mostrarCalendario;
+    }
     
     @Override
     public String toString() {

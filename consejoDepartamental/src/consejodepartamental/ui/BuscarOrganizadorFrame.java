@@ -70,15 +70,15 @@ public class BuscarOrganizadorFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        backgroundPanel.setBackground(new java.awt.Color(207, 60, 60));
+        backgroundPanel.setBackground(new java.awt.Color(255, 255, 255));
 
         cipLabel.setBackground(new java.awt.Color(0, 0, 0));
-        cipLabel.setFont(new java.awt.Font("Corbel Light", 0, 16)); // NOI18N
+        cipLabel.setFont(new java.awt.Font("Corbel Light", 1, 16)); // NOI18N
         cipLabel.setForeground(new java.awt.Color(0, 0, 0));
         cipLabel.setText("CIP");
 
         nombreLabel.setBackground(new java.awt.Color(0, 0, 0));
-        nombreLabel.setFont(new java.awt.Font("Corbel Light", 0, 16)); // NOI18N
+        nombreLabel.setFont(new java.awt.Font("Corbel Light", 1, 16)); // NOI18N
         nombreLabel.setForeground(new java.awt.Color(0, 0, 0));
         nombreLabel.setText("Nombres");
 
@@ -129,9 +129,9 @@ public class BuscarOrganizadorFrame extends javax.swing.JFrame {
             }
         });
 
-        searchButton.setBackground(new java.awt.Color(23, 33, 42));
+        searchButton.setBackground(new java.awt.Color(255, 255, 255));
         searchButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/search.png"))); // NOI18N
-        searchButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        searchButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         searchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchButtonActionPerformed(evt);

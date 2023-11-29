@@ -2,6 +2,7 @@ package consejodepartamental.logic;
 
 import consejodepartamental.entity.Ambiente;
 import consejodepartamental.entity.Capitulo;
+import consejodepartamental.entity.ConfiguracionGeneral;
 import consejodepartamental.entity.EventoModalidad;
 import consejodepartamental.entity.EventoModular;
 import consejodepartamental.entity.Organizador;
@@ -11,6 +12,7 @@ import consejodepartamental.entity.Usuario;
 import consejodepartamental.persistence.AmbienteDao;
 import consejodepartamental.persistence.CapituloDao;
 import consejodepartamental.persistence.Conexion;
+import consejodepartamental.persistence.ConfigDao;
 import consejodepartamental.persistence.EventoModalidadDao;
 import consejodepartamental.persistence.EventoModularDao;
 import consejodepartamental.persistence.OrganizadorDao;
@@ -34,6 +36,7 @@ public class Controlador {
     private EventoModularDao eventoModularDao;
     private AmbienteDao ambienteDao;
     private SesionDao sesionDao;
+    private ConfiguracionGeneral config;
 
     public Controlador() {
         this.conexion = new Conexion();
@@ -42,7 +45,11 @@ public class Controlador {
         this.modalidadDao = new EventoModalidadDao(this.conexion);
         this.tipoEventoDao = new TipoEventoDao(this.conexion);
         this.capituloDao = new CapituloDao(this.conexion);
-        this.eventoModularDao = new EventoModularDao(this.conexion);
+
+        ConfigDao configDao = new ConfigDao(this.conexion);
+        this.config = configDao.obtenerConfiguracionGeneral();
+        System.out.println(config);
+        this.eventoModularDao = new EventoModularDao(this.conexion, this.config);
         this.ambienteDao = new AmbienteDao(this.conexion);
         this.sesionDao = new SesionDao(this.conexion);
     }

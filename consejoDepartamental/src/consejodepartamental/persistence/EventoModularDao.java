@@ -1,5 +1,6 @@
 package consejodepartamental.persistence;
 
+import consejodepartamental.entity.ConfiguracionGeneral;
 import consejodepartamental.entity.EventoModular;
 import consejodepartamental.entity.Organizador;
 import java.io.File;
@@ -24,10 +25,11 @@ import java.util.logging.Logger;
 public class EventoModularDao {
 
     private Conexion conexion;
-    private final String rutaFolder = "C:\\Users\\Diego\\Downloads\\colegio_ingenieros_images";
+    private ConfiguracionGeneral config;
 
-    public EventoModularDao(Conexion conexion) {
+    public EventoModularDao(Conexion conexion, ConfiguracionGeneral config) {
         this.conexion = conexion;
+        this.config = config;
     }
 
     public List<EventoModular> obtenerEventosModulares(EventoModular filter) {
@@ -120,9 +122,10 @@ public class EventoModularDao {
             String temario = em.getTemario();
             String lugar = em.getLugar();
             String url = em.getUrl();
+            boolean mostrarCalendario = em.isMostrarCalendario();
             List<Organizador> organizadores = em.getOrganizadores();
 
-            String sql = "INSERT INTO eventos_modulares(cod_modalidad, cod_tipo, id_ambiente, cod_cap, tema, temario, cantidad, inicio, fin, dia_max, horas_totales, lugar, url, ruta_imagen) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO eventos_modulares(cod_modalidad, cod_tipo, id_ambiente, cod_cap, tema, temario, cantidad, inicio, fin, dia_max, horas_totales, lugar, url, ruta_imagen, mostrar_calendario) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement ps = this.conexion.getJdbcConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, cod_modalidad);
             ps.setInt(2, cod_tipo);
@@ -138,6 +141,7 @@ public class EventoModularDao {
             ps.setString(12, lugar);
             ps.setString(13, url);
             ps.setString(14, "");
+            ps.setBoolean(15, mostrarCalendario);
 
             ps.executeUpdate();
 
@@ -183,7 +187,7 @@ public class EventoModularDao {
     public EventoModular obtenerEventoModuarByCodigo(int eventoCodigo) {
         try {
             String sql = "SELECT em.codigo, em.cod_modalidad, em.cod_tipo, em.id_ambiente, em.tema, em.temario, em.cantidad, em.inicio, em.fin,"
-                    + "em.dia_max, em.cod_cap, em.horas_totales, em.ruta_imagen, em.url, em.lugar,"
+                    + "em.dia_max, em.cod_cap, em.horas_totales, em.ruta_imagen, em.url, em.lugar, em.mostrar_calendario,"
                     + "org.CIP, org.DNI, org.organizador, org.celular, org.correo "
                     + "FROM eventos_modulares em "
                     + "LEFT JOIN organizador_por_evento_modular oem ON oem.evento_modular_id = em.codigo "
@@ -226,13 +230,14 @@ public class EventoModularDao {
                     em.setHorasTotales(rs.getInt("horas_totales"));
                     em.setLugar(rs.getString("lugar"));
                     em.setUrl(rs.getString("url"));
+                    em.setMostrarCalendario(rs.getBoolean("mostrar_calendario"));
 
                     String rutaImagen = rs.getString("ruta_imagen");
                     if (rutaImagen == null || rutaImagen.equals("")) {
                         rutaImagen = "";
                     } else {
-                        File imagenFile = new File(Paths.get(this.rutaFolder, rutaImagen).toString());
-                        System.out.println("imagenFile: " + Paths.get(this.rutaFolder, rutaImagen).toString());
+                        File imagenFile = new File(Paths.get(this.config.getRutaImagen(), rutaImagen).toString());
+                        System.out.println("imagenFile: " + Paths.get(this.config.getRutaImagen(), rutaImagen).toString());
                         if (imagenFile.exists()) {
                             em.setImagenFile(imagenFile);
                         } else {
@@ -269,10 +274,11 @@ public class EventoModularDao {
                 int horasTotales = em.getHorasTotales();
                 String temario = em.getTemario();
                 String url = em.getUrl();
+                boolean mostrarCalendario = em.isMostrarCalendario();
                 List<Organizador> organizadores = em.getOrganizadores();
 
                 String sql = "UPDATE eventos_modulares SET cod_modalidad=?, cod_tipo=?, id_ambiente=?, cod_cap=?, tema=?, temario=?, "
-                        + "cantidad=?, inicio=?, fin=?, dia_max=?, horas_totales=?, ruta_imagen=?, url=? WHERE codigo=?";
+                        + "cantidad=?, inicio=?, fin=?, dia_max=?, horas_totales=?, ruta_imagen=?, url=?, mostrar_calendario=? WHERE codigo=?";
                 PreparedStatement ps = this.conexion.getJdbcConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                 ps.setInt(1, cod_modalidad);
                 ps.setInt(2, cod_tipo);
@@ -287,7 +293,8 @@ public class EventoModularDao {
                 ps.setInt(11, horasTotales);
                 ps.setString(12, "");
                 ps.setString(13, url);
-                ps.setInt(14, em.getCodigo());
+                ps.setBoolean(14, mostrarCalendario);
+                ps.setInt(15, em.getCodigo());
 
                 ps.executeUpdate();
 
@@ -335,7 +342,7 @@ public class EventoModularDao {
     }
 
     private void guardarImagen(int emCodigo, File imagenFile) throws IOException, SQLException {
-        File folder = new File(this.rutaFolder);
+        File folder = new File(this.config.getRutaImagen());
         if (!folder.exists()) {
             folder.mkdir();
             System.out.println("Folder created.");
@@ -344,10 +351,18 @@ public class EventoModularDao {
         }
 
         String fileName = imagenFile.getName();
-        String extension = fileName.split("\\.")[1];
-        String newFileName = "Image_" + emCodigo + "." + extension;
+        int lastPoint = fileName.lastIndexOf(".");
+
+        String newFileName = "";
+        if (lastPoint != -1) {
+            String extension = fileName.substring(lastPoint + 1);
+            newFileName = "Image_" + emCodigo + "." + extension;
+        } else {
+            newFileName = "Image_" + emCodigo;
+        }
+
         System.out.println("newFileName: " + newFileName);
-        Files.copy(Paths.get(imagenFile.getAbsolutePath()), Paths.get(this.rutaFolder, newFileName), StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(Paths.get(imagenFile.getAbsolutePath()), Paths.get(this.config.getRutaImagen(), newFileName), StandardCopyOption.REPLACE_EXISTING);
 
         String sql = "UPDATE eventos_modulares SET ruta_imagen=? WHERE codigo=?";
         PreparedStatement ps = this.conexion.getJdbcConnection().prepareStatement(sql);
