@@ -128,7 +128,6 @@ public class ListModularEventFrame extends javax.swing.JFrame {
         tipoEventoCombo = new javax.swing.JComboBox<>();
         tipoEventoLabel = new javax.swing.JLabel();
         modalityCombo = new javax.swing.JComboBox<>();
-        statusCheck = new javax.swing.JCheckBox();
         buttonPanel = new javax.swing.JPanel();
         addButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
@@ -169,11 +168,6 @@ public class ListModularEventFrame extends javax.swing.JFrame {
         tipoEventoLabel.setText("Tipo capacitación");
 
         modalityCombo.setEditable(true);
-
-        statusCheck.setBackground(new java.awt.Color(255, 255, 255));
-        statusCheck.setFont(new java.awt.Font("Corbel Light", 1, 14)); // NOI18N
-        statusCheck.setForeground(new java.awt.Color(0, 0, 0));
-        statusCheck.setText("Estado");
 
         buttonPanel.setBackground(new java.awt.Color(255, 255, 255));
         buttonPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -303,9 +297,7 @@ public class ListModularEventFrame extends javax.swing.JFrame {
                         .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(mesLabel)
                             .addComponent(mesCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                        .addComponent(statusCheck, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))
+                        .addGap(18, 137, Short.MAX_VALUE))
                     .addComponent(jScrollPane1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -329,13 +321,12 @@ public class ListModularEventFrame extends javax.swing.JFrame {
                             .addComponent(codeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(capituloCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(modalityCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tipoEventoCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(statusCheck)))
+                            .addComponent(tipoEventoCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(backgroundPanelLayout.createSequentialGroup()
                         .addComponent(mesLabel)
                         .addGap(0, 0, 0)
                         .addComponent(mesCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(94, 94, 94))
             .addGroup(backgroundPanelLayout.createSequentialGroup()
@@ -438,7 +429,6 @@ public class ListModularEventFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> modalityCombo;
     private javax.swing.JLabel modalityLabel;
     private javax.swing.JButton searchButton;
-    private javax.swing.JCheckBox statusCheck;
     private javax.swing.JComboBox<String> tipoEventoCombo;
     private javax.swing.JLabel tipoEventoLabel;
     private javax.swing.JButton updateButton;

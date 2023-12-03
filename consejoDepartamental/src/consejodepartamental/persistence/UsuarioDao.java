@@ -22,7 +22,7 @@ public class UsuarioDao {
     public Usuario obtenerUsuarioPorCredenciales(String userName, String password) {
         try {
             String sql = "SELECT user_id, nombres, apellidos, dni, cargo, username FROM usuario "
-                    + "WHERE username=? AND password=?";
+                    + "WHERE BINARY  username=? AND BINARY password=?";
 
             PreparedStatement ps = this.conexion.getJdbcConnection().prepareStatement(sql);
             ps.setString(1, userName);

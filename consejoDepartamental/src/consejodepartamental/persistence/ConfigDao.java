@@ -1,11 +1,8 @@
 package consejodepartamental.persistence;
 
 import consejodepartamental.entity.ConfiguracionGeneral;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.File;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,28 +10,23 @@ import java.util.logging.Logger;
  */
 public class ConfigDao {
 
-    private Conexion conexion;
+    private final String IMAGE_FOLDER = "consejo_departamental_images";
 
-    public ConfigDao(Conexion conexion) {
-        this.conexion = conexion;
+    public ConfigDao() {
     }
 
     public ConfiguracionGeneral obtenerConfiguracionGeneral() {
-        try {
-            String sql = "SELECT config_id, ruta_imagen FROM configuracion_general ORDER BY config_id LIMIT 1;";
-            PreparedStatement ps = this.conexion.getJdbcConnection().prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+        String currentFolder = System.getProperty("user.dir");
+        File folder = new File(currentFolder, IMAGE_FOLDER);
 
-            if (rs.next()) {
-                ConfiguracionGeneral config = new ConfiguracionGeneral();
-                config.setConfigId(rs.getInt("config_id"));
-                config.setRutaImagen(rs.getString("ruta_imagen"));
-                return config;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(AmbienteDao.class.getName()).log(Level.SEVERE, null, ex);
+        if (!folder.exists()) {
+            folder.mkdir();
+        } else {
+            System.out.println("El folder ya existe");
         }
 
-        return new ConfiguracionGeneral();
+        ConfiguracionGeneral config = new ConfiguracionGeneral();
+        config.setRutaImagen(IMAGE_FOLDER);
+        return config;
     }
 }

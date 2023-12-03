@@ -71,9 +71,7 @@
                               <Component id="mesLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="mesCombo" alignment="0" min="-2" pref="210" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="36" max="32767" attributes="0"/>
-                          <Component id="statusCheck" min="-2" pref="83" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                          <EmptySpace min="18" pref="137" max="32767" attributes="0"/>
                       </Group>
                       <Component id="jScrollPane1" max="32767" attributes="0"/>
                   </Group>
@@ -104,7 +102,6 @@
                               <Component id="capituloCombo" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="modalityCombo" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="tipoEventoCombo" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="statusCheck" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" attributes="0">
@@ -113,7 +110,7 @@
                           <Component id="mesCombo" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="27" max="32767" attributes="0"/>
+                  <EmptySpace pref="28" max="32767" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="358" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
               </Group>
@@ -221,20 +218,6 @@
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
-        </Component>
-        <Component class="javax.swing.JCheckBox" name="statusCheck">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Corbel Light" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="0" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Estado"/>
-          </Properties>
         </Component>
         <Container class="javax.swing.JPanel" name="buttonPanel">
           <Properties>

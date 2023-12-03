@@ -46,7 +46,7 @@ public class Controlador {
         this.tipoEventoDao = new TipoEventoDao(this.conexion);
         this.capituloDao = new CapituloDao(this.conexion);
 
-        ConfigDao configDao = new ConfigDao(this.conexion);
+        ConfigDao configDao = new ConfigDao();
         this.config = configDao.obtenerConfiguracionGeneral();
         System.out.println(config);
         this.eventoModularDao = new EventoModularDao(this.conexion, this.config);
