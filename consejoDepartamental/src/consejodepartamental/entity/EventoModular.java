@@ -37,6 +37,7 @@ public class EventoModular {
     private int mesNum;
     private String url;
     private boolean mostrarCalendario;
+    private String imagenBase64;
 
     public EventoModular() {
         this.codigo = 0;
@@ -268,7 +269,15 @@ public class EventoModular {
     public void setMostrarCalendario(boolean mostrarCalendario) {
         this.mostrarCalendario = mostrarCalendario;
     }
-    
+
+    public String getImagenBase64() {
+        return imagenBase64;
+    }
+
+    public void setImagenBase64(String imagenBase64) {
+        this.imagenBase64 = imagenBase64;
+    }
+
     @Override
     public String toString() {
         return "EventoModular{" + "codigo=" + codigo + ", cod_modalidad=" + cod_modalidad + ", modalidadNombre=" + modalidadNombre + ", cod_tipo=" + cod_tipo + ", tipoNombre=" + tipoNombre + ", cod_cap=" + cod_cap + ", capituloNombre=" + capituloNombre + ", tema=" + tema + ", cantidad=" + cantidad + ", inicio=" + inicio + ", fin=" + fin + ", horas=" + horas + ", lugar=" + lugar + '}';

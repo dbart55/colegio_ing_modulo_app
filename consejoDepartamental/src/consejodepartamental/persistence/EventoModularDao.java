@@ -4,8 +4,11 @@ import consejodepartamental.entity.ConfiguracionGeneral;
 import consejodepartamental.entity.EventoModular;
 import consejodepartamental.entity.Organizador;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.sql.Statement;
@@ -14,6 +17,7 @@ import java.sql.SQLException;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -187,7 +191,7 @@ public class EventoModularDao {
     public EventoModular obtenerEventoModuarByCodigo(int eventoCodigo) {
         try {
             String sql = "SELECT em.codigo, em.cod_modalidad, em.cod_tipo, em.id_ambiente, em.tema, em.temario, em.cantidad, em.inicio, em.fin,"
-                    + "em.dia_max, em.cod_cap, em.horas_totales, em.ruta_imagen, em.url, em.lugar, em.mostrar_calendario,"
+                    + "em.dia_max, em.cod_cap, em.horas_totales, em.ruta_imagen, em.url, em.lugar, em.mostrar_calendario, em.imagen_base64, "
                     + "org.CIP, org.DNI, org.organizador, org.celular, org.correo "
                     + "FROM eventos_modulares em "
                     + "LEFT JOIN organizador_por_evento_modular oem ON oem.evento_modular_id = em.codigo "
@@ -232,16 +236,24 @@ public class EventoModularDao {
                     em.setUrl(rs.getString("url"));
                     em.setMostrarCalendario(rs.getBoolean("mostrar_calendario"));
 
-                    String rutaImagen = rs.getString("ruta_imagen");
-                    if (rutaImagen == null || rutaImagen.equals("")) {
-                        rutaImagen = "";
-                    } else {
-                        File imagenFile = new File(Paths.get(this.config.getRutaImagen(), rutaImagen).toString());
-                        System.out.println("imagenFile: " + Paths.get(this.config.getRutaImagen(), rutaImagen).toString());
-                        if (imagenFile.exists()) {
-                            em.setImagenFile(imagenFile);
-                        } else {
-                            rutaImagen = "";
+                    String rutaImagen = "";
+                    String imagenBase64 = rs.getString("imagen_base64");
+                    System.out.println("imagen_base64" + imagenBase64.substring(0, 20));
+
+                    if (imagenBase64 != null && !imagenBase64.equals("")) {
+                        rutaImagen = rs.getString("ruta_imagen");
+                        if (rutaImagen != null && !rutaImagen.equals("")) {
+                            String filePath = Paths.get(this.config.getRutaImagen(), rutaImagen).toString();
+                            File imagenFile = new File(filePath);
+                            System.out.println("imagenFile: " + Paths.get(this.config.getRutaImagen(), rutaImagen).toString());
+                            if (imagenFile.exists()) {
+                                imagenFile.delete();
+                            }
+                            byte[] imageBytes = Base64.getDecoder().decode(imagenBase64);
+                            FileOutputStream fileOutputStream = new FileOutputStream(imagenFile);
+                            fileOutputStream.write(imageBytes);
+                            fileOutputStream.close();
+                            em.setImagenFile(new File(filePath));
                         }
                     }
 
@@ -255,6 +267,10 @@ public class EventoModularDao {
             }
 
         } catch (SQLException ex) {
+            Logger.getLogger(EventoModularDao.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(EventoModularDao.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
             Logger.getLogger(EventoModularDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
@@ -364,10 +380,19 @@ public class EventoModularDao {
         System.out.println("newFileName: " + newFileName);
         Files.copy(Paths.get(imagenFile.getAbsolutePath()), Paths.get(this.config.getRutaImagen(), newFileName), StandardCopyOption.REPLACE_EXISTING);
 
-        String sql = "UPDATE eventos_modulares SET ruta_imagen=? WHERE codigo=?";
+        String filePath = imagenFile.getAbsolutePath();
+        String base64Image = imageToBase64(filePath);
+
+        String sql = "UPDATE eventos_modulares SET ruta_imagen=?, imagen_base64=? WHERE codigo=?";
         PreparedStatement ps = this.conexion.getJdbcConnection().prepareStatement(sql);
         ps.setString(1, newFileName);
-        ps.setInt(2, emCodigo);
+        ps.setString(2, base64Image);
+        ps.setInt(3, emCodigo);
         ps.executeUpdate();
+    }
+
+    private String imageToBase64(String filePath) throws IOException {
+        byte[] fileContent = Files.readAllBytes(new File(filePath).toPath());
+        return Base64.getEncoder().encodeToString(fileContent);
     }
 }

@@ -32,8 +32,7 @@ public class HomeFrame extends javax.swing.JFrame {
             this.horaLabel.setText(hora);
         });
     }
-    
-    
+
     @Override
     public void dispose() {
         this.controlador.finalizar();
@@ -429,13 +428,15 @@ public class HomeFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
-        LoginForm loginForm = new LoginForm(this.controlador);
+        this.controlador.eliminarSesion(this.currentSesion);
+        this.setVisible(false);
+        this.dispose();
+
+        LoginForm loginForm = new LoginForm(new Controlador());
         loginForm.setVisible(true);
         loginForm.setLocationRelativeTo(null);
-        
-        this.setVisible(false);
-        this.controlador.eliminarSesion(this.currentSesion);
-        this.dispose();
+
+
     }//GEN-LAST:event_logoutBtnActionPerformed
 
     /**
