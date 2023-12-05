@@ -238,7 +238,6 @@ public class EventoModularDao {
 
                     String rutaImagen = "";
                     String imagenBase64 = rs.getString("imagen_base64");
-                    System.out.println("imagen_base64" + imagenBase64.substring(0, 20));
 
                     if (imagenBase64 != null && !imagenBase64.equals("")) {
                         rutaImagen = rs.getString("ruta_imagen");
