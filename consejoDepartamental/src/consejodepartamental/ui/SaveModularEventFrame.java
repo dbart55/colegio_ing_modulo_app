@@ -46,9 +46,9 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
     private final String linkTemplateText = "<html><a style='color: black; font-weight: bold; font-size: 10px' href=\"#\">FILENAME</a></html>";
     private final String noImagen = "Sin Imagen";
     
-    public SaveModularEventFrame(ListModularEventFrame parent, EventoModular editEventoModular) {
+    public SaveModularEventFrame(ListModularEventFrame parent, EventoModular editEventoModular, Controlador controlador) {
         initComponents();
-        this.controlador = new Controlador();
+        this.controlador = controlador;
         this.capitulos = new ArrayList<>();
         this.modalidades = new ArrayList<>();
         this.tipos = new ArrayList<>();
@@ -140,7 +140,7 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
     
     @Override
     public void dispose() {
-        this.controlador.finalizar();
+        //this.controlador.finalizar();
         super.dispose();
     }
     
@@ -850,7 +850,7 @@ public class SaveModularEventFrame extends javax.swing.JFrame {
 
     private void agregarOrganizadorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarOrganizadorBtnActionPerformed
         if (this.buscarOrganizadorFrame == null || !this.buscarOrganizadorFrame.isDisplayable()) {
-            this.buscarOrganizadorFrame = new BuscarOrganizadorFrame(this);
+            this.buscarOrganizadorFrame = new BuscarOrganizadorFrame(this, this.controlador);
             this.buscarOrganizadorFrame.setVisible(true);
             this.buscarOrganizadorFrame.setLocationRelativeTo(null);
         } else {

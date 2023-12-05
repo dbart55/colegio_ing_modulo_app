@@ -128,6 +128,7 @@ public class Controlador {
         return this.eventoModularDao.obtenerEventoModuarByCodigo(eventoCodigo);
     }
 
+    
     public void finalizar() {
         this.conexion.desconectar();
     }

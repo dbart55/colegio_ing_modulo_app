@@ -16,17 +16,17 @@ public class BuscarOrganizadorFrame extends javax.swing.JFrame {
     private List<Organizador> organizadores;
     private SaveModularEventFrame parentFrame;
 
-    public BuscarOrganizadorFrame(SaveModularEventFrame parentFrame) {
+    public BuscarOrganizadorFrame(SaveModularEventFrame parentFrame, Controlador controlador) {
         initComponents();
         this.parentFrame = parentFrame;
-        this.controlador = new Controlador();
+        this.controlador = controlador;
         organizadores = controlador.obtenerOrganizadoresConFiltros(null, null);
         llenarTabla();
     }
 
     @Override
     public void dispose() {
-        this.controlador.finalizar();
+        //this.controlador.finalizar();
         super.dispose();
     }
 

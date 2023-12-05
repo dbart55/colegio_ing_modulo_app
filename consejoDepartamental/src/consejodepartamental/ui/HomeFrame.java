@@ -20,17 +20,24 @@ public class HomeFrame extends javax.swing.JFrame {
     private Controlador controlador;
     private ListModularEventFrame modularEventFrame;
 
-    public HomeFrame(Usuario currentUser, Sesion currentSesion) {
+    public HomeFrame(Usuario currentUser, Sesion currentSesion, Controlador controlador) {
         initComponents();
         this.currentUser = currentUser;
         this.currentSesion = currentSesion;
-        this.controlador = new Controlador();
+        this.controlador = controlador;
         actualizarValoresUsuario();
         actualizarTipoDeCambio();
         Reloj reloj = new Reloj((fecha, hora) -> {
             this.fechaLabel.setText(fecha);
             this.horaLabel.setText(hora);
         });
+    }
+    
+    
+    @Override
+    public void dispose() {
+        this.controlador.finalizar();
+        super.dispose();
     }
 
     private void actualizarValoresUsuario() {
@@ -413,7 +420,7 @@ public class HomeFrame extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
         if (this.modularEventFrame == null || !this.modularEventFrame.isDisplayable()) {
-            this.modularEventFrame = new ListModularEventFrame();
+            this.modularEventFrame = new ListModularEventFrame(this.controlador);
             this.modularEventFrame.setVisible(true);
             this.modularEventFrame.setLocationRelativeTo(null);
         } else {
@@ -422,13 +429,13 @@ public class HomeFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
-        LoginForm loginForm = new LoginForm();
+        LoginForm loginForm = new LoginForm(this.controlador);
         loginForm.setVisible(true);
         loginForm.setLocationRelativeTo(null);
         
         this.setVisible(false);
-        this.dispose();
         this.controlador.eliminarSesion(this.currentSesion);
+        this.dispose();
     }//GEN-LAST:event_logoutBtnActionPerformed
 
     /**

@@ -18,13 +18,13 @@ public class ConsejoDepartamental {
 
         Sesion ultimaSesion = controlador.obtenerUltimaSesion();
         if (ultimaSesion == null) {
-            LoginForm initialForm = new LoginForm();
+            LoginForm initialForm = new LoginForm(controlador);
             initialForm.setVisible(true);
             initialForm.setLocationRelativeTo(null);
         } else {
             Usuario user = controlador.obtenerUsuarioPorId(ultimaSesion.getUserId());
             if (user != null) {
-                HomeFrame homeFrame = new HomeFrame(user, ultimaSesion);
+                HomeFrame homeFrame = new HomeFrame(user, ultimaSesion, controlador);
                 homeFrame.setVisible(true);
                 homeFrame.setLocationRelativeTo(null);
             }

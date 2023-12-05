@@ -39,10 +39,10 @@ public class ListModularEventFrame extends javax.swing.JFrame {
     private final String[] meses = {"Todos", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto",
         "Setiembre", "Octubre", "Noviembre", "Diciembre"};
 
-    public ListModularEventFrame() {
+    public ListModularEventFrame(Controlador controlador) {
         initComponents();
 
-        this.controlador = new Controlador();
+        this.controlador = controlador;
         this.capitulos = new ArrayList<>();
         this.modalidades = new ArrayList<>();
         this.tipos = new ArrayList<>();
@@ -106,7 +106,7 @@ public class ListModularEventFrame extends javax.swing.JFrame {
 
     @Override
     public void dispose() {
-        this.controlador.finalizar();
+        //this.controlador.finalizar();
         super.dispose();
     }
 
@@ -353,7 +353,7 @@ public class ListModularEventFrame extends javax.swing.JFrame {
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         if (this.crearEventoModularFrame == null || !this.crearEventoModularFrame.isDisplayable()) {
-            this.crearEventoModularFrame = new SaveModularEventFrame(this, null);
+            this.crearEventoModularFrame = new SaveModularEventFrame(this, null, this.controlador);
             this.crearEventoModularFrame.setVisible(true);
             this.crearEventoModularFrame.setLocationRelativeTo(null);
         } else {
@@ -376,7 +376,7 @@ public class ListModularEventFrame extends javax.swing.JFrame {
             }
 
             if (this.editarEventoModularFrame == null || !this.editarEventoModularFrame.isDisplayable()) {
-                this.editarEventoModularFrame = new SaveModularEventFrame(this, new EventoModular(emCodigo));
+                this.editarEventoModularFrame = new SaveModularEventFrame(this, new EventoModular(emCodigo), this.controlador);
                 this.editarEventoModularFrame.setVisible(true);
                 this.editarEventoModularFrame.setLocationRelativeTo(null);
             } else {

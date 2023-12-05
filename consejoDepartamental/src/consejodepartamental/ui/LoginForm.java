@@ -16,15 +16,15 @@ public class LoginForm extends javax.swing.JFrame {
 
     private Controlador controlador;
 
-    public LoginForm() {
+    public LoginForm(Controlador controlador) {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.controlador = new Controlador();
+        this.controlador = controlador;
     }
 
     @Override
     public void dispose() {
-        this.controlador.finalizar();
+        //this.controlador.finalizar();
         super.dispose();
     }
 
@@ -198,12 +198,12 @@ public class LoginForm extends javax.swing.JFrame {
         System.out.println(user);
         if (user != null) {
             Sesion sesion = this.controlador.crearSesion(user.getUserId(), recordarUsuario);
-            HomeFrame homeFrame = new HomeFrame(user, sesion);
+            HomeFrame homeFrame = new HomeFrame(user, sesion, this.controlador);
             homeFrame.setVisible(true);
             homeFrame.setLocationRelativeTo(null);
 
             this.setVisible(false);
-            this.dispose();
+            //this.dispose();
 
         } else {
             JOptionPane joptionPane = new JOptionPane("Usuario y/o contraseña incorrecta");
